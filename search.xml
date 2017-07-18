@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[创建对象的几种方式的优缺点对比]]></title>
-    <url>%2FJavaScript%2Fcj59ps7ub0000yfobjbrva4fr.html</url>
+    <url>%2FJavaScript%2Fcj5a3ymov0006ehobmohum3r2.html</url>
     <content type="text"><![CDATA[工厂模式1234567891011function createObj(name, gender)&#123; var obj = new Object(); obj.name = name; obj.gender = gender; obj.sayName = function()&#123; alert(this.name); &#125; return obj;&#125;var person = createObj("Jack", "female"); 缺点： 无法无法确定对象的类型（因为都是Object） 创建的多个对象之间没有关联。 构造函数模式123456789function createObj(name, gender)&#123; this.name = name; this.gender = gender; this.sayName = function()&#123; alert(this.name); &#125;&#125;var person = new createObj("Jack", "female"); 缺点： 多个实例重复创建方法，无法共享。 多个实例都有sayName方法，但均不是同一个Function的实例。 原型方法123456789function createObj()&#123;&#125;createObj.prototype.name = "Jack";createObj.prototype.gender = "female";createObj.prototype.sayName = function()&#123; alert(this.name);&#125;var person = new createObj(); 缺点： 无法传入参数，不能初始化属性值。 如果包含引用类型的值时，改变其中一个实例的值，则会在所有实例中体现。 组合式（构造函数+原型方法）推荐使用1234567891011function createObj(name, gender)&#123; this.name = name; this.gender = gender; if(typeof this.sayName != 'function')&#123; createObj.prototype.sayName = function()&#123; alert(this.name); &#125; &#125;&#125;var person = new createObj("Jack", "female"); 说明： if语句中只会调用一次，就是在碰到第一个实例调用方法时会执。此后所有实例都会共享该方法。在动态原型方法下，不能使用对象字面量重写原型。 寄生构造函数寄生构造函数,其实就是工厂模式+构造函数模式,这种模式比较通用,但不能确定对象关系,所以,在可以使用之前所说的模式时,不建议使用此模式 ​ 在什么情况下使用寄生构造函数比较合适呢?假设要创建一个具有额外方法的引用类型,例如直接String.prototype.addstring,可以通过寄生构造的方式来添加. 123456789function myString(string)&#123; var str = new String(string); str.addstring = function () &#123; return this + ",被添加了"; &#125;; return str;&#125;var box = new myString("lee");alert(box.addstring()); 稳妥构造函数在一些安全环境中,比如禁止使用this和new,这里的this是构造函数里不使用this,这里的new是在外部实例化构造函数时不使用new,这种创建方式叫做稳妥构造函数. 123456789function A(name,age)&#123; var obj = new Object(); obj.showName = function () &#123; return name; &#125;; return obj;&#125;var a = A("Jack",18);alert(a.showName()); 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/cj59nd99c0000hxob8jbj1xm6.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
@@ -13,7 +13,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0629]]></title>
-    <url>%2FEnglish%2Fcj59ps7vd000myfobpuxfbi2s.html</url>
+    <url>%2FEnglish%2Fcj5a3ymp8000gehobeadxevft.html</url>
     <content type="text"><![CDATA[必备句型​ You have to finish your dinner before you leave the table. 你离开饭桌之前必须把饭吃完 I’m stuffed. 我吃得太饱了 ​ 场景对话​ A:You have to finish your dinner before you leave the table. B:But,mom.I can’t eat anymore. A:What’s the matter? B:I ate some cookies before we had dinner.I’m stuffed. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -24,7 +24,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0628]]></title>
-    <url>%2FEnglish%2Fcj59ps7v6000fyfobzprnzc53.html</url>
+    <url>%2FEnglish%2Fcj5a3ympa000lehobl8llk3q3.html</url>
     <content type="text"><![CDATA[必备句型​ You’d better get up or you’ll be late. 你最好起床，否则你要迟到了 Rise and shine,sleepyhead. 贪睡鬼，起床啦 ​ 场景对话 A:Hey,Bob.Weak up! B:Do I have to get up now? A:You’d better get up or you’ll be late. B:What are you talking about?The alarm hasn’t even gone off yet. A:It went off 30 minutes ago.Rise and shine,sleepyhead. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -35,7 +35,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0627]]></title>
-    <url>%2FEnglish%2Fcj59ps7v10009yfobfqzkecd2.html</url>
+    <url>%2FEnglish%2Fcj5a3ymp30009ehobgl9sqx41.html</url>
     <content type="text"><![CDATA[必备句型​ Can I talk to you for a minute? 我能跟你谈一会儿吗？ It’s out of the question. 不可能 ​ 场景对话​ A:Mom,can I talk to you for a minute? B:Sure,what’s wrong? A:My best friend is going to throw a party tonight,can I stay out all night with my friends? B:No way. A:We’ll be careful. B:It’s out of the question. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -46,7 +46,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0625]]></title>
-    <url>%2FEnglish%2Fcj59ps7vb000jyfob5o6elv2r.html</url>
+    <url>%2FEnglish%2Fcj5a3ymoy0008ehoblc94bnoc.html</url>
     <content type="text"><![CDATA[必备句型​ I’ve been so stressed these days. 我这几天压力很大 I have no idea what I should major in. 我不知道学什么专业 ​ 场景对话​ A:I’ve been so stressed these days. B:What’s wrong?Are you okay? A:I haven’t decided which college I should go to.I have no idea whta I should major in. B:Don’t worry.You still have time to decide. ## 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -57,7 +57,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0624]]></title>
-    <url>%2FEnglish%2Fcj59ps7v3000dyfobn1zcb5jq.html</url>
+    <url>%2FEnglish%2Fcj5a3ymp7000dehobngz0pwzz.html</url>
     <content type="text"><![CDATA[必备句型​ My back is sore and my meck hurts. 我的背很酸，脖子也疼 I was always absent-minded in the class. 我在课上走神儿了 ​ 场景对话 A:Finally the class is over. B:Oh,I am so tired.My back is sore and my neck hurts. A:That’s normal.You have been sitting for three hours,with your attention highly concontrated. B:That’s not true.I was always absent-minded in the class. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -68,7 +68,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0623]]></title>
-    <url>%2FEnglish%2Fcj59ps7uv0006yfoba9r2e7tz.html</url>
+    <url>%2FEnglish%2Fcj5a3ymoo0002ehob29szehjv.html</url>
     <content type="text"><![CDATA[必备句型​ Why are you asking me this strange question? 你干嘛问我这么奇怪的问题？ I think IQ matters more. 我觉得智商更重要一点 #### 场景对话 A:Hey,Bob,In your opinion,which one is more important,IQ or EQ? B:Why are you asking me this strange question? A:Just asking. B:Well,I Think IQ matters more,but it won’t work without EQ. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -79,7 +79,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0622]]></title>
-    <url>%2FEnglish%2Fcj59ps7uk0002yfobbm02heiu.html</url>
+    <url>%2FEnglish%2Fcj5a3ymoi0000ehobnphl3d4j.html</url>
     <content type="text"><![CDATA[必备句型 I really wish I hadn’t done it. 我真希望我没那么做 What on earth are you talking about? 你究竟在说什么？ ​ 场景对话 A:Hey,Bob.You look unhappy.What’s wrong? B:Oh,Alex,I mad e a big mistake A:What happened? B:I really wish I hadn’t done it. A:What on earth are you talking about? B:I got caught cheating.I feel so ashamed.The teacher saw me and told me I failed. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -90,7 +90,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0621]]></title>
-    <url>%2FEnglish%2Fcj59ps7uy0008yfob8ndj62ea.html</url>
+    <url>%2FEnglish%2Fcj5a3ympc000oehobncvqhssw.html</url>
     <content type="text"><![CDATA[必备句型 Why on earth are you waning to learn a new language now? 你到底为什么学习一门新语言？ It’s never too late to learn. 活到老，学到老。 场景对话 A:Hey,What are you up to? B:I’m learning English. A:Why on earth are you wanting to learn a new language now? B:It’s never too late to learn,you never know when these things will come into use. 黑体表示连读 ​ 斜体表示弱读 ​ Why on earth did you do?你到底做了什么？ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
