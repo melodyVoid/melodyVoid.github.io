@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[英语跟读计划0719]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920719.html</url>
+    <content type="text"><![CDATA[必备句型 May I speak to Zoe, please? 可以请Zoe接听电话吗？ She’s tied up at the moment. 她现在走不开 ​ 场景对话 A: May I speak to Zoe, please? B: I’m sorry, she’s tied up at the moment. Would you like to leave a message? A: No, Thank you. I’ll call her later. ​ 参考译文 A: 可以请Zoe接听电话吗？ B: 抱歉，她现在走不开。你要留个口信吗？ A: 不用了，谢谢。我待会儿再打给她。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0718]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920718.html</url>
+    <content type="text"><![CDATA[必备句型 You look restless. 看你一副坐立不安的样子 I’d like to stay and talk longer, but I really do have to run. 我很想再多聊一会儿，不过我真的很赶时间。 ​ 场景对话 A: You look restless. Do you have to be somewhere, or am I just boring you? B: I’d like to stay and talk longer, but I really do have to run. I have to be at a meeting at around noon. ​ 参考译文 A: 看你一副坐立不安的样子，是不是还要去别处，或者是我让你觉得无聊了呢？ B: 我很想再多聊一会儿，不过我真的很赶时间，中午时候还要参加一个会议。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[创建对象的几种方式的优缺点对比]]></title>
     <url>%2FJavaScript%2F%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%AF%B9%E6%AF%94.html</url>
     <content type="text"><![CDATA[工厂模式1234567891011function createObj(name, gender)&#123; var obj = new Object(); obj.name = name; obj.gender = gender; obj.sayName = function()&#123; alert(this.name); &#125; return obj;&#125;var person = createObj("Jack", "female"); 缺点： 无法无法确定对象的类型（因为都是Object） 创建的多个对象之间没有关联。 构造函数模式123456789function createObj(name, gender)&#123; this.name = name; this.gender = gender; this.sayName = function()&#123; alert(this.name); &#125;&#125;var person = new createObj("Jack", "female"); 缺点： 多个实例重复创建方法，无法共享。 多个实例都有sayName方法，但均不是同一个Function的实例。 原型方法123456789function createObj()&#123;&#125;createObj.prototype.name = "Jack";createObj.prototype.gender = "female";createObj.prototype.sayName = function()&#123; alert(this.name);&#125;var person = new createObj(); 缺点： 无法传入参数，不能初始化属性值。 如果包含引用类型的值时，改变其中一个实例的值，则会在所有实例中体现。 组合式（构造函数+原型方法）推荐使用1234567891011function createObj(name, gender)&#123; this.name = name; this.gender = gender; if(typeof this.sayName != 'function')&#123; createObj.prototype.sayName = function()&#123; alert(this.name); &#125; &#125;&#125;var person = new createObj("Jack", "female"); 说明： if语句中只会调用一次，就是在碰到第一个实例调用方法时会执。此后所有实例都会共享该方法。在动态原型方法下，不能使用对象字面量重写原型。 寄生构造函数寄生构造函数,其实就是工厂模式+构造函数模式,这种模式比较通用,但不能确定对象关系,所以,在可以使用之前所说的模式时,不建议使用此模式 ​ 在什么情况下使用寄生构造函数比较合适呢?假设要创建一个具有额外方法的引用类型,例如直接String.prototype.addstring,可以通过寄生构造的方式来添加. 123456789function myString(string)&#123; var str = new String(string); str.addstring = function () &#123; return this + ",被添加了"; &#125;; return str;&#125;var box = new myString("lee");alert(box.addstring()); 稳妥构造函数在一些安全环境中,比如禁止使用this和new,这里的this是构造函数里不使用this,这里的new是在外部实例化构造函数时不使用new,这种创建方式叫做稳妥构造函数. 123456789function A(name,age)&#123; var obj = new Object(); obj.showName = function () &#123; return name; &#125;; return obj;&#125;var a = A("Jack",18);alert(a.showName()); 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/cj59nd99c0000hxob8jbj1xm6.html 欢迎转载，转载请注明文本链接]]></content>
@@ -9,6 +31,182 @@
       </categories>
       <tags>
         <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0717]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920717.html</url>
+    <content type="text"><![CDATA[必备句型 I feel dizzy. 我感到晕晕的 Poor thing. 好可怜啊 ​ 场景对话 A: I feel dizzy. I have a fever of 38℃ B: Poor thing! Go back to bed and get some rest. I’ll make some soup for you. A: That’s sweet of you. ​ 参考译文 A: 我感到晕晕的，发烧了，38度。 B: 好可怜啊，回床上睡一会儿吧，我给你做点儿汤。 A: 谢谢你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0716]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920716.html</url>
+    <content type="text"><![CDATA[必备句型 It seems that everybody likes her. 好像每个人都很喜欢她 She really turns me off. 她真的使我厌恶 ​ 场景对话 A: That girl is so pretty, it seems that everybody likes her. B: I don’t really think so. A: How come? B: She’s too chatty, and she really turns me off. ​ 参考译文 A: 那个女孩真好看，好像每个人都很喜欢她。 B: 我不这么想。 A: 为什么？ B: 她太啰嗦了，真的让我很讨厌。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0715]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920715.html</url>
+    <content type="text"><![CDATA[必备句型 I got stuck in traffic. 我遇上堵车了 Don’t beat around the bush. 别拐弯抹角 ​ 场景对话 A: I’ve been waiting for an hour, where have you been? B: Sorry, I’m late. I got stuck in traffic. A: Okay, tell me exactly what Tom said. Don’t beat around the bush.Get to the point. ​ 参考译文 A: 我已经等上一个小时了，你去哪里了？ B: 不好意思，遇上堵车了。 A: 好吧，告诉我Tom说什么了。不要拐弯抹角，直接说重点吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0714]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920714.html</url>
+    <content type="text"><![CDATA[必备句型 Don’t get me wrong. 请不要误会我的意思 You have to admit that he is not very responsible. 你也得承认他不是很负责任 ​ 场景对话 A: Don’t get me wrong. I think Tom is a very nice person, but you have to admit that he is not very responsible. B: I guess you are right. He’s got a lot of growing up to do. ​ 参考译文 A: 请不要误会我的意思。我任务Tom是个很好的人，不过你也得承认他不是很负责任。 B: 你说的不错，他要长大还得学习很多东西。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0713]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920713.html</url>
+    <content type="text"><![CDATA[必备句型 Got it ? 明白了吗？ Let me explain this one more time. 让我再解释一次 ​ 场景对话 A: Got it ? B: Sorry, I still don’t understand. A: Okay, let me explain this one more time. I don’t wanna go out because I don’t like hanging out with Tom. B: Alright, I got it. ​ 参考译文 A: 明白了吗？ B: 不好意思，我还是不理解。 A: 好吧，我再解释一下，wo’bu’xiang我不想出去，因为我不想跟Tom一起出去逛。 B: 好吧，知道了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0712]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920712.html</url>
+    <content type="text"><![CDATA[必备句型 I’ll never forgive myself. 我永远不能原谅我自己 How can I make it up to you. 我要怎样才能补偿 ​ 场景对话 A: It’s all my fault. I’ll never forgive myself. B: Don’t say that. We wouldn’t have known that. A: How can I make it up to you? B: You can’t have to do that. ​ 参考译文 A: 都是我的错，我永远不能原谅自己。 B: 别那么说，我们都无法未卜先知。 A: 我要怎样才能补偿你？ B: 不用啦。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0711]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920711.html</url>
+    <content type="text"><![CDATA[必备句型 Are you fond of reading? 你喜欢读书吗？ I like to read all kinds of books. 什么书我都喜欢看 ​ 场景对话 A: Are you fond of reading? B: Yes, I am. Books can enrich your mind. A: Exactly, what kind of books do you like to read most? B: I like to read all kinds of books. ​ 参考译文 A: 你喜欢读书吗？ B: 喜欢啊，书籍能丰富你的思想。 A: 确实，你最喜欢读哪种书？ B: 什么书我都喜欢看。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0710]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920710.html</url>
+    <content type="text"><![CDATA[必备句型 I dreamed to be a pliot, but I didn’t make it come true. 我曾梦想做一名飞行员，不过我没有实现儿时的梦想 I’m trying my best to learn English. 现在我努力学英文 ​ 场景对话 A: Hey, did you have a dream when you were a little boy ? B: Of course I did. I dreamed to be a pliot, but I didn’t make it come true. A: Okay, so. How about now? B: Now I’m trying my best to learn English, and I want to be an interpreter some day. ​ 参考译文 A: 嘿，你小的时候有过什么梦想吗？ B: 当然有啦，我曾梦想过当一名飞行员，不过我没有实现儿时的梦想。 A: 嗯，那现在呢？ B: 现在我在努力学英文，我想成文一名翻译。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0708]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920708.html</url>
+    <content type="text"><![CDATA[必备句型 let me explain one more time. 再让我解释一回 I am out of patience. 我忍无可忍了 ​ 场景对话 A: Please, let me explain one more time. B: Sorry, I am out of patience. A: Why are you so angry? B: I don’t wanna talk to you, I’ve had enough! ​ 参考译文 A: 求求你，再让我解释一回。 B: 对不起，我忍无可忍了。 A: 你干嘛这么生气？ B: 我不想跟你讲话，我真的受够了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0707]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920707.html</url>
+    <content type="text"><![CDATA[必备句型 Are you satisfied? 你满意吗？ I have to say I am not photogenic at all. 我不得不说，我确实一点儿也不上相啊。 ​ 场景对话 A: Say cheese. B: Cheese.Okay? A: Yes, have a look. Are you satisfied? B: Oh, I have to say I am not photogentic at al. I just don’t know how to smile. A: Would you like another one? ​ 参考译文 A: 说“茄子”。 B: 茄子，照好了吗？ A: 是的，来看一眼吧。你满意吗？ B: 哦，我不得不说，我确定一点儿也不上相啊，我就是不知道该怎么微笑。 A: 还想要再照一张吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0706]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920706.html</url>
+    <content type="text"><![CDATA[必备句型 I don’t like horror movies at all. 我一点儿都不喜欢恐怖片 I am really into his British accent. 我太喜欢他的英国口音了 ​ 场景对话 A: You like horror movies, don’t you ? B: No, I don’t. I don’t like horror movies at all. I like comedy movies. A: Who is your favorite actor? B: Hugh Grant, I am really into his British accent. 参考译文 A: 你喜欢恐怖片，是吗？ B: 不，我不喜欢，我一点儿都不喜欢恐怖片，我喜欢喜剧片。 A: 你最喜欢的男演员是谁？ B：休 格兰特。我太喜欢他的英国口音了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0705]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920705.html</url>
+    <content type="text"><![CDATA[必备句型 Are you good at singing ? 你唱歌拿手吗？ I’m a tone-deaf, but I like singing. 我五音不全，但是我喜欢唱歌 ​ 场景对话 A: Are you good at singing ? B: No, I’m a tone-deaf, but I like singing. A: Okay! Let’s go to karaoke. B: My singing is out of tune. A: Oh, come on. It’s just entertainment. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0704]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920704.html</url>
+    <content type="text"><![CDATA[必备句型 You are not supposed to smoke here. 你不能在这里吸烟 I am a heavy smoker. 我是个老烟民 ​ 场景对话 A: Excuse me sir. You are not supposed to smoke here. B: Why not? A: Your seat is in the non-smoking section. So, you can’t smoke here. B: I am a heavy smoker, may I change my seat? ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0703]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920703.html</url>
+    <content type="text"><![CDATA[必备句型​ Honesty is very important to me. 诚实对我很重要 The problem is that… 问题是… ​ 场景对话 A:I don’t like to make friends with people who aren’t honest.Honesty is very important to me. B:I think it’s important to most people. The problem is that you can usually only find out if someone is honest by getting to know them. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0701]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920701.html</url>
+    <content type="text"><![CDATA[必备句型 How come? 为什么？ Don’t judge a book by it’s cover. 不要以貌取人 场景对话 A:Hey,Look at the man over there,he’s definitely not a good person. B:How come? you don’t even know him. A:I just feel that way. B:Hey!Don’t judeg a book by it’s cover. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0630]]></title>
+    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920630.html</url>
+    <content type="text"><![CDATA[必备句型 I shouldn’t have yelled at you in front of everyone. 我不该在大家面前对你大吼 I don’t know what happened to me. 我不知道我昨天是怎么了 ​ 场景对话​ A:Hey,Bob.I’m so sorry about yesterday.I shouldn’t have yelled at you in front of everyone. B:Don’t worry about it. A:I don’t know what happened to me.I just lost it. B:It’s okay. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
       </tags>
   </entry>
   <entry>
