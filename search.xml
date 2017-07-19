@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[包装对象]]></title>
+    <url>%2FJavaScript%2Fpackage-object.html</url>
+    <content type="text"><![CDATA[什么是包装对象？JavaScript中只要引用了字符串（数字、布尔值也是一样的）的属性，JS就会将字符串通过调用new String(s)的方式转换成对象，这个对象继承了字符串的方法，并被用来处理属性的引用。一旦属性引用结束，这个新创建的对象就会销毁（真实实现并不一定是这样，但整个过程看起来是这样）。这个过程就叫包装对象。 我们来看段代码： 123var str = "hello";console.log(typeof str); //stringconsole.log(str.charAt(0)); //h 以上代码平淡无奇，但是我们仔细想一下，str是字符串，字符串类型的变量怎么会有方法呢？同理像number和boolean也一样，为什么基本类型的变量会有方法呢？ 原因就是包装对象，这是我们再阅读一下什么是包装对象。 1234567var str1 = new String("hello");console.log(typeof str1); //object//因为str1是object所以有方法很正常str1.charAt(0);//charAt是怎么来的呢？String.prototype.String = function()&#123;...&#125;; //当然我们如果这么写了会覆盖原生的charAt方法，这里只演示原理。console.log(str1.charAt(0)); //h 我们发现：基本类型（string、number、boolean)z这三个有对应的包装对象。null和undefined也是基本类型，但是没有对应的包装对象。 我们回过头来再看上面第一个例子： 1234var str = "hello"; //这里确实是字符串console.log(typeof str); //stringstr.charAt(0); //当字符串调用方法的时候，基本类型会找到对应的包装对象类型，然后包装对象把所有的属性和方法给了基本类型。然后包装对象消失。console.log(str.charAt(0)); //h 那么我么想要给字符串添加一个方法怎么办呢？ 1234567var str = "hello";//在原型里面添加String.prototype.lastValue = function()&#123; return this.charAt(this.length-1);&#125;;//这样我们就可以调用我们写的信方法了str.lastValue(); //o 我们再往下看 123var str = "hello";str.number = 10;console.log(str.number); //undefined; 咦？怎么是undefined？ 答案还是因为包装对象。 str是我们隐式地创建的包装对象，在使用完之后就被抛弃了。 str.number=10这时候创建一个包装对象，赋值。 执行到console.log(str.number)这句话的时候，之前的包装对象已经被抛弃，我们打点调用num的时候，又重新创建一个包装对象，所以此时这个包装对象一定没有num属性，故输出undefined。 那么我们一定要输出str.num呢？ 123var str = "hello";String.prototype.number = 10;console.log(str.number); //10 我们再看一个现象 1234var str = "hello";var str1 = new String("hello");console.log(str == str1); //trueconsole.log(str === str1); //false 不严格相等，一个是字符串类型，一个是对象类型，必然不全等 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/package-object.html 欢迎转载，转载请注明文本链接]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[英语跟读计划0719]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0719.html</url>
     <content type="text"><![CDATA[必备句型 May I speak to Zoe, please? 可以请Zoe接听电话吗？ She’s tied up at the moment. 她现在走不开 ​ 场景对话 A: May I speak to Zoe, please? B: I’m sorry, she’s tied up at the moment. Would you like to leave a message? A: No, Thank you. I’ll call her later. ​ 参考译文 A: 可以请Zoe接听电话吗？ B: 抱歉，她现在走不开。你要留个口信吗？ A: 不用了，谢谢。我待会儿再打给她。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
