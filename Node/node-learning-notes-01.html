@@ -102,7 +102,7 @@
 <meta property="og:description" content="Node简介什么是Node Node 就是 JavaScript 语言在服务器端的运行环境 所谓“运行环境（平台）”有两层意思： 首先，JavaScript 语言通过 Node 在服务器运行，在这个意义上，Node 有点像 JavaScript 虚拟机； 其次，Node 提供大量工具库，使得 JavaScript 语言与操作系统互动（比如读写文件、新建子进程），在这个意义上， Node 又是 Ja">
 <meta property="og:image" content="http://yoursite.com/images/01.png">
 <meta property="og:image" content="http://yoursite.com/images/02.png">
-<meta property="og:updated_time" content="2017-07-23T10:09:27.000Z">
+<meta property="og:updated_time" content="2017-07-23T13:49:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node学习笔记01">
 <meta name="twitter:description" content="Node简介什么是Node Node 就是 JavaScript 语言在服务器端的运行环境 所谓“运行环境（平台）”有两层意思： 首先，JavaScript 语言通过 Node 在服务器运行，在这个意义上，Node 有点像 JavaScript 虚拟机； 其次，Node 提供大量工具库，使得 JavaScript 语言与操作系统互动（比如读写文件、新建子进程），在这个意义上， Node 又是 Ja">
@@ -532,6 +532,11 @@
 </li>
 </ul>
 <h3 id="事件驱动和非阻塞机制"><a href="#事件驱动和非阻塞机制" class="headerlink" title="事件驱动和非阻塞机制"></a>事件驱动和非阻塞机制</h3><p><img src="/images/01.png" alt="事件驱动和非阻塞机制"></p>
+<ol>
+<li>Node平台将一个任务连同该任务的回调函数放到一个事件循环系统中</li>
+<li>事件循环高效地管理系统线程池同时高效执行每一个任务</li>
+<li>当任务执行完成过后自动执行回调函数</li>
+</ol>
 <h3 id="Node中的异步I-O"><a href="#Node中的异步I-O" class="headerlink" title="Node中的异步I/O"></a>Node中的异步I/O</h3><p><img src="/images/02.png" alt="node中的异步I/O"></p>
 <h3 id="非阻塞的优势"><a href="#非阻塞的优势" class="headerlink" title="非阻塞的优势"></a>非阻塞的优势</h3><ul>
 <li>提高代码的响应效率</li>
@@ -709,7 +714,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -731,7 +736,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="reading," />
+  <meta name="keywords" content="学习笔记,事件驱动模型," />
 
 
 
@@ -93,17 +93,21 @@
 
 
 
-<meta name="description" content="必备句型 I got stuck in traffic. 我遇上堵车了  Don’t beat around the bush. 别拐弯抹角 ​   场景对话 A: I’ve been waiting for an hour, where have you been?  B: Sorry, I’m late. I got stuck in traffic.  A: Okay, tell me ex">
-<meta name="keywords" content="reading">
+<meta name="description" content="Event driven（事件驱动）Node采用的是事件驱动的方式，通过事件驱动的方式处理请求时无需为每一个请求创建额外的线程。在事件驱动模型中，每一个I/O操作都会被添加到事件队列中，主线程循环地处理队列上的工作任务，当执行过程中遇到阻塞（读取文件、查询数据库）时，线程不会停下来等待结果，而是留下一个处理结果的回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务运行结束">
+<meta name="keywords" content="学习笔记,事件驱动模型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="英语跟读计划0715">
-<meta property="og:url" content="http://yoursite.com/English/english-reading-plan-0715.html">
+<meta property="og:title" content="Node事件驱动模型">
+<meta property="og:url" content="http://yoursite.com/Node/node-event-driven-model.html">
 <meta property="og:site_name" content="melody0z">
-<meta property="og:description" content="必备句型 I got stuck in traffic. 我遇上堵车了  Don’t beat around the bush. 别拐弯抹角 ​   场景对话 A: I’ve been waiting for an hour, where have you been?  B: Sorry, I’m late. I got stuck in traffic.  A: Okay, tell me ex">
-<meta property="og:updated_time" content="2017-07-23T13:49:25.000Z">
+<meta property="og:description" content="Event driven（事件驱动）Node采用的是事件驱动的方式，通过事件驱动的方式处理请求时无需为每一个请求创建额外的线程。在事件驱动模型中，每一个I/O操作都会被添加到事件队列中，主线程循环地处理队列上的工作任务，当执行过程中遇到阻塞（读取文件、查询数据库）时，线程不会停下来等待结果，而是留下一个处理结果的回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务运行结束">
+<meta property="og:image" content="http://yoursite.com/images/03event-driven.png">
+<meta property="og:image" content="http://yoursite.com/images/04pool.png">
+<meta property="og:image" content="http://yoursite.com/images/05note.jpg">
+<meta property="og:updated_time" content="2017-07-23T13:54:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="英语跟读计划0715">
-<meta name="twitter:description" content="必备句型 I got stuck in traffic. 我遇上堵车了  Don’t beat around the bush. 别拐弯抹角 ​   场景对话 A: I’ve been waiting for an hour, where have you been?  B: Sorry, I’m late. I got stuck in traffic.  A: Okay, tell me ex">
+<meta name="twitter:title" content="Node事件驱动模型">
+<meta name="twitter:description" content="Event driven（事件驱动）Node采用的是事件驱动的方式，通过事件驱动的方式处理请求时无需为每一个请求创建额外的线程。在事件驱动模型中，每一个I/O操作都会被添加到事件队列中，主线程循环地处理队列上的工作任务，当执行过程中遇到阻塞（读取文件、查询数据库）时，线程不会停下来等待结果，而是留下一个处理结果的回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务运行结束">
+<meta name="twitter:image" content="http://yoursite.com/images/03event-driven.png">
 
 
 
@@ -131,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/English/english-reading-plan-0715.html"/>
+  <link rel="canonical" href="http://yoursite.com/Node/node-event-driven-model.html"/>
 
 
 
 
 
-  <title>英语跟读计划0715 | melody0z</title>
+  <title>Node事件驱动模型 | melody0z</title>
   
 
 
@@ -310,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/English/english-reading-plan-0715.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Node/node-event-driven-model.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="薄涛">
@@ -327,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">英语跟读计划0715</h1>
+          <h1 class="post-title" itemprop="name headline">Node事件驱动模型</h1>
         
 
         <div class="post-meta">
@@ -339,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-15T18:11:08+08:00">
-                2017-07-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T21:48:19+08:00">
+                2017-07-22
               </time>
             
 
@@ -362,8 +366,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/English/" itemprop="url" rel="index">
-                    <span itemprop="name">English</span>
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
                   </a>
                 </span>
 
@@ -379,7 +383,7 @@
 
           
           
-             <span id="/English/english-reading-plan-0715.html" class="leancloud_visitors" data-flag-title="英语跟读计划0715">
+             <span id="/Node/node-event-driven-model.html" class="leancloud_visitors" data-flag-title="Node事件驱动模型">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,37 +411,19 @@
       
 
       
-        <h1 id="必备句型"><a href="#必备句型" class="headerlink" title="必备句型"></a>必备句型</h1><ol>
-<li><p>I got stuck in traffic.</p>
-<p>我遇上堵车了</p>
-</li>
-<li><p>Don’t beat around the bush.</p>
-<p>别拐弯抹角</p>
-<p>​</p>
-</li>
-</ol>
-<h1 id="场景对话"><a href="#场景对话" class="headerlink" title="场景对话"></a>场景对话</h1><ul>
-<li><p>A: I’ve been waiting for an hour, where have you been?</p>
-</li>
-<li><p>B: Sorry, I’m late. I got stuck in traffic.</p>
-</li>
-<li><p>A: Okay, tell me exactly what Tom said. Don’t beat around the bush.Get to the point.</p>
-<p>​</p>
-</li>
-</ul>
-<h1 id="参考译文"><a href="#参考译文" class="headerlink" title="参考译文"></a>参考译文</h1><ul>
-<li><p>A: 我已经等上一个小时了，你去哪里了？</p>
-</li>
-<li><p>B: 不好意思，遇上堵车了。</p>
-</li>
-<li><p>A: 好吧，告诉我Tom说什么了。不要拐弯抹角，直接说重点吧。</p>
-<p>​</p>
-</li>
-</ul>
+        <h1 id="Event-driven（事件驱动）"><a href="#Event-driven（事件驱动）" class="headerlink" title="Event driven（事件驱动）"></a>Event driven（事件驱动）</h1><p>Node采用的是事件驱动的方式，通过事件驱动的方式处理请求时无需为每一个请求创建额外的线程。在事件驱动模型中，每一个I/O操作都会被添加到事件队列中，主线程循环地处理队列上的工作任务，当执行过程中遇到阻塞（读取文件、查询数据库）时，线程不会停下来等待结果，而是留下一个处理结果的回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务运行结束后才被线程调用。</p>
+<p><img src="/images/03event-driven.png" alt="事件驱动"></p>
+<p>主线程的代码执行完毕就会从事件队列中读取事件，如果有就取出事件并执行相关的回调函数。事件队列事件全部执行完毕，node应用就会终止。Node对于阻塞I/O的处理在幕后使用线程池来确保工作的执行。Node从线程池中取得一个线程来执行复杂任务，而不占用主循环线程。这样就防止阻塞I/O占用空闲资源。当阻塞任务执行完毕通过添加到事件队列中的回调函数来处理接下来的工作。</p>
+<p><img src="/images/04pool.png" alt="线程池"></p>
+<p>Node基于事件的工作调度能很自然地将主要的调度工作限制到了一个线程，应用能很高效地处理多任务。程序每一时刻也只需管理一个工作中的任务。当必须处理阻塞I/O时，通过将这个部分的I/O控制权交给线程池中的线程，能最小地影响到应用处理事件，快速地反应web请求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.time(<span class="string">"timer"</span>);</div><div class="line"></div><div class="line"><span class="comment">//判断是否存在a.txt文件</span></div><div class="line">fs.stat(<span class="string">"./a.txt"</span>,(err,stats) =&gt; &#123;</div><div class="line">    <span class="keyword">if</span>(err)&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"文件不存在"</span>);</div><div class="line">        <span class="comment">//不存在的话，我们就创建</span></div><div class="line">        fs.writeFile(<span class="string">"./a.txt"</span>,<span class="keyword">new</span> <span class="built_in">Date</span>(),(err) =&gt; &#123;</div><div class="line">            <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"文件创建成功"</span>)</div><div class="line">        &#125;)</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//如果存在的话，先删除</span></div><div class="line">        fs.unlink(<span class="string">"./a.txt"</span>,(err) =&gt; &#123;</div><div class="line">            <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</div><div class="line">            <span class="comment">//创建</span></div><div class="line">            fs.writeFile(<span class="string">"./a.txt"</span>,<span class="keyword">new</span> <span class="built_in">Date</span>(),(err) =&gt; &#123;</div><div class="line">                <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"文件删除后创建成功"</span>);</div><div class="line">            &#125;)</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.timeEnd(<span class="string">"timer"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">01</span>-event-driven.js </div><div class="line">timer: <span class="number">0.444</span>ms</div><div class="line">文件不存在</div><div class="line">文件创建成功</div><div class="line">$ node <span class="number">01</span>-event-driven.js </div><div class="line">timer: <span class="number">0.427</span>ms</div><div class="line">文件删除后创建成功</div></pre></td></tr></table></figure>
+<p>我们来看一下具体过程</p>
+<p><img src="/images/05note.jpg" alt=""></p>
 <hr>
-<p>本文结束，感谢阅读</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><h3 id="LOKO乐口英语"><a href="#LOKO乐口英语" class="headerlink" title="LOKO乐口英语"></a>LOKO乐口英语</h3><p>微信公众号: lokoenglish</p>
-
+<p>本文结束，感谢阅读。</p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid.github.io/Node/node-learning-notes-01.html" target="_blank" rel="external">https://melodyvoid.github.io/Node/node-learning-notes-01.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+</div>
       
     </div>
 
@@ -487,7 +473,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/reading/" rel="tag"># reading</a>
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/事件驱动模型/" rel="tag"># 事件驱动模型</a>
           
         </div>
       
@@ -500,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/English/english-reading-plan-0714.html" rel="next" title="英语跟读计划0714">
-                <i class="fa fa-chevron-left"></i> 英语跟读计划0714
+              <a href="/English/english-reading-plan-072.html" rel="next" title="英语跟读计划0722">
+                <i class="fa fa-chevron-left"></i> 英语跟读计划0722
               </a>
             
           </div>
@@ -510,8 +498,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/English/english-reading-plan-0716.html" rel="prev" title="英语跟读计划0716">
-                英语跟读计划0716 <i class="fa fa-chevron-right"></i>
+              <a href="/English/english-reading-plan-0723.html" rel="prev" title="英语跟读计划0723">
+                英语跟读计划0723 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -677,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#必备句型"><span class="nav-number">1.</span> <span class="nav-text">必备句型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#场景对话"><span class="nav-number">2.</span> <span class="nav-text">场景对话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考译文"><span class="nav-number">3.</span> <span class="nav-text">参考译文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LOKO乐口英语"><span class="nav-number">4.0.1.</span> <span class="nav-text">LOKO乐口英语</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Event-driven（事件驱动）"><span class="nav-number">1.</span> <span class="nav-text">Event driven（事件驱动）</span></a></li></ol></div>
             
 
           </div>
