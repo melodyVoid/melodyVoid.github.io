@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[验证node单线程]]></title>
+    <url>%2FNode%2Fverify-node-single-thread.html</url>
+    <content type="text"><![CDATA[现象我们由一段代码入手(文件名：02.js); 123456789101112131415const http = require("http");let count = 0;const server = http.createServer((req,res) =&gt; &#123; res.writeHead(200,&#123;"Content-Type":"text/html;charset=UTF-8"&#125;); res.write(`你是第$&#123;count++&#125;个访问用户`); res.end();&#125;);server.listen(3000,(err) =&gt; &#123; //出现错误的情况就是端口被占用 if(err) throw err; console.log("server is running at http://localhost:3000/")&#125;); 然后我们执行它 12$ node 02.js server is running at http://localhost:3000/ 打开浏览器 我们能看到“你是第0个访问用户”，当我们刷新的时候，我们发现… 问题1：count并没有重新归零 问题2：count直接由0变到了2 我们来看下问题1，count并没有重新归零，说明我们在刷新页面的时候并不是重新执行了整个脚本，而是只执行了server里的代码 12345const server = http.createServer((req,res) =&gt; &#123; res.writeHead(200,&#123;"Content-Type":"text/html;charset=UTF-8"&#125;); res.write(`你是第$&#123;count++&#125;个访问用户`); res.end();&#125;); 所以count不会重新归零，而是执行里面的count++，但是…应该由0变为1啊。 好了，我们来看第二个问题，为什么直接从0变为2，我们打开调试工具 我们发现，刷新页面的时候会发送两个请求，一个是localhost，一个是favicon.ico，所以 1res.write(`你是第$&#123;count++&#125;个访问用户`); 会执行两次，然后我们就会看见0，2，4，6… 解决办法 做一个判断 if(req.url === &quot;/favicon.ico&quot;) return; 12345678910111213141516const http = require("http");let count = 0;const server = http.createServer((req,res) =&gt; &#123; if(req.url === "/favicon.ico") return; //如果请求的是favicon.ico我们就return掉 res.writeHead(200,&#123;"Content-Type":"text/html;charset=UTF-8"&#125;); res.write(`你是第$&#123;count++&#125;个访问用户`); res.end();&#125;);server.listen(3000,(err) =&gt; &#123; //出现错误的情况就是端口被占用 if(err) throw err; console.log("server is running at http://localhost:3000/")&#125;); 单线程我们再把代码修改一下 1234567891011121314151617181920 const http = require("http"); let count = 0; const server = http.createServer((req,res) =&gt; &#123; if(req.url === "/favicon.ico") return; res.writeHead(200,&#123;"Content-Type":"text/html;charset=UTF-8"&#125;); res.write(`你是第$&#123;count++&#125;个访问用户`);+ //如果count计数到5的话，我们就让它阻塞+ if(count === 5)&#123;+ while(true) &#123; &#125;+ &#125; res.end(); &#125;); server.listen(3000,(err) =&gt; &#123; //出现错误的情况就是端口被占用 if(err) throw err; console.log("server is running at http://localhost:3000/") &#125;); 我们再来执行它，然后刷新刷新，count计数到5的时候就会阻塞，我们看 这是，我们重新开一个页面，输入http://localhost:3000 我们发现新开的页面也是阻塞的，为什么呢？就是因为node是单线程，一个地方阻塞了，就都阻塞了。 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Node/verify-node-single-thread.html 欢迎转载，转载请注明文本链接]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[英语跟读计划0723]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0723.html</url>
     <content type="text"><![CDATA[必备句型 Oh,boy! 天哪 I think I have a crush on her. 我觉得我是喜欢上她了 ​ 场景对话 A: Oh,boy! Look at the girl over there, she’s gorgeous. B: Hey,are you okay? A: I think I have a cruse on her. B: Excuse me? A: I guess that’s love at first sight. ​ 参考译文 A: 天哪！快看那边的那个女孩，太漂亮了。 B: 嗯，你还好吧？ A: 我觉得我是喜欢上她了。 B: 什么？ A: 我想这就是一见钟情吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
