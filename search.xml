@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[英语跟读计划0725]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0725.html</url>
+    <content type="text"><![CDATA[必备句型​ I think that a good friend should be a good listener. 我觉得一个好朋友应该善于倾听 I’m so lucky to such a friend like you. 有你这样的朋友真是幸运。 ​ 场景对话​ A: I think that a good friend should be a good listener. B: That’s true. I’m so lucky to have such a friend like you. A: Me,too,thank you for all you have done for me. ​ 参考译文​ A: 我觉得一个好朋友应该善于倾听。 B: 确实，有你这样的朋友真是幸运。 A: 我也是，感谢你为我所做的一切。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0724]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0724.html</url>
+    <content type="text"><![CDATA[必备句型​ It’s hard to imagine what it would be like to have no friends. 真难以想象没有朋友会是什么样子 I totally agree with you. 我完全同意你的看法 ​ 场景对话​ A: I have a lot of close friends. B: You must be pretty happy then? A: Yeah, It’s hard to imagine what it would be like to have no friends. B: I totally agree with you. ​ 参考译文​ A: 我有很多好朋友。 B: 那你一定很快乐吧。 A: 是的，真难以想象没有朋友会是个什么样子。 B: 我完全同意你的看法。 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[模块化结构]]></title>
     <url>%2FNode%2Fmodular-structure.html</url>
     <content type="text"><![CDATA[模块化代码结构 Node采用的模块化结构是commonJS规范 模块与文件是一一对应关系，即加载一个模块，实际上就是加载对应的一个模块文件 CommonJS模块的特点 所有代码都运行在模块作用域，不会污染全局作用域。 模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。 模块加载的顺序，按照其在代码中出现的顺序。 模块的分类 文件模块 就是我们自己写的功能模块文件 核心模块 Node平台自带的一套基本的功能模块，也有人称之为Node平台的API 第三方模块 社区或者第三方个人开发好的功能模块，可以直接拿回来用 模块化开发的流程 创建模块（foo.js) 导出成员（module.exports = {}) 载入模块 （let foo = require(“./foo.js”) 使用模块 （foo.bar()) 模块内的（伪）全局环境我们在文件操作中必须使用绝对路径 __dirname 用于获取当前文件所在目录的完整路径； 在REPL环境无效 __filename 用来获取当前文件的完整路径； 在REPL环境无效； module 模块对象 exports 映射到module.exports的别名 require() require.cache require.extensions require.main require.resolve() module对象Node内部提供一个module构建函数。所有模块都是module的实例。有以下属性： module.id 模块的识别符，通常是带有绝对路径的模块文件名。 module.filename 模块定义的文件的绝对路径。 module.loaded返回一个布尔值，表示模块是否已经加载完毕。 module.parent 返回一个对象，表示调用该模块的模块 module.children 返回一个数组，表示该模块要用到的其他模块。 module.exports 表示模块对外输出的值。 载入一个模块就是构建一个module实例 看个例子 |— module |— module.js |— 05-module.js module/module.js 1console.log(module); 05-module.js 1234const foo = require("./module/module");console.log("----------------------------------------");console.log(module); 然后我们执行05-module.js 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253$ node 05-module.js Module &#123; id: '/Users/melody0z/github/nodejs/second/module/module.js', exports: &#123;&#125;, parent: Module &#123; id: '.', exports: &#123;&#125;, parent: null, filename: '/Users/melody0z/github/nodejs/second/05-module.js', loaded: false, children: [ [Circular] ], paths: [ '/Users/melody0z/github/nodejs/second/node_modules', '/Users/melody0z/github/nodejs/node_modules', '/Users/melody0z/github/node_modules', '/Users/melody0z/node_modules', '/Users/node_modules', '/node_modules' ] &#125;, filename: '/Users/melody0z/github/nodejs/second/module/module.js', loaded: false, children: [], paths: [ '/Users/melody0z/github/nodejs/second/module/node_modules', '/Users/melody0z/github/nodejs/second/node_modules', '/Users/melody0z/github/nodejs/node_modules', '/Users/melody0z/github/node_modules', '/Users/melody0z/node_modules', '/Users/node_modules', '/node_modules' ] &#125;----------------------------------------Module &#123; id: '.', exports: &#123;&#125;, parent: null, filename: '/Users/melody0z/github/nodejs/second/05-module.js', loaded: false, children: [ Module &#123; id: '/Users/melody0z/github/nodejs/second/module/module.js', exports: &#123;&#125;, parent: [Circular], filename: '/Users/melody0z/github/nodejs/second/module/module.js', loaded: true, children: [], paths: [Object] &#125; ], paths: [ '/Users/melody0z/github/nodejs/second/node_modules', '/Users/melody0z/github/nodejs/node_modules', '/Users/melody0z/github/node_modules', '/Users/melody0z/node_modules', '/Users/node_modules', '/node_modules' ] &#125; 模块的定义 一个新的js文件就是一个模块 一个合格的模块应该是有导出成员的，否则模块就失去了定义的价值。 模块内部是一个独立（封闭）的作用域（模块与模块之间不会冲突） 模块之间必须通过导出或导入的方式协同 导出方式： exports.name = value; module.exports = {name:value} module.exports和exports module.exports是用于为模块导出成员的接口 exports是指向module.exports的别名，相当于在模块开始的时候执行：var exports = module.exports; 一旦为module.exports赋值，就会切断之前两者的相关性； 最终模块的导出成员以module.exports为准。 看个例子 |— module |— module.exports.js |— 06-module.exports.js module/module.exports.js 123456789let a = 10;let msg = "hello";function foo() &#123; return "我是函数"&#125;exports.a = a;exports.msg = msg;exports.foo = foo; 06-module.exports.js 1234const bar = require("./module/module.exports");console.log(bar.a);console.log(bar.msg);console.log(bar.foo()); 然后我们执行06-module.exports.js 1234$ node 06-module.exports.js 10hello我是函数 然后我们用module.exports的方式改写一下 123456789101112131415 let a = 10; let msg = "hello"; function foo() &#123; return "我是函数" &#125; - exports.a = a;- exports.msg = msg;- exports.foo = foo; + module.exports = &#123;+ a:a,+ msg:msg,+ foo:foo+ &#125;; 执行06-module.exports.js 1234$ node 06-module.exports.js 10hello我是函数 我们再用ES6的语法简化一下 1234567891011121314151617 let a = 10; let msg = "hello"; function foo() &#123; return "我是函数" &#125; - module.exports = &#123;- a:a,- msg:msg,- foo:foo- &#125;;+ module.exports = &#123;+ a,+ msg,+ foo+ &#125;; 执行结果和上面的一样。 载入模块 Node使用commonJS模块规范，内置的require函数用于加载模块文件。 require的基本功能是，读入并执行一个JavaScript文件，然后返回该模块的exports对象。 如果没有发现执行模块，会报错。 模块的加载机制id：路径的情况就是直接以相对路径的方式找文件 require实现机制 将传入的模块ID通过加载规则找到对应的模块文件 读取这个文件里面的代码 通过拼接的方式为该段代码构建私有空间 执行该代码 拿到module.exports返回 我们手动写一个$require函数 |— module |— module.exports.js |— 07-$require.js 12345678910111213141516171819202122232425262728293031323334//自己写一个require函数，目的是了解require的实现机制function $require(id) &#123; //1.先找到文件，文件不存在报错 //2.读取文件内容，内容是js代码 const fs = require("fs"); const path = require("path"); //要加载js的路径（完整路径） const filename = path.join(__dirname,id); const dirname = path.dirname(filename); let code = fs.readFileSync(filename,"utf8"); //同步读取文件，不会加入到事件队列 //3.执行代码，所要执行的代码需要营造一个私有空间 let module = &#123; id:filename, exports:&#123;&#125; &#125;; let exports = module.exports; code = `(function ($require,module,exports,__dirname,__filename) &#123; $&#123;code&#125; &#125;)($require,module,exports,dirname,filename)` eval(code); //4.返回值 return module.exports;&#125;const bar = $require("./module/module.exports.js");console.log(bar.a);console.log(bar.msg);console.log(bar.foo()); 然后执行 1234$ node 07-\$reqiure.js 10hello我是函数 require扩展名require加载文件时可以省略扩展名： require(&quot;./module&quot;) require(&quot;./module.js&quot;)此时文件按js文件执行 require(&quot;./module.json&quot;)此时文件按JSON文件解析 require(&quot;./module.node&quot;)此时文件预编译好的C++模块执行 优先级是js&gt;json&gt;node require加载文件规则 通过./后../开头：则按照相对路径从当前文件所在文件夹开始寻找模块； require(&quot;../file.js&quot;) 上级目录下找file.js文件 通过/开头：则以系统根目录开始寻找模块； require(&quot;/Users/melody0z/github/nodejs/second/module/file.js&quot;) 以绝对路径的方式寻找 如果参数字符串不以”./“或”/“开头，则表示加载的是一个默认提供的核心模块（位于node的系统安装目录中） require(&quot;fs&quot;) 加载核心模块中的文件系统（file system)模块 或者从当前目录向上搜索node_modules目录中的文件： require(&quot;my_module&quot;); 各级node_modules文件夹中搜索my_module.js文件； require加载目录规则 如果require传入的是一个目录的路径，会自动查看该目录的package.json文件，然后加载main字段指定的入口文件 如果package.json文件没有main字段，或者根本就没有package.json文件，则默认找目录下的index.js文件作为模块 require(&quot;./module&quot;);当前目录下找module文件夹中的index.js文件 模块的缓存 第一次加载某个模块时，Node会缓存该模块。以后再加载该模块，就直接冲缓存取出该模块的module.exports属性（不会再次执行该模块） 如果需要多次执行模块中的代码，一般可以让模块暴露行为（函数） 模块的缓存可以通过require.cache拿到，同样也可以删除 验证模块有缓存 目录结构 |— date.js |— 08.cache.js date.js 1module.exports = new Date(); 08-cache.js 12345const date = require("./date");setInterval(() =&gt; &#123; console.log(date.getTime());&#125;,1000); 执行08-cache.js 1234567$ node 08-cache.js 15009326952781500932695278150093269527815009326952781500932695278^C 看，每次输出的时间戳一样，说明结果被缓存起来了。 我们再来看 目录结构 |— date.js |— 09.cache2.js 09-cache2.js 1234567let last;setInterval(() =&gt; &#123; const date = require("./date"); console.log(last === date); last = date; console.log(date.getTime());&#125;,1000); 执行 12345678910$ node 09-cache2.js false1500933712763true1500933712763true1500933712763true1500933712763^C 同样证明有缓存 缓存长什么样？ 目录结构 |— date.js |— 10.cache3.js 10-cache3.js 12const date = require("./date")console.log(require.cache); 我们打印一下缓存看看 1234567891011121314151617181920212223242526272829303132333435363738&#123; '/Users/melody0z/github/nodejs/second/10-cache3.js': Module &#123; id: '.', exports: &#123;&#125;, parent: null, filename: '/Users/melody0z/github/nodejs/second/10-cache3.js', loaded: false, children: [ [Object] ], paths: [ '/Users/melody0z/github/nodejs/second/node_modules', '/Users/melody0z/github/nodejs/node_modules', '/Users/melody0z/github/node_modules', '/Users/melody0z/node_modules', '/Users/node_modules', '/node_modules' ] &#125;, '/Users/melody0z/github/nodejs/second/date.js': Module &#123; id: '/Users/melody0z/github/nodejs/second/date.js', exports: 2017-07-24T22:09:00.024Z, parent: Module &#123; id: '.', exports: &#123;&#125;, parent: null, filename: '/Users/melody0z/github/nodejs/second/10-cache3.js', loaded: false, children: [Object], paths: [Object] &#125;, filename: '/Users/melody0z/github/nodejs/second/date.js', loaded: true, children: [], paths: [ '/Users/melody0z/github/nodejs/second/node_modules', '/Users/melody0z/github/nodejs/node_modules', '/Users/melody0z/github/node_modules', '/Users/melody0z/node_modules', '/Users/node_modules', '/node_modules' ] &#125; &#125; 我们发现，缓存和module对象类似 了解了缓存之后，我们就知道如何清除缓存了 目录结构 |— date.js |— 11-swipecache.js 11-swipecache.js 1234567setInterval(() =&gt; &#123; Object.keys(require.cache).forEach((key) =&gt; &#123; delete require.cache[key]; &#125;); const date = require("./date"); console.log(date.getTime());&#125;,1000); 执行11-swipecache.js 123456$ node 11-swipecache.js 1500935467664150093546869215009354696991500935470701^C 注意： 先清除缓存，再require。 下面我们将自己写的$require加上缓存 123456789101112131415161718192021222324252627282930313233343536function $require(id) &#123; const fs = require("fs"); const path = require("path"); const filename = path.join(__dirname, id); $require.cache = $require.cache || &#123;&#125;; if ($require.cache[filename]) &#123; return $require.cache[filename].exports; &#125; //第一次没有缓存 const dirname = path.dirname(filename); let code = fs.readFileSync(filename, "utf8"); //定义一个数据容器，用容器去装模块导出的成员 let module = &#123; id: filename, exports: &#123;&#125; &#125;; let exports = module.exports; code = ` (function($require, module, exports, __dirname, __filename) &#123; $&#123;code&#125; &#125;)($require, module, exports, dirname, filename);`; eval(code); //缓存起来 $require.cache[filename] = module; return module.exports;&#125;setInterval(() =&gt; &#123; const date = $require("./date.js"); console.log(date.getTime());&#125;,1000); 执行 12345$ node 12-\$require-cache.js 150093764976915009376497691500937649769^C 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Node/modular-structure.html 欢迎转载，转载请注明文本链接]]></content>
@@ -36,7 +58,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0723]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0723.html</url>
-    <content type="text"><![CDATA[必备句型 Oh,boy! 天哪 I think I have a crush on her. 我觉得我是喜欢上她了 ​ 场景对话 A: Oh,boy! Look at the girl over there, she’s gorgeous. B: Hey,are you okay? A: I think I have a cruse on her. B: Excuse me? A: I guess that’s love at first sight. ​ 参考译文 A: 天哪！快看那边的那个女孩，太漂亮了。 B: 嗯，你还好吧？ A: 我觉得我是喜欢上她了。 B: 什么？ A: 我想这就是一见钟情吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Oh,boy! 天哪 I think I have a crush on her. 我觉得我是喜欢上她了 ​ 场景对话​ A: Oh,boy! Look at the girl over there, she’s gorgeous. B: Hey,are you okay? A: I think I have a cruse on her. B: Excuse me? A: I guess that’s love at first sight. ​ 参考译文​ A: 天哪！快看那边的那个女孩，太漂亮了。 B: 嗯，你还好吧？ A: 我觉得我是喜欢上她了。 B: 什么？ A: 我想这就是一见钟情吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -59,7 +81,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0722]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-072.html</url>
-    <content type="text"><![CDATA[必备句型 Let’s have a get-together tonight. 我们今晚聚会吧 How about a rain check? 换个时间行吗？ ​ 场景对话 A: Let’s have a get-together tonight.Would you come? B: I’d love to, but I have a class at that time and I have to finish my homework.How about a rain check? ​ 参考译文 A: 我们今晚聚会吧，你能来吗？ B: 我很想啊，但是今晚有课，还有作业要完成，换个时间行吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Let’s have a get-together tonight. 我们今晚聚会吧 How about a rain check? 换个时间行吗？ ​ 场景对话​ A: Let’s have a get-together tonight.Would you come? B: I’d love to, but I have a class at that time and I have to finish my homework.How about a rain check? ​ 参考译文​ A: 我们今晚聚会吧，你能来吗？ B: 我很想啊，但是今晚有课，还有作业要完成，换个时间行吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -70,7 +92,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0721]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0721.html</url>
-    <content type="text"><![CDATA[必备句型 She had a quarrel with Tom. 她跟Tom吵架了 The course of true love never did run smoothly. 爱情路上多波折 ​ 场景对话 A: Zoe is so upset. B: Yes, but I don’t know what’s going on with her. A: She had a quarrel with Tom. B: People say “The course of true love never did run smoothly”. ​ 参考译文 A: Zoe心情不是很好。 B: 是的，不知道她怎么了。 A: 她跟Tom吵架了。 B: 人们说：“爱情路上多波折”。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ She had a quarrel with Tom. 她跟Tom吵架了 The course of true love never did run smoothly. 爱情路上多波折 ​ 场景对话​ A: Zoe is so upset. B: Yes, but I don’t know what’s going on with her. A: She had a quarrel with Tom. B: People say “The course of true love never did run smoothly”. ​ 参考译文​ A: Zoe心情不是很好。 B: 是的，不知道她怎么了。 A: 她跟Tom吵架了。 B: 人们说：“爱情路上多波折”。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -92,7 +114,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0720]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0720.html</url>
-    <content type="text"><![CDATA[必备句型 I’ve been worried sick about you. 我担心死你了 I am totally fine. 我很好啊 ​ 场景对话 A: I’ve been worried sick about you, where have you been? B: I am totally fine,I just went shopping with my friends. A: Well, at least you should’ve told me. B: Mom,please. I am not a kid anymore. ​ 参考译文 A: 我担心死你了，你去哪里了？ B: 我没事啊，跟朋友出去购物了。 A: 嗯，你至少应该告诉我啊。 B: 拜托了，妈，我又不是小孩子。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I’ve been worried sick about you. 我担心死你了 I am totally fine. 我很好啊 ​ 场景对话​ A: I’ve been worried sick about you, where have you been? B: I am totally fine,I just went shopping with my friends. A: Well, at least you should’ve told me. B: Mom,please. I am not a kid anymore. ​ 参考译文​ A: 我担心死你了，你去哪里了？ B: 我没事啊，跟朋友出去购物了。 A: 嗯，你至少应该告诉我啊。 B: 拜托了，妈，我又不是小孩子。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -114,7 +136,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0719]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0719.html</url>
-    <content type="text"><![CDATA[必备句型 May I speak to Zoe, please? 可以请Zoe接听电话吗？ She’s tied up at the moment. 她现在走不开 ​ 场景对话 A: May I speak to Zoe, please? B: I’m sorry, she’s tied up at the moment. Would you like to leave a message? A: No, Thank you. I’ll call her later. ​ 参考译文 A: 可以请Zoe接听电话吗？ B: 抱歉，她现在走不开。你要留个口信吗？ A: 不用了，谢谢。我待会儿再打给她。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ May I speak to Zoe, please? 可以请Zoe接听电话吗？ She’s tied up at the moment. 她现在走不开 ​ 场景对话​ A: May I speak to Zoe, please? B: I’m sorry, she’s tied up at the moment. Would you like to leave a message? A: No, Thank you. I’ll call her later. ​ 参考译文​ A: 可以请Zoe接听电话吗？ B: 抱歉，她现在走不开。你要留个口信吗？ A: 不用了，谢谢。我待会儿再打给她。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -125,7 +147,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0718]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0718.html</url>
-    <content type="text"><![CDATA[必备句型 You look restless. 看你一副坐立不安的样子 I’d like to stay and talk longer, but I really do have to run. 我很想再多聊一会儿，不过我真的很赶时间。 ​ 场景对话 A: You look restless. Do you have to be somewhere, or am I just boring you? B: I’d like to stay and talk longer, but I really do have to run. I have to be at a meeting at around noon. ​ 参考译文 A: 看你一副坐立不安的样子，是不是还要去别处，或者是我让你觉得无聊了呢？ B: 我很想再多聊一会儿，不过我真的很赶时间，中午时候还要参加一个会议。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ You look restless. 看你一副坐立不安的样子 I’d like to stay and talk longer, but I really do have to run. 我很想再多聊一会儿，不过我真的很赶时间。 ​ 场景对话​ A: You look restless. Do you have to be somewhere, or am I just boring you? B: I’d like to stay and talk longer, but I really do have to run. I have to be at a meeting at around noon. ​ 参考译文​ A: 看你一副坐立不安的样子，是不是还要去别处，或者是我让你觉得无聊了呢？ B: 我很想再多聊一会儿，不过我真的很赶时间，中午时候还要参加一个会议。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -147,7 +169,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0717]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0717.html</url>
-    <content type="text"><![CDATA[必备句型 I feel dizzy. 我感到晕晕的 Poor thing. 好可怜啊 ​ 场景对话 A: I feel dizzy. I have a fever of 38℃ B: Poor thing! Go back to bed and get some rest. I’ll make some soup for you. A: That’s sweet of you. ​ 参考译文 A: 我感到晕晕的，发烧了，38度。 B: 好可怜啊，回床上睡一会儿吧，我给你做点儿汤。 A: 谢谢你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I feel dizzy. 我感到晕晕的 Poor thing. 好可怜啊 ​ 场景对话​ A: I feel dizzy. I have a fever of 38℃ B: Poor thing! Go back to bed and get some rest. I’ll make some soup for you. A: That’s sweet of you. ​ 参考译文​ A: 我感到晕晕的，发烧了，38度。 B: 好可怜啊，回床上睡一会儿吧，我给你做点儿汤。 A: 谢谢你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -158,7 +180,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0716]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0716.html</url>
-    <content type="text"><![CDATA[必备句型 It seems that everybody likes her. 好像每个人都很喜欢她 She really turns me off. 她真的使我厌恶 ​ 场景对话 A: That girl is so pretty, it seems that everybody likes her. B: I don’t really think so. A: How come? B: She’s too chatty, and she really turns me off. ​ 参考译文 A: 那个女孩真好看，好像每个人都很喜欢她。 B: 我不这么想。 A: 为什么？ B: 她太啰嗦了，真的让我很讨厌。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ It seems that everybody likes her. 好像每个人都很喜欢她 She really turns me off. 她真的使我厌恶 ​ 场景对话​ A: That girl is so pretty, it seems that everybody likes her. B: I don’t really think so. A: How come? B: She’s too chatty, and she really turns me off. ​ 参考译文​ A: 那个女孩真好看，好像每个人都很喜欢她。 B: 我不这么想。 A: 为什么？ B: 她太啰嗦了，真的让我很讨厌。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -169,7 +191,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0715]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0715.html</url>
-    <content type="text"><![CDATA[必备句型 I got stuck in traffic. 我遇上堵车了 Don’t beat around the bush. 别拐弯抹角 ​ 场景对话 A: I’ve been waiting for an hour, where have you been? B: Sorry, I’m late. I got stuck in traffic. A: Okay, tell me exactly what Tom said. Don’t beat around the bush.Get to the point. ​ 参考译文 A: 我已经等上一个小时了，你去哪里了？ B: 不好意思，遇上堵车了。 A: 好吧，告诉我Tom说什么了。不要拐弯抹角，直接说重点吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I got stuck in traffic. 我遇上堵车了 Don’t beat around the bush. 别拐弯抹角 ​ 场景对话​ A: I’ve been waiting for an hour, where have you been? B: Sorry, I’m late. I got stuck in traffic. A: Okay, tell me exactly what Tom said. Don’t beat around the bush.Get to the point. ​ 参考译文​ A: 我已经等上一个小时了，你去哪里了？ B: 不好意思，遇上堵车了。 A: 好吧，告诉我Tom说什么了。不要拐弯抹角，直接说重点吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -180,7 +202,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0714]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0714.html</url>
-    <content type="text"><![CDATA[必备句型 Don’t get me wrong. 请不要误会我的意思 You have to admit that he is not very responsible. 你也得承认他不是很负责任 ​ 场景对话 A: Don’t get me wrong. I think Tom is a very nice person, but you have to admit that he is not very responsible. B: I guess you are right. He’s got a lot of growing up to do. ​ 参考译文 A: 请不要误会我的意思。我任务Tom是个很好的人，不过你也得承认他不是很负责任。 B: 你说的不错，他要长大还得学习很多东西。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Don’t get me wrong. 请不要误会我的意思 You have to admit that he is not very responsible. 你也得承认他不是很负责任 ​ 场景对话​ A: Don’t get me wrong. I think Tom is a very nice person, but you have to admit that he is not very responsible. B: I guess you are right. He’s got a lot of growing up to do. ​ 参考译文​ A: 请不要误会我的意思。我任务Tom是个很好的人，不过你也得承认他不是很负责任。 B: 你说的不错，他要长大还得学习很多东西。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -191,7 +213,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0713]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0713.html</url>
-    <content type="text"><![CDATA[必备句型 Got it ? 明白了吗？ Let me explain this one more time. 让我再解释一次 ​ 场景对话 A: Got it ? B: Sorry, I still don’t understand. A: Okay, let me explain this one more time. I don’t wanna go out because I don’t like hanging out with Tom. B: Alright, I got it. ​ 参考译文 A: 明白了吗？ B: 不好意思，我还是不理解。 A: 好吧，我再解释一下，wo’bu’xiang我不想出去，因为我不想跟Tom一起出去逛。 B: 好吧，知道了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Got it ? 明白了吗？ Let me explain this one more time. 让我再解释一次 ​ 场景对话​ A: Got it ? B: Sorry, I still don’t understand. A: Okay, let me explain this one more time. I don’t wanna go out because I don’t like hanging out with Tom. B: Alright, I got it. ​ 参考译文​ A: 明白了吗？ B: 不好意思，我还是不理解。 A: 好吧，我再解释一下，wo’bu’xiang我不想出去，因为我不想跟Tom一起出去逛。 B: 好吧，知道了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -202,7 +224,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0712]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0712.html</url>
-    <content type="text"><![CDATA[必备句型 I’ll never forgive myself. 我永远不能原谅我自己 How can I make it up to you. 我要怎样才能补偿 ​ 场景对话 A: It’s all my fault. I’ll never forgive myself. B: Don’t say that. We wouldn’t have known that. A: How can I make it up to you? B: You can’t have to do that. ​ 参考译文 A: 都是我的错，我永远不能原谅自己。 B: 别那么说，我们都无法未卜先知。 A: 我要怎样才能补偿你？ B: 不用啦。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I’ll never forgive myself. 我永远不能原谅我自己 How can I make it up to you. 我要怎样才能补偿 ​ 场景对话​ A: It’s all my fault. I’ll never forgive myself. B: Don’t say that. We wouldn’t have known that. A: How can I make it up to you? B: You can’t have to do that. ​ 参考译文​ A: 都是我的错，我永远不能原谅自己。 B: 别那么说，我们都无法未卜先知。 A: 我要怎样才能补偿你？ B: 不用啦。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -213,7 +235,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0711]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-071.html</url>
-    <content type="text"><![CDATA[必备句型 Are you fond of reading? 你喜欢读书吗？ I like to read all kinds of books. 什么书我都喜欢看 ​ 场景对话 A: Are you fond of reading? B: Yes, I am. Books can enrich your mind. A: Exactly, what kind of books do you like to read most? B: I like to read all kinds of books. ​ 参考译文 A: 你喜欢读书吗？ B: 喜欢啊，书籍能丰富你的思想。 A: 确实，你最喜欢读哪种书？ B: 什么书我都喜欢看。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Are you fond of reading? 你喜欢读书吗？ I like to read all kinds of books. 什么书我都喜欢看 ​ 场景对话​ A: Are you fond of reading? B: Yes, I am. Books can enrich your mind. A: Exactly, what kind of books do you like to read most? B: I like to read all kinds of books. ​ 参考译文​ A: 你喜欢读书吗？ B: 喜欢啊，书籍能丰富你的思想。 A: 确实，你最喜欢读哪种书？ B: 什么书我都喜欢看。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -224,7 +246,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0710]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0710.html</url>
-    <content type="text"><![CDATA[必备句型 I dreamed to be a pliot, but I didn’t make it come true. 我曾梦想做一名飞行员，不过我没有实现儿时的梦想 I’m trying my best to learn English. 现在我努力学英文 ​ 场景对话 A: Hey, did you have a dream when you were a little boy ? B: Of course I did. I dreamed to be a pliot, but I didn’t make it come true. A: Okay, so. How about now? B: Now I’m trying my best to learn English, and I want to be an interpreter some day. ​ 参考译文 A: 嘿，你小的时候有过什么梦想吗？ B: 当然有啦，我曾梦想过当一名飞行员，不过我没有实现儿时的梦想。 A: 嗯，那现在呢？ B: 现在我在努力学英文，我想成文一名翻译。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I dreamed to be a pliot, but I didn’t make it come true. 我曾梦想做一名飞行员，不过我没有实现儿时的梦想 I’m trying my best to learn English. 现在我努力学英文 ​ 场景对话​ A: Hey, did you have a dream when you were a little boy ? B: Of course I did. I dreamed to be a pliot, but I didn’t make it come true. A: Okay, so. How about now? B: Now I’m trying my best to learn English, and I want to be an interpreter some day. ​ 参考译文​ A: 嘿，你小的时候有过什么梦想吗？ B: 当然有啦，我曾梦想过当一名飞行员，不过我没有实现儿时的梦想。 A: 嗯，那现在呢？ B: 现在我在努力学英文，我想成文一名翻译。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -235,7 +257,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0708]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0708.html</url>
-    <content type="text"><![CDATA[必备句型 let me explain one more time. 再让我解释一回 I am out of patience. 我忍无可忍了 ​ 场景对话 A: Please, let me explain one more time. B: Sorry, I am out of patience. A: Why are you so angry? B: I don’t wanna talk to you, I’ve had enough! ​ 参考译文 A: 求求你，再让我解释一回。 B: 对不起，我忍无可忍了。 A: 你干嘛这么生气？ B: 我不想跟你讲话，我真的受够了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ let me explain one more time. 再让我解释一回 I am out of patience. 我忍无可忍了 ​ 场景对话​ A: Please, let me explain one more time. B: Sorry, I am out of patience. A: Why are you so angry? B: I don’t wanna talk to you, I’ve had enough! ​ 参考译文​ A: 求求你，再让我解释一回。 B: 对不起，我忍无可忍了。 A: 你干嘛这么生气？ B: 我不想跟你讲话，我真的受够了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -246,7 +268,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0707]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0707.html</url>
-    <content type="text"><![CDATA[必备句型 Are you satisfied? 你满意吗？ I have to say I am not photogenic at all. 我不得不说，我确实一点儿也不上相啊。 ​ 场景对话 A: Say cheese. B: Cheese.Okay? A: Yes, have a look. Are you satisfied? B: Oh, I have to say I am not photogentic at al. I just don’t know how to smile. A: Would you like another one? ​ 参考译文 A: 说“茄子”。 B: 茄子，照好了吗？ A: 是的，来看一眼吧。你满意吗？ B: 哦，我不得不说，我确定一点儿也不上相啊，我就是不知道该怎么微笑。 A: 还想要再照一张吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Are you satisfied? 你满意吗？ I have to say I am not photogenic at all. 我不得不说，我确实一点儿也不上相啊。 ​ 场景对话​ A: Say cheese. B: Cheese.Okay? A: Yes, have a look. Are you satisfied? B: Oh, I have to say I am not photogentic at al. I just don’t know how to smile. A: Would you like another one? ​ 参考译文​ A: 说“茄子”。 B: 茄子，照好了吗？ A: 是的，来看一眼吧。你满意吗？ B: 哦，我不得不说，我确定一点儿也不上相啊，我就是不知道该怎么微笑。 A: 还想要再照一张吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -257,7 +279,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0706]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0706.html</url>
-    <content type="text"><![CDATA[必备句型 I don’t like horror movies at all. 我一点儿都不喜欢恐怖片 I am really into his British accent. 我太喜欢他的英国口音了 ​ 场景对话 A: You like horror movies, don’t you ? B: No, I don’t. I don’t like horror movies at all. I like comedy movies. A: Who is your favorite actor? B: Hugh Grant, I am really into his British accent. 参考译文 A: 你喜欢恐怖片，是吗？ B: 不，我不喜欢，我一点儿都不喜欢恐怖片，我喜欢喜剧片。 A: 你最喜欢的男演员是谁？ B：休 格兰特。我太喜欢他的英国口音了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I don’t like horror movies at all. 我一点儿都不喜欢恐怖片 I am really into his British accent. 我太喜欢他的英国口音了 ​ 场景对话​ A: You like horror movies, don’t you ? B: No, I don’t. I don’t like horror movies at all. I like comedy movies. A: Who is your favorite actor? B: Hugh Grant, I am really into his British accent. 参考译文​ A: 你喜欢恐怖片，是吗？ B: 不，我不喜欢，我一点儿都不喜欢恐怖片，我喜欢喜剧片。 A: 你最喜欢的男演员是谁？ B：休 格兰特。我太喜欢他的英国口音了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -268,7 +290,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0705]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0705.html</url>
-    <content type="text"><![CDATA[必备句型 Are you good at singing ? 你唱歌拿手吗？ I’m a tone-deaf, but I like singing. 我五音不全，但是我喜欢唱歌 ​ 场景对话 A: Are you good at singing ? B: No, I’m a tone-deaf, but I like singing. A: Okay! Let’s go to karaoke. B: My singing is out of tune. A: Oh, come on. It’s just entertainment. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Are you good at singing ? 你唱歌拿手吗？ I’m a tone-deaf, but I like singing. 我五音不全，但是我喜欢唱歌 ​ 场景对话​ A: Are you good at singing ? B: No, I’m a tone-deaf, but I like singing. A: Okay! Let’s go to karaoke. B: My singing is out of tune. A: Oh, come on. It’s just entertainment. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -279,7 +301,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0704]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0704.html</url>
-    <content type="text"><![CDATA[必备句型 You are not supposed to smoke here. 你不能在这里吸烟 I am a heavy smoker. 我是个老烟民 ​ 场景对话 A: Excuse me sir. You are not supposed to smoke here. B: Why not? A: Your seat is in the non-smoking section. So, you can’t smoke here. B: I am a heavy smoker, may I change my seat? ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ You are not supposed to smoke here. 你不能在这里吸烟 I am a heavy smoker. 我是个老烟民 ​ 场景对话​ A: Excuse me sir. You are not supposed to smoke here. B: Why not? A: Your seat is in the non-smoking section. So, you can’t smoke here. B: I am a heavy smoker, may I change my seat? ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -290,7 +312,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0703]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0703.html</url>
-    <content type="text"><![CDATA[必备句型​ Honesty is very important to me. 诚实对我很重要 The problem is that… 问题是… ​ 场景对话 A:I don’t like to make friends with people who aren’t honest.Honesty is very important to me. B:I think it’s important to most people. The problem is that you can usually only find out if someone is honest by getting to know them. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Honesty is very important to me. 诚实对我很重要 The problem is that… 问题是… ​ 场景对话​ A:I don’t like to make friends with people who aren’t honest.Honesty is very important to me. B:I think it’s important to most people. The problem is that you can usually only find out if someone is honest by getting to know them. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -301,7 +323,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0701]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0701.html</url>
-    <content type="text"><![CDATA[必备句型 How come? 为什么？ Don’t judge a book by it’s cover. 不要以貌取人 场景对话 A:Hey,Look at the man over there,he’s definitely not a good person. B:How come? you don’t even know him. A:I just feel that way. B:Hey!Don’t judeg a book by it’s cover. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型 How come? 为什么？ Don’t judge a book by it’s cover. 不要以貌取人 场景对话​ A:Hey,Look at the man over there,he’s definitely not a good person. B:How come? you don’t even know him. A:I just feel that way. B:Hey!Don’t judeg a book by it’s cover. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -312,7 +334,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0630]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0630.html</url>
-    <content type="text"><![CDATA[必备句型 I shouldn’t have yelled at you in front of everyone. 我不该在大家面前对你大吼 I don’t know what happened to me. 我不知道我昨天是怎么了 ​ 场景对话​ A:Hey,Bob.I’m so sorry about yesterday.I shouldn’t have yelled at you in front of everyone. B:Don’t worry about it. A:I don’t know what happened to me.I just lost it. B:It’s okay. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I shouldn’t have yelled at you in front of everyone. 我不该在大家面前对你大吼 I don’t know what happened to me. 我不知道我昨天是怎么了 ​ 场景对话​ A:Hey,Bob.I’m so sorry about yesterday.I shouldn’t have yelled at you in front of everyone. B:Don’t worry about it. A:I don’t know what happened to me.I just lost it. B:It’s okay. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -334,7 +356,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0628]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0628.html</url>
-    <content type="text"><![CDATA[必备句型​ You’d better get up or you’ll be late. 你最好起床，否则你要迟到了 Rise and shine,sleepyhead. 贪睡鬼，起床啦 ​ 场景对话 A:Hey,Bob.Weak up! B:Do I have to get up now? A:You’d better get up or you’ll be late. B:What are you talking about?The alarm hasn’t even gone off yet. A:It went off 30 minutes ago.Rise and shine,sleepyhead. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ You’d better get up or you’ll be late. 你最好起床，否则你要迟到了 Rise and shine,sleepyhead. 贪睡鬼，起床啦 ​ 场景对话​ A:Hey,Bob.Weak up! B:Do I have to get up now? A:You’d better get up or you’ll be late. B:What are you talking about?The alarm hasn’t even gone off yet. A:It went off 30 minutes ago.Rise and shine,sleepyhead. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -367,7 +389,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0624]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0624.html</url>
-    <content type="text"><![CDATA[必备句型​ My back is sore and my meck hurts. 我的背很酸，脖子也疼 I was always absent-minded in the class. 我在课上走神儿了 ​ 场景对话 A:Finally the class is over. B:Oh,I am so tired.My back is sore and my neck hurts. A:That’s normal.You have been sitting for three hours,with your attention highly concontrated. B:That’s not true.I was always absent-minded in the class. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ My back is sore and my meck hurts. 我的背很酸，脖子也疼 I was always absent-minded in the class. 我在课上走神儿了 ​ 场景对话​ A:Finally the class is over. B:Oh,I am so tired.My back is sore and my neck hurts. A:That’s normal.You have been sitting for three hours,with your attention highly concontrated. B:That’s not true.I was always absent-minded in the class. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -378,7 +400,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0623]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0623.html</url>
-    <content type="text"><![CDATA[必备句型​ Why are you asking me this strange question? 你干嘛问我这么奇怪的问题？ I think IQ matters more. 我觉得智商更重要一点 #### 场景对话 A:Hey,Bob,In your opinion,which one is more important,IQ or EQ? B:Why are you asking me this strange question? A:Just asking. B:Well,I Think IQ matters more,but it won’t work without EQ. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Why are you asking me this strange question? 你干嘛问我这么奇怪的问题？ I think IQ matters more. 我觉得智商更重要一点 #### 场景对话​ A:Hey,Bob,In your opinion,which one is more important,IQ or EQ? B:Why are you asking me this strange question? A:Just asking. B:Well,I Think IQ matters more,but it won’t work without EQ. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -389,7 +411,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0622]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-062.html</url>
-    <content type="text"><![CDATA[必备句型 I really wish I hadn’t done it. 我真希望我没那么做 What on earth are you talking about? 你究竟在说什么？ ​ 场景对话 A:Hey,Bob.You look unhappy.What’s wrong? B:Oh,Alex,I mad e a big mistake A:What happened? B:I really wish I hadn’t done it. A:What on earth are you talking about? B:I got caught cheating.I feel so ashamed.The teacher saw me and told me I failed. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ I really wish I hadn’t done it. 我真希望我没那么做 What on earth are you talking about? 你究竟在说什么？ ​ 场景对话​ A:Hey,Bob.You look unhappy.What’s wrong? B:Oh,Alex,I mad e a big mistake A:What happened? B:I really wish I hadn’t done it. A:What on earth are you talking about? B:I got caught cheating.I feel so ashamed.The teacher saw me and told me I failed. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
@@ -400,7 +422,7 @@
   <entry>
     <title><![CDATA[英语跟读计划0621]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0621.html</url>
-    <content type="text"><![CDATA[必备句型 Why on earth are you waning to learn a new language now? 你到底为什么学习一门新语言？ It’s never too late to learn. 活到老，学到老。 场景对话 A:Hey,What are you up to? B:I’m learning English. A:Why on earth are you wanting to learn a new language now? B:It’s never too late to learn,you never know when these things will come into use. 黑体表示连读 ​ 斜体表示弱读 ​ Why on earth did you do?你到底做了什么？ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+    <content type="text"><![CDATA[必备句型​ Why on earth are you waning to learn a new language now? 你到底为什么学习一门新语言？ It’s never too late to learn. 活到老，学到老。 ​ 场景对话​ A:Hey,What are you up to? B:I’m learning English. A:Why on earth are you wanting to learn a new language now? B:It’s never too late to learn,you never know when these things will come into use. 黑体表示连读 ​斜体表示弱读 Why on earth did you do?你到底做了什么？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
       </categories>
