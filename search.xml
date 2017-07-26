@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[编码问题]]></title>
+    <url>%2FNode%2F%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98.html</url>
+    <content type="text"><![CDATA[fs在读取文件的时候，会把文件读取为buffer，buffer有一个toString()方法，可以把文件转换为字符串，但是默认编码是utf8，读取编码为gbk的文件就会乱码。本文将会读取一个编码为gbk的歌词文件，下面是过程。 目录结构 |— 14-readFileSync.js |— blood.lrc 14-readFileSync.js 123456789101112//同步读取文件的内容//所有的文件操作都是基于fs模块const fs = require("fs");//无论是同步还是异步，文件操作都要使用绝对路径const path = require("path");//将文本读取到一个buffer中const buffer = fs.readFileSync(path.join(__dirname,"./blood.lrc"));//将buffer中的内容读取出来const data = buffer.toString();console.log(data); 执行14-readFileSync.js 12345678910$ node 14-readFileSync.js [ti:ѪȾ�ķ��][ar:��ҫ��][al:��ɽ�˺�][offset:500][00:01.21] ������ѪȾ�ķ��...中间省略[03:19.42] ���͹���������������ѪȾ�ķ��[03:25.51] * * *[03:32.98] ---End--- 读取出来的是乱码，为什么是乱码呢？因为编码问题，.lrc文件是gbk编码，node默认是utf8编码 为了解决编码问题，我们需要引入第三方模块 iconv-lite 在项目目录下创建package.json 1$ npm init -y 1$ npm install iconv-lite --save-dev 好了，模块安装好了之后我们就可以直接引用了 14-readFileSync.js 123456789101112 const fs = require("fs"); const path = require("path"); const buffer = fs.readFileSync(path.join(__dirname,"./blood.lrc")); - const data = buffer.toString();- console.log(data); + //我们需要引入第三方模块+ const iconv = require("iconv-lite");+ const data2 = iconv.decode(buffer,"gbk");+ console.log(data2); 执行14-readFileSync.js 123456$ node 14-readFileSync.js [ti:血染的风采][ar:黄耀明]...中间省略[03:25.51] * * *[03:32.98] ---End--- done,成功读取。 下面我们用异步的方式再来读取一下 15-readFile.js 12345678910const fs = require("fs");const path = require("path");const iconv = require("iconv-lite");const filename = path.join(__dirname,"./blood.lrc");fs.readFile(filename,(err,data) =&gt; &#123; if(err) throw err; console.log(iconv.decode(data,"gbk"));&#125;); 执行15-readFile.js 123456$ node 15-readFile.js [ti:血染的风采][ar:黄耀明]...中间省略[03:25.51] * * *[03:32.98] ---End--- 也一样读取成功。 ​]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>编码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[英语跟读计划0726]]></title>
     <url>%2FEnglish%2Fenglish-reading-plan-0726.html</url>
     <content type="text"><![CDATA[必备句型​ This is gonna be the hottest day we’ve had so far this summer. 今夏以来这大概是最热的一天了 You can say that again. 你说的一点也没错 ​ 场景对话​ A: Oh my God. It’s so hot today. This is gonna be the hottest day we’ve had so far this summer. B: You can say that again! I’ve never suffered so much from the heat. ​ 参考译文​ A: 我的天啊，今天好热，今夏以来这大概是最热的一天了。 B: 你说的一点也没错，我还从没有经受过这么炎热的天气。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
