@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[跟李涛老师学后期03]]></title>
+    <url>%2FPhotography%2Ffolow-teacher-li-tao-in-the-later-03.html</url>
+    <content type="text"><![CDATA[输出与文件夹结构流程的最后一步就是输出了。 根据不同的使用场景（印刷还是放网上），选择不同的输出。 在Camera raw中，左下角点击储存图像 作为印刷输出在Bridge中单张输出格式选择为TIFF 压缩格式为LZW和ZIP都可以，这两个都是无损压缩，如果不勾这个选项，输出的片子会非常大，因为TIFF都是全尺寸输出。 色彩空间选择Adobe RGB(1998) 色彩空间相加端可以设置，要设置成Adobe RGB(1998),不能用sRGB,因为前者的色域比后者的色域大很多，sRGB只有一个地方可用，那就是互联网，如果是向网上输出，采用sRGB 色彩深度最好设置成16位，16位的空间更大。如果真要高品质的输出一定要16位地输出。一个通道里面如果是8位，这个通道是256个颜色，每个通道是256个颜色；如果是16位，每个通道是65000色。 然后输出到“成品”文件夹，项目结构如下 12345|--20170805_demo |--成品 |--_DSC0019.JPG |--_DSC0019.ARW |--... 批处理先选中需要存储的片子，然后command + R或者ctrl + R打开Camera raw，然后点击全选，在点击存储图像,然后重复上面的步骤。 在Photoshop中文件 ——&gt;存储为——&gt;格式选择为TIFF，勾选”嵌入颜色配置文件：Adobe RGB(1998)”——&gt;然后在压缩 作为网络输出在Bridge中把文件选中，command + R打开Camera raw，点击存储图像，格式选择为“JPEG”，品质给到8，只能存双数，不要存单数，因为单数的损失更大。默认值设置为8，觉得不太重要就给6.色彩空间一定要变为sRGB,因为是向互联网输出，浏览器只认sRGB,色彩深度只能是8位，因为JEPG记录不了16位的色彩深度，设置16位也没有用，输出大小单边尺寸1500点~2000点就够了。 在Photoshop中选择文件——&gt;脚本——&gt;图像处理器 连文件夹都不用给，点击运行之后会在目录下自动生成一个叫JPEG的文件夹，里面就是jpeg文件。 最后的目录结构是这个样子的 12345678910|--20170805_demo |--成品 |--JPEG |--_DSC0019.jpeg |--... |--_DSC0019.TIFF |--... |--_DSC0019.JPG |--_DSC0019.ARW |--... 水平校正好照片决定性瞬间可能达不到，需要二次构图。 布列松的口号是决定性瞬间，他的取景器是倒置的，学生：马克吕布的第一张作品《跳舞的油漆工人》拿到了大奖。倒置就排除了很多干扰，观察的世界不是印象中的世界，只能看到一些形体化的东西，所以拍出了不一样的东西。 二次构图的技巧，垂直线技巧，一定要保证片子横平竖直，这是基本功。 因为镜头是有畸变的，所以把线拍直有时并不是那么简单。 水平垂直校正可用拉直工具，根据照片需要的效果去裁切。 垂直校正用广角镜头拍，水平保证了，我们会发现垂直的都歪了，这就是广角透视造成的，产生了畸变，垂直校正用镜头校正 镜头校正要在基本的五步之前。 摄影基本功扎不扎实，看你拍东西能不能拍直。 启用镜头配置文件 删除色差值，色差就是在大光比的情况下，会出现的紫边，不容易察觉，但是删除色差能把它剔除掉。 手动，手动调节 调相机校准 总结标准流程： 文件夹命名（日期文件夹、成品文件夹、jpeg文件夹、作品文件夹） 打星过滤 相机、镜头校准 五条技术指标规范。 局部处理。 二次构图二次构图就是做减法，减到趣味中心点上，减到自己想要的东西，画面干干净净。 思考： 摄影师能否在拍摄的一瞬间，融入到当前的拍摄环境中去？ 是否令观者感同身受？ 这些都跟自己的经历与阅历有关系 局部处理工具：调整画笔、渐变滤镜 多数情况下我们是使用调整画笔来调的 局部调整时，先动参数，再用工具。 用渐变滤镜时候，先缩小图片。 渐变滤镜只能从边上到中间。 如果要加滤镜，要先点新建。 画笔：羽化是渐变的范围。流动不要开太大，更浓度有关。可以慢慢刷。 ​ 本文结束，感谢阅读。 参考资料：[李涛] 简单摄影后期课本文作者：melody0z 本文链接：https://melodyvoid/Photography/folow-teacher-li-tao-in-the-later-03.html 欢迎转载，转载请注明文本链接]]></content>
+      <categories>
+        <category>Photography</category>
+      </categories>
+      <tags>
+        <tag>后期</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[英语跟读计划0805]]></title>
-    <url>%2FEnglish%2F%E8%8B%B1%E8%AF%AD%E8%B7%9F%E8%AF%BB%E8%AE%A1%E5%88%920805.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0805.html</url>
     <content type="text"><![CDATA[必备句型​ What luck! We’ve run out of gas. 真倒霉！汽油用光了 Today just isn’t my day. 今天真是什么都不顺心 ​ 场景对话​ A: What luck! We’ve run out of gas. B: Today just isn’t my day. What should we do now? A: Then we’ll have to get off and run to our office. B: I hope we won’t be late. ​ 参考译文​ A: 真倒霉！汽油用光了。 B: 今天真是什么都不顺心。我们现在该怎么办？ A: 那我们得要下车跑到办公室了。 B: 希望我们不会迟到。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
