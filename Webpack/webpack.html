@@ -100,12 +100,12 @@
 <meta property="og:url" content="http://yoursite.com/Webpack/webpack.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="安装nodejsHttps://nodejs.org/en/ npm NodeJS包管理和分发工具 Http://npmjs.org/  npm常用命令 npm init 创建package.json文件 npm install &amp;lt;module-name&amp;gt; -g/--save-dev/--save安装模块 npm update &amp;lt;module-name&amp;gt;更新模块 npm u">
-<meta property="og:image" content="http://yoursite.com/Webpack/webpack1.png">
-<meta property="og:updated_time" content="2017-08-25T11:39:34.000Z">
+<meta property="og:image" content="http://yoursite.com/images/webpack1.png">
+<meta property="og:updated_time" content="2017-08-25T11:42:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack">
 <meta name="twitter:description" content="安装nodejsHttps://nodejs.org/en/ npm NodeJS包管理和分发工具 Http://npmjs.org/  npm常用命令 npm init 创建package.json文件 npm install &amp;lt;module-name&amp;gt; -g/--save-dev/--save安装模块 npm update &amp;lt;module-name&amp;gt;更新模块 npm u">
-<meta name="twitter:image" content="http://yoursite.com/Webpack/webpack1.png">
+<meta name="twitter:image" content="http://yoursite.com/images/webpack1.png">
 
 
 
@@ -523,7 +523,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);   <span class="comment">//1.引入webpack</span></div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./index.js'</span>,</div><div class="line">  <span class="comment">//2.添加插件</span></div><div class="line">  plugins: [</div><div class="line">    <span class="keyword">new</span> webpack.HotModuleReplacementPlugin() <span class="comment">// Enable HMR</span></div><div class="line">  ],</div><div class="line"></div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">filename</span>: <span class="string">'main.js'</span>,</div><div class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">'dist'</span>),   <span class="comment">//路径是个坑，不能写相对路径</span></div><div class="line">    publicPath: <span class="string">'/'</span></div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attr">devServer</span>: &#123;</div><div class="line">    <span class="attr">hot</span>: <span class="literal">true</span>, <span class="comment">//3. Tell the dev-server we're using HMR</span></div><div class="line">    contentBase: path.resolve(__dirname, <span class="string">'dist'</span>),</div><div class="line">    <span class="attr">publicPath</span>: <span class="string">'/'</span></div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>又发现一个有趣的事情</p>
 <p>在命令行里执行<code>webpack-dev-server --hot --inline</code>然后打开localhost:8080 发现是目录界面</p>
-<p><img src="webpack1.png" alt=""></p>
+<p><img src="/images/webpack1.png" alt=""></p>
 </li>
 </ul>
 <p>原因是配置有问题</p>
