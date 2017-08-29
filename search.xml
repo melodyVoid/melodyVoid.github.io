@@ -1,9 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[英语跟读计划0829]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0829.html</url>
+    <content type="text"><![CDATA[必备句型​ Is there anything worth watching on the channel? 有什么好看的节目吗？ But the first season is over. 但是第一季已经演完了。 ​ 场景对话​ A: Is there anything worth watching on the channel? B: I heard that you love Grimm, but the first season is over,right? A: Yes, Fortunately, the second season is showing on TV at the moment, so I can catch up with it now. ​ 参考译文​ A: 有什么好看的节目吗？ B: 我听说你超喜欢《格林》，但是第一季已经演完了，是吗？ A: 是演完了，幸运的是第二季又开始播了，我又有机会追这部剧了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0828]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0828.html</url>
+    <content type="text"><![CDATA[必备句型​ You mean the world to me. 你是我的一切。 Let me take care of you forever. 让我来照顾你一辈子吧。 ​ 场景对话​ A: After all of this, I think that I can’t live without you. B: I feel the same way, Charles. You mean the world to me, and thank you for being my boyfriend and being around. A: Let me take care of you forever. Annie. ​ 参考译文​ A: 经历了所有这些之后，我想不能没有你。 B: 我也是，Charles.你说我的一切，谢谢你当我的男朋友，并且一直陪在我的身边。 A: 让我来照顾你一辈子吧，Annie。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0827]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0827.html</url>
+    <content type="text"><![CDATA[必备句型​ He would do anything to help the people in need. 他会尽力帮助有困难的人。 He has a bad temper though. 他确实脾气不好。 ​ 场景对话​ A: He’s warm-hearted, he would do anything to help the people in need. B: Well,that’s true.But I still couldn’t believe that he yelled at the waitress last week. A: I know. He has a bad temper though. ​ 参考译文​ A: 他很热心，会尽力帮助有困难的人。 B: 是的。但是我还是无法相信他上周朝服务员大声喊叫。 A: 我知道，他确实脾气不好。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0826]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0826.html</url>
+    <content type="text"><![CDATA[必备句型​ I’m afraid that I don’t have enough time to take care fo the pets. 我恐怕没有那么多时间照顾宠物。 I am going to walk the dog. 我要去遛狗了。 ​ 场景对话​ A: Wow,You really like your dog. B: Yes, he means a lot to me. I consider him as a part of the family. A: I’m afraid that I don’t have enough time to take care fo the pets. B: You are just too busy, anyway,I am going to walk the dog.Talk to you later. ​ 参考译文​ A: 哇，你真的很爱你的狗。 B: 是啊，他对我来说可重要了，我把他看成是家庭的一份子。 A: 我恐怕没有那么多时间照顾宠物。 B: 你就是太忙了，我要去遛狗了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[caller和callee]]></title>
     <url>%2Funcategorized%2Fcaler-and-cale.html</url>
     <content type="text"><![CDATA[caller返回一个函数的引用，这个函数调用了当前的函数;callee放回正在执行的函数本身的引用，它是arguments的一个属性 #caller caller返回一个函数的引用，这个函数调用了当前的函数。使用这个属性要注意:1 这个属性只有当函数在执行时才有用2 如果在JavaScript程序中，函数是由顶层调用的，则返回null functionName.caller: functionName是当前正在执行的函数。 1234567var a = function() &#123; alert(a.caller); &#125; var b = function() &#123; a(); &#125; b(); 上面的代码中，b调用了a，那么a.caller返回的是b的引用，结果如下: 123var b = function() &#123; a(); &#125; 如果直接调用a(即a在任何函数中被调用，也就是顶层调用),返回null: 12345678var a = function() &#123; alert(a.caller); &#125; var b = function() &#123; a(); &#125; //b(); a(); 输出结果:null #callee callee放回正在执行的函数本身的引用，它是arguments的一个属性使用callee时要注意:1 这个属性只有在函数执行时才有效2 它有一个length属性，可以用来获得形参的个数，因此可以用来比较形参和实参个数是否一致，即比较arguments.length是否等于arguments.callee.length3 它可以用来递归匿名函数。 1234567var a = function() &#123; alert(arguments.callee); &#125; var b = function() &#123; a(); &#125; b(); a在b中被调用，但是它返回了a本身的引用，结果如下: 123var a = function() &#123; alert(arguments.callee); &#125; 1 ：caller 返回一个调用当前函数的引用 如果是由顶层调用的话 则返回null （举个栗子哈 caller给你打电话的人 谁给你打电话了 谁调用了你 很显然是下面a函数的执行 只有在打电话的时候你才能知道打电话的人是谁 所以对于函数来说 只有caller在函数执行的时候才存在） 1234567891011var callerTest = function() &#123; console.log(callerTest.caller); &#125;;function a() &#123; callerTest() ; &#125;a() ;//输出function a() &#123;callerTest();&#125;callerTest() ;//输出null 2 ：callee 返回一个正在被执行函数的引用 （这里常用来递归匿名函数本身 但是在严格模式下不可行） ​ callee是arguments对象的一个成员 表示对函数对象本身的引用 它有个length属性（代表形参的长度） 1234567var c = function(x,y) &#123; console.log(arguments.length,arguments.callee.length,arguments.callee)&#125;;c(1,2,3);//输出3 2 function(x,y)&#123;console.log(arguments.length,arguments.callee.length,arguments.callee)&#125; 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/ 欢迎转载，转载请注明文本链接]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[英语跟读计划0825]]></title>
+    <url>%2FEnglish%2Fenglish-reading-plan-0825.html</url>
+    <content type="text"><![CDATA[必备句型​ I am going to have a picnic with my friends. 我打算跟朋友去野餐。 I think we have a bad connection. 我觉得信号不太好。 ​ 场景对话​ A: Hey, Frank. It’s me, Allen. Do you have any plans for this weekend? B: I am going to have a picnic with my friends. A: I think we have a bad connection, could you speak a little bit louder please? B: Okay,I’ll call you back. ​ 参考译文​ A: 嘿，Frank，是我Allen，你这周末有什么安排吗？ B: 我打算跟朋友去野餐。 A: 我觉得信号不太好，你能说大声点吗？ B: 好的，我再打给你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
+      <categories>
+        <category>English</category>
+      </categories>
+      <tags>
+        <tag>reading</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0824]]></title>
