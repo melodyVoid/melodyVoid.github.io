@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/JavaScript/eight-sections-of-code-understanding-promise.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="Promise的立即执行性12345678910let p = new Promise((resolve,reject)=&amp;gt;&amp;#123;  console.log(&quot;create a promise&quot;);  resolve(&quot;success&quot;);&amp;#125;);console.log(&quot;after new Promise&quot;);p.then((value)=&amp;gt;&amp;#123;  consol">
-<meta property="og:updated_time" content="2017-09-15T05:44:51.000Z">
+<meta property="og:updated_time" content="2017-09-15T05:46:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="八段代码理解Promise">
 <meta name="twitter:description" content="Promise的立即执行性12345678910let p = new Promise((resolve,reject)=&amp;gt;&amp;#123;  console.log(&quot;create a promise&quot;);  resolve(&quot;success&quot;);&amp;#125;);console.log(&quot;after new Promise&quot;);p.then((value)=&amp;gt;&amp;#123;  consol">
@@ -453,9 +453,9 @@
 <p>控制台输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rejected:[object Promise]</div><div class="line">fulfilled:resolve</div><div class="line">rejected:reject</div></pre></td></tr></table></figure>
 <p>Promise回调函数中的第一个参数<code>resolve</code>，会对Promise执行“拆箱”动作。即当<code>resolve</code>的参数是一个Promise对象时，<code>resolve</code>会“拆箱”获取这个Promise对象的状态和值，但这个过程是异步的。p1“拆箱”后，获取到Promise对象的状态时resolved，因此<code>fulfilled</code>回调被执行；p2”拆箱“后，获取到Promise对象的状态是rejected，因此<code>rejected</code>回调被执行。但Promise回到函数中的第二个参数<code>reject</code>不具备”拆箱“的能力，reject的参数会直接传递给then方法中的rejected回调。因此，即使p3<code>reject</code>接受了一个resolveed状态的Promise，<code>then</code>方法中被调用的依然是<code>rejected</code>,并且参数就是<code>reject</code>接收到的Promise对象。</p>
+<h1 id="参考地址："><a href="#参考地址：" class="headerlink" title="参考地址："></a>参考地址：</h1><p><a href="https://juejin.im/post/597724c26fb9a06bb75260e8?utm_source=gold_browser_extension" target="_blank" rel="external">https://juejin.im/post/597724c26fb9a06bb75260e8?utm_source=gold_browser_extension</a></p>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<p>参考地址：<a href="https://juejin.im/post/597724c26fb9a06bb75260e8?utm_source=gold_browser_extension" target="_blank" rel="external">https://juejin.im/post/597724c26fb9a06bb75260e8?utm_source=gold_browser_extension</a></p>
 <div class="note danger"><p><strong>本文作者：</strong> 苍山沭河<br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/eight-sections-of-code-understanding-promise.html" target="_blank" rel="external">https://melodyvoid/JavaScript/eight-sections-of-code-understanding-promise.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
@@ -693,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise的立即执行性"><span class="nav-number">1.</span> <span class="nav-text">Promise的立即执行性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise三种状态"><span class="nav-number">2.</span> <span class="nav-text">Promise三种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise状态的不可逆性"><span class="nav-number">3.</span> <span class="nav-text">Promise状态的不可逆性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链式调用"><span class="nav-number">4.</span> <span class="nav-text">链式调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-then-回调异步性"><span class="nav-number">5.</span> <span class="nav-text">Promise then()回调异步性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise中的异常"><span class="nav-number">6.</span> <span class="nav-text">Promise中的异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-resolve"><span class="nav-number">7.</span> <span class="nav-text">Promise.resolve()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resolve-vs-reject"><span class="nav-number">8.</span> <span class="nav-text">resolve vs reject</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise的立即执行性"><span class="nav-number">1.</span> <span class="nav-text">Promise的立即执行性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise三种状态"><span class="nav-number">2.</span> <span class="nav-text">Promise三种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise状态的不可逆性"><span class="nav-number">3.</span> <span class="nav-text">Promise状态的不可逆性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链式调用"><span class="nav-number">4.</span> <span class="nav-text">链式调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-then-回调异步性"><span class="nav-number">5.</span> <span class="nav-text">Promise then()回调异步性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise中的异常"><span class="nav-number">6.</span> <span class="nav-text">Promise中的异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-resolve"><span class="nav-number">7.</span> <span class="nav-text">Promise.resolve()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resolve-vs-reject"><span class="nav-number">8.</span> <span class="nav-text">resolve vs reject</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考地址："><span class="nav-number">9.</span> <span class="nav-text">参考地址：</span></a></li></ol></div>
             
 
           </div>
