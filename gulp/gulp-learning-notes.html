@@ -100,8 +100,9 @@
 <meta property="og:url" content="http://yoursite.com/gulp/gulp-learning-notes.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="gulp是什么我们来看官网给出的解释：  Automate and enhance your workflow 翻译过来就是：用自动化构建工具增强你的工作流程！ gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器；它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成；使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。 gulp能用来">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/12node-sass.png">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gulp学习笔记">
 <meta name="twitter:description" content="gulp是什么我们来看官网给出的解释：  Automate and enhance your workflow 翻译过来就是：用自动化构建工具增强你的工作流程！ gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器；它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成；使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。 gulp能用来">
@@ -423,7 +424,7 @@
 <li>……</li>
 </ul>
 <p>gulp有极丰富的插件来帮助我们实现各种功能</p>
-<p>gulp插件地址：<a href="http://gulpjs.com/plugins" target="_blank" rel="external">http://gulpjs.com/plugins</a></p>
+<p>gulp插件地址：<a href="http://gulpjs.com/plugins" target="_blank" rel="noopener">http://gulpjs.com/plugins</a></p>
 <h1 id="安装gulp"><a href="#安装gulp" class="headerlink" title="安装gulp"></a>安装gulp</h1><p>前提假设我们已经安装了node，并且对npm也了解</p>
 <h2 id="全局安装gulp"><a href="#全局安装gulp" class="headerlink" title="全局安装gulp"></a>全局安装gulp</h2><p>全局安装gulp目的是为了通过它执行gulp任务</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install gulp -g</div></pre></td></tr></table></figure>
@@ -515,7 +516,7 @@
 <li>创建一个本地的开发服务器</li>
 <li>…</li>
 </ul>
-<p>gulp插件地址：[<a href="http://gulpjs.com/plugins" target="_blank" rel="external">http://gulpjs.com/plugins</a></p>
+<p>gulp插件地址：[<a href="http://gulpjs.com/plugins" target="_blank" rel="noopener">http://gulpjs.com/plugins</a></p>
 <p>使用方法都类似</p>
 <ol>
 <li>先找到所需的插件，然后<code>npm install 插件名 --save-dev</code>安装</li>
@@ -531,7 +532,7 @@
 <p>在Stack Overflow上查了一下，说让我们运行一下<code>npm rebuild node-sass</code></p>
 <p>于是我们执行<code>npm rebuild node-sass</code></p>
 <p>然后再执行<code>gulp sass</code></p>
-<p>还是不行，于是我们在<a href="https://github.com/sass/node-sass/releases/tag/v3.13.1里看到了" target="_blank" rel="external">https://github.com/sass/node-sass/releases/tag/v3.13.1里看到了</a></p>
+<p>还是不行，于是我们在<a href="https://github.com/sass/node-sass/releases/tag/v3.13.1里看到了" target="_blank" rel="noopener">https://github.com/sass/node-sass/releases/tag/v3.13.1里看到了</a></p>
 <p><img src="/images/12node-sass.png" alt=""></p>
 <p>想起来我装的是node的最新版，输入<code>node -v</code></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node -v</div><div class="line">v8.<span class="number">2.1</span></div></pre></td></tr></table></figure>
@@ -550,7 +551,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</div><div class="line"><span class="keyword">const</span> connect = <span class="built_in">require</span>(<span class="string">"gulp-connect"</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"server"</span>,()=&gt;&#123;</div><div class="line">    connect.server(&#123;</div><div class="line">      	<span class="comment">//在这个配置对象里可以配置端口，根目录等相关信息</span></div><div class="line">        root:<span class="string">"dist"</span></div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>然后执行<code>gulp server</code>，我们会看到如下信息</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ gulp server</div><div class="line">[<span class="number">17</span>:<span class="number">47</span>:<span class="number">54</span>] Using gulpfile ~/WebstormProjects/Gulp/gulpfile.js</div><div class="line">[<span class="number">17</span>:<span class="number">47</span>:<span class="number">54</span>] Starting <span class="string">'server'</span>...</div><div class="line">[<span class="number">17</span>:<span class="number">47</span>:<span class="number">54</span>] Finished <span class="string">'server'</span> after <span class="number">51</span> ms</div><div class="line">[<span class="number">17</span>:<span class="number">47</span>:<span class="number">54</span>] Server started http://localhost:<span class="number">8080</span></div></pre></td></tr></table></figure>
-<p>告诉我们在<a href="http://localhost:8080就可以查看网页了" target="_blank" rel="external">http://localhost:8080就可以查看网页了</a></p>
+<p>告诉我们在<a href="http://localhost:8080就可以查看网页了" target="_blank" rel="noopener">http://localhost:8080就可以查看网页了</a></p>
 <h1 id="reload"><a href="#reload" class="headerlink" title="reload"></a>reload</h1><p>当某些文件变化以后，能实时地刷新页面，这样就不用每次修改之后，再手动地刷新页面来查看变化。</p>
 <p>打开gulpfile.js,找到创建服务器的任务，把livereload的值设置为true</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</div><div class="line"><span class="keyword">const</span> connect = <span class="built_in">require</span>(<span class="string">"gulp-connect"</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"copy"</span>,()=&gt;&#123;</div><div class="line">    <span class="keyword">return</span> gulp.src(<span class="string">"index.html"</span>)</div><div class="line">        .pipe(gulp.dest(<span class="string">"dist"</span>))</div><div class="line">    	<span class="comment">//2.文件复制过后执行reload方法</span></div><div class="line">    	.pipe(connect.reload())</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"images"</span>,()=&gt;&#123;</div><div class="line">    <span class="keyword">return</span> gulp.src(<span class="string">"images/**/*"</span>)</div><div class="line">        .pipe(gulp.dest(<span class="string">"dist/images"</span>))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"data"</span>,()=&gt;&#123;</div><div class="line">    <span class="keyword">return</span> gulp.src([<span class="string">"json/*.json"</span>,<span class="string">"xml/*.xml"</span>])</div><div class="line">        .pipe(gulp.dest(<span class="string">"dist/data"</span>))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"watch"</span>,()=&gt;&#123;</div><div class="line">    gulp.watch(<span class="string">"index.html"</span>,[<span class="string">"copy"</span>]);</div><div class="line">    gulp.watch(<span class="string">"images/**/*.&#123;png,jpg&#125;"</span>,[<span class="string">"images"</span>]);</div><div class="line">    gulp.watch([<span class="string">"json/*.json"</span>,<span class="string">"xml/*.xml"</span>,<span class="string">"!json/negate-*.json"</span>],[<span class="string">"data"</span>]);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(<span class="string">"server"</span>,()=&gt;&#123;</div><div class="line">    connect.server(&#123;</div><div class="line">        <span class="attr">root</span>:<span class="string">"dist"</span>,</div><div class="line">      	<span class="comment">//1.将livereload设置为true</span></div><div class="line">        livereload: <span class="literal">true</span></div><div class="line">    &#125;)</div><div class="line">&#125;);</div><div class="line"><span class="comment">//3.设置默认任务，依赖于server和watch</span></div><div class="line">gulp.task(<span class="string">"default"</span>, [<span class="string">"server"</span>,<span class="string">"watch"</span>]);</div></pre></td></tr></table></figure>
@@ -589,7 +590,7 @@
 <p>然后执行<code>gulp images</code>就可以执行了。</p>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/gulp/gulp-learning-notes.html" target="_blank" rel="external">https://melodyvoid/gulp/gulp-learning-notes.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/gulp/gulp-learning-notes.html" target="_blank" rel="noopener">https://melodyvoid/gulp/gulp-learning-notes.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -746,7 +747,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -858,7 +859,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

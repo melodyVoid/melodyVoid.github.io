@@ -100,13 +100,14 @@
 <meta property="og:url" content="http://yoursite.com/Node/verify-node-single-thread.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="现象我们由一段代码入手(文件名：02.js); 123456789101112131415const http = require(&quot;http&quot;);let count = 0;const server = http.createServer((req,res) =&amp;gt; &amp;#123;    res.writeHead(200,&amp;#123;&quot;Content-Type&quot;:&quot;text/html;cha">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/06.png">
 <meta property="og:image" content="http://yoursite.com/images/07.png">
 <meta property="og:image" content="http://yoursite.com/images/08.png">
 <meta property="og:image" content="http://yoursite.com/images/09.png">
 <meta property="og:image" content="http://yoursite.com/images/10blocking.png">
 <meta property="og:image" content="http://yoursite.com/images/11blocking.png">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="验证node单线程">
 <meta name="twitter:description" content="现象我们由一段代码入手(文件名：02.js); 123456789101112131415const http = require(&quot;http&quot;);let count = 0;const server = http.createServer((req,res) =&amp;gt; &amp;#123;    res.writeHead(200,&amp;#123;&quot;Content-Type&quot;:&quot;text/html;cha">
@@ -442,12 +443,12 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"> </div><div class="line"> <span class="keyword">let</span> count = <span class="number">0</span>;</div><div class="line"> </div><div class="line"> <span class="keyword">const</span> server = http.createServer(<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</div><div class="line">     <span class="keyword">if</span>(req.url === <span class="string">"/favicon.ico"</span>) <span class="keyword">return</span>;</div><div class="line">     res.writeHead(<span class="number">200</span>,&#123;<span class="string">"Content-Type"</span>:<span class="string">"text/html;charset=UTF-8"</span>&#125;);</div><div class="line">     res.write(<span class="string">`你是第<span class="subst">$&#123;count++&#125;</span>个访问用户`</span>);</div><div class="line">+    <span class="comment">//如果count计数到5的话，我们就让它阻塞</span></div><div class="line">+    <span class="keyword">if</span>(count === <span class="number">5</span>)&#123;</div><div class="line">+        <span class="keyword">while</span>(<span class="literal">true</span>) &#123; &#125;</div><div class="line">+    &#125;</div><div class="line">     res.end();</div><div class="line"> &#125;);</div><div class="line"> </div><div class="line"> server.listen(<span class="number">3000</span>,(err) =&gt; &#123;</div><div class="line">     <span class="comment">//出现错误的情况就是端口被占用</span></div><div class="line">     <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</div><div class="line">     <span class="built_in">console</span>.log(<span class="string">"server is running at http://localhost:3000/"</span>)</div><div class="line"> &#125;);</div></pre></td></tr></table></figure>
 <p>我们再来执行它，然后刷新刷新，count计数到5的时候就会阻塞，我们看</p>
 <p><img src="/images/10blocking.png" alt="blocking"></p>
-<p>这是，我们重新开一个页面，输入<a href="http://localhost:3000" target="_blank" rel="external">http://localhost:3000</a></p>
+<p>这是，我们重新开一个页面，输入<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></p>
 <p><img src="/images/11blocking.png" alt="blocking"></p>
 <p>我们发现新开的页面也是阻塞的，为什么呢？就是因为node是单线程，一个地方阻塞了，就都阻塞了。</p>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid.github.io/Node/verify-node-single-thread.html" target="_blank" rel="external">https://melodyvoid.github.io/Node/verify-node-single-thread.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid.github.io/Node/verify-node-single-thread.html" target="_blank" rel="noopener">https://melodyvoid.github.io/Node/verify-node-single-thread.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -602,7 +603,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -714,7 +715,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

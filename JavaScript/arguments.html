@@ -100,7 +100,8 @@
 <meta property="og:url" content="http://yoursite.com/JavaScript/arguments.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="1234567891011var length = 10;function fn()&amp;#123;    alert(this.length)&amp;#125;var obj = &amp;#123;    length: 5,    method: function(fn) &amp;#123;        arguments[0]()    &amp;#125;&amp;#125;obj.method(fn)//输出1 这里没有输">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="arguments">
 <meta name="twitter:description" content="1234567891011var length = 10;function fn()&amp;#123;    alert(this.length)&amp;#125;var obj = &amp;#123;    length: 5,    method: function(fn) &amp;#123;        arguments[0]()    &amp;#125;&amp;#125;obj.method(fn)//输出1 这里没有输">
@@ -408,7 +409,7 @@
 
       
         <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> length = <span class="number">10</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="keyword">this</span>.length)</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">length</span>: <span class="number">5</span>,</div><div class="line">    <span class="attr">method</span>: <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">        <span class="built_in">arguments</span>[<span class="number">0</span>]()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">obj.method(fn)<span class="comment">//输出1</span></div></pre></td></tr></table></figure>
-<p>这里没有输出5，也没有输出10，反而输出了1，有趣。这里arguments是javascript的一个<strong>内置对象</strong>（可以参见mdn：<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/arguments" target="_blank" rel="external">arguments - JavaScript**</a>），是一个类数组（就是长的比较像数组，但是欠缺一些数组的方法，可以用slice.call转换，具体参见上面的链接），其存储的是<strong>函数的参数</strong>。也就是说，这里arguments[0]指代的就是你method函数的第一个参数：fn，所以arguments<a href="">0</a>的意思就是：fn()。</p>
+<p>这里没有输出5，也没有输出10，反而输出了1，有趣。这里arguments是javascript的一个<strong>内置对象</strong>（可以参见mdn：<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/arguments" target="_blank" rel="noopener">arguments - JavaScript**</a>），是一个类数组（就是长的比较像数组，但是欠缺一些数组的方法，可以用slice.call转换，具体参见上面的链接），其存储的是<strong>函数的参数</strong>。也就是说，这里arguments[0]指代的就是你method函数的第一个参数：fn，所以arguments<a href="">0</a>的意思就是：fn()。</p>
 <p>不过这里有个疑问，为何这里没有输出5呢？我method里面用this，不应该指向obj么，至少也会输出10呀，这个1是闹哪样？</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">arguments</span> = &#123;</div><div class="line">    <span class="number">0</span>: fn, <span class="comment">//也就是 functon() &#123;alert(this.length)&#125; </span></div><div class="line">    <span class="number">1</span>: 第二个参数, <span class="comment">//没有 </span></div><div class="line">    <span class="number">2</span>: 第三个参数, <span class="comment">//没有</span></div><div class="line">    ..., </div><div class="line">    <span class="attr">length</span>: <span class="number">1</span> <span class="comment">//只有一个参数</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>所以这里alert出来的结果是1。</p>
@@ -417,7 +418,7 @@
 <p>我们可以看看最后这个调用：obj.method(fn).<br>其中，obj是对象，method是obj的方法，fn是method的参数，fn是函数的名–引用对应的函数。arguments是取得当前method函数的参数数组，arguments[0]就是参数fn。<br>加个括号其实是函数调用。<br>这个obj.method(fn) 在runtime就是fn()，即调用alert(this.length)。比较操蛋的是现在有三个length，第一是global的length=10,其次是obj的this.length=5，还有一个是arguments数组本身的length属性，其值等于1——只有一个参数传给obj.method方法。这个例子讲的是JavaScript中this引用的，这个的this是caller的this，这里引用是arguments数组的length。所以这个例子的结果是：<br>alert(arguments.length); = alert(1)</p>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/arguments.html" target="_blank" rel="external">https://melodyvoid/JavaScript/arguments.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/arguments.html" target="_blank" rel="noopener">https://melodyvoid/JavaScript/arguments.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -563,7 +564,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -659,7 +660,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -100,7 +100,8 @@
 <meta property="og:url" content="http://yoursite.com/JavaScript/framework-design.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="思路： 选择引擎  DOM操作模块（增删）  事件模块click，on，…  属性模块attr,text,html,val…  样式模块css,hasClass…  动画模块  整合    做个小例子：页面有一堆div和p，给它们加上背景色 12345678var aDiv = document.getElementsByTagName(&quot;div&quot;);var aP = document.getEl">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="框架设计">
 <meta name="twitter:description" content="思路： 选择引擎  DOM操作模块（增删）  事件模块click，on，…  属性模块attr,text,html,val…  样式模块css,hasClass…  动画模块  整合    做个小例子：页面有一堆div和p，给它们加上背景色 12345678var aDiv = document.getElementsByTagName(&quot;div&quot;);var aP = document.getEl">
@@ -464,7 +465,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getByTag</span> (<span class="params">tag</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="built_in">document</span>.getElementsByTagName(tag);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">each</span>(<span class="params">arr,fn</span>)</span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">    <span class="keyword">if</span>( fn.call(arr[i],i,arr[i]) === <span class="literal">false</span>)  <span class="keyword">break</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> aDiv = getByTag(<span class="string">"div"</span>);</div><div class="line"><span class="keyword">var</span> aP = getByTag(<span class="string">"p"</span>);</div><div class="line">each(aDiv,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.style.backgroundColor = <span class="string">"red"</span>;</div><div class="line">&#125;);</div><div class="line">each(aP,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.style.backgroundColor = <span class="string">"red"</span>;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/framework-design.html" target="_blank" rel="external">https://melodyvoid/JavaScript/framework-design.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/framework-design.html" target="_blank" rel="noopener">https://melodyvoid/JavaScript/framework-design.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -619,7 +620,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -731,7 +732,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

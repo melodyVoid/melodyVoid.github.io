@@ -100,8 +100,9 @@
 <meta property="og:url" content="http://yoursite.com/Webpack/webpack.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="安装nodejsHttps://nodejs.org/en/ npm NodeJS包管理和分发工具 Http://npmjs.org/  npm常用命令 npm init 创建package.json文件 npm install &amp;lt;module-name&amp;gt; -g/--save-dev/--save安装模块 npm update &amp;lt;module-name&amp;gt;更新模块 npm u">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/webpack1.png">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack">
 <meta name="twitter:description" content="安装nodejsHttps://nodejs.org/en/ npm NodeJS包管理和分发工具 Http://npmjs.org/  npm常用命令 npm init 创建package.json文件 npm install &amp;lt;module-name&amp;gt; -g/--save-dev/--save安装模块 npm update &amp;lt;module-name&amp;gt;更新模块 npm u">
@@ -426,7 +427,7 @@
 <li>处理依赖关系，然后解析出模块之间的依赖，将代码打包</li>
 <li>把各种资源都作为模块来使用和处理</li>
 <li>比如js、css、less、sass等</li>
-<li><a href="http://webpack.github.io/" target="_blank" rel="external">http://webpack.github.io/</a></li>
+<li><a href="http://webpack.github.io/" target="_blank" rel="noopener">http://webpack.github.io/</a></li>
 </ul>
 <h3 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h3><ul>
 <li><p><code>npm install webpack -g</code></p>
@@ -550,7 +551,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"><span class="comment">//1.引入插件</span></div><div class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">entry</span>:&#123;</div><div class="line">      <span class="attr">bundle</span>:<span class="string">"./src/index.js"</span>,</div><div class="line">      <span class="attr">abc</span>:<span class="string">"./src/abc.js"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">output</span>:&#123;</div><div class="line">        <span class="attr">filename</span>:<span class="string">"[name].js"</span>,</div><div class="line">        <span class="comment">//2.设置路径</span></div><div class="line">        path:path.resolve(__dirname,<span class="string">"dist"</span>)</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="comment">//3.使用插件</span></div><div class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</div><div class="line">            <span class="attr">title</span>:<span class="string">"我是新生成的页面"</span>,</div><div class="line">            <span class="attr">chunks</span>:[<span class="string">"bundle"</span>]</div><div class="line">        &#125;),</div><div class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</div><div class="line">            <span class="attr">title</span>:<span class="string">"我是第二个页面"</span>，</div><div class="line">            filename:<span class="string">"index2.html"</span>,  <span class="comment">//注意这个不写，默认是index。html</span></div><div class="line">            chunks:[<span class="string">"abc"</span>]</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/Webpack/webpack.html" target="_blank" rel="external">https://melodyvoid/Webpack/webpack.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/Webpack/webpack.html" target="_blank" rel="noopener">https://melodyvoid/Webpack/webpack.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -705,7 +706,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -817,7 +818,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

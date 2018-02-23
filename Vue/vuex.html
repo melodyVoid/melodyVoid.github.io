@@ -100,7 +100,8 @@
 <meta property="og:url" content="http://yoursite.com/Vue/vuex.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="vuex初步了解第一步：安装vuex npm install vuex --save-dev或npm install vuex -D 第二步：创建store.js文件 第三步：在mian.js文件中引入stroe模块 1234567891011import Vue from &apos;vue&apos;import App from &apos;./App.vue&apos;//1.引入store模块import store from">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vuex">
 <meta name="twitter:description" content="vuex初步了解第一步：安装vuex npm install vuex --save-dev或npm install vuex -D 第二步：创建store.js文件 第三步：在mian.js文件中引入stroe模块 1234567891011import Vue from &apos;vue&apos;import App from &apos;./App.vue&apos;//1.引入store模块import store from">
@@ -450,7 +451,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">"vuex"</span></div><div class="line"></div><div class="line">Vue.use(Vuex);</div><div class="line"></div><div class="line"><span class="keyword">const</span> state = &#123;</div><div class="line">    <span class="attr">count</span>:<span class="number">2</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">//4.在mutations里面写方法的逻辑业务</span></div><div class="line"><span class="keyword">const</span> mutations = &#123;</div><div class="line">    plus(state)&#123;</div><div class="line">        state.count++</div><div class="line">    &#125;,</div><div class="line">    reduce(state)&#123;</div><div class="line">        state.count--</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//5.在actions里面调用</span></div><div class="line"><span class="keyword">const</span> actions = &#123;</div><div class="line">    <span class="comment">//完整的写</span></div><div class="line">    plus(context)&#123;</div><div class="line">        context.commit(<span class="string">"plus"</span>)</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//解构的写法</span></div><div class="line">    reduce(&#123;commit&#125;)&#123;</div><div class="line">        commit(<span class="string">"reduce"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"><span class="keyword">const</span> getters = &#123;</div><div class="line">    count(state)&#123;</div><div class="line">        <span class="keyword">return</span> state.count</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//注意：是new Vuex.Store()，一开始写的new Vuex()</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    state,</div><div class="line">    mutations,</div><div class="line">    getters,</div><div class="line">    <span class="comment">//6.把action添加到这里</span></div><div class="line">    actions</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/Vue/vuex.html" target="_blank" rel="external">https://melodyvoid/Vue/vuex.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/Vue/vuex.html" target="_blank" rel="noopener">https://melodyvoid/Vue/vuex.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -605,7 +606,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -717,7 +718,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

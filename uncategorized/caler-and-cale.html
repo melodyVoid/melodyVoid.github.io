@@ -99,7 +99,8 @@
 <meta property="og:url" content="http://yoursite.com/uncategorized/caler-and-cale.html">
 <meta property="og:site_name" content="melody0z">
 <meta property="og:description" content="caller返回一个函数的引用，这个函数调用了当前的函数;callee放回正在执行的函数本身的引用，它是arguments的一个属性 #caller caller返回一个函数的引用，这个函数调用了当前的函数。使用这个属性要注意:1 这个属性只有当函数在执行时才有用2 如果在JavaScript程序中，函数是由顶层调用的，则返回null functionName.caller: functionNa">
-<meta property="og:updated_time" content="2017-10-04T02:54:23.000Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-04T06:20:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="caller和callee">
 <meta name="twitter:description" content="caller返回一个函数的引用，这个函数调用了当前的函数;callee放回正在执行的函数本身的引用，它是arguments的一个属性 #caller caller返回一个函数的引用，这个函数调用了当前的函数。使用这个属性要注意:1 这个属性只有当函数在执行时才有用2 如果在JavaScript程序中，函数是由顶层调用的，则返回null functionName.caller: functionNa">
@@ -386,7 +387,7 @@
       
         <p>caller返回一个函数的引用，这个函数调用了当前的函数;callee放回正在执行的函数本身的引用，它是arguments的一个属性</p>
 <p>#<strong>caller</strong></p>
-<p>caller返回一个函数的引用，这个函数调用了当前的函数。<br>使用这个属性要注意:<br>1 这个属性只有当函数在执行时才有用<br>2 如果在<a href="http://lib.csdn.net/base/javascript" target="_blank" rel="external">JavaScript</a>程序中，函数是由顶层调用的，则返回null</p>
+<p>caller返回一个函数的引用，这个函数调用了当前的函数。<br>使用这个属性要注意:<br>1 这个属性只有当函数在执行时才有用<br>2 如果在<a href="http://lib.csdn.net/base/javascript" target="_blank" rel="noopener">JavaScript</a>程序中，函数是由顶层调用的，则返回null</p>
 <p>functionName.caller: functionName是当前正在执行的函数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;   </div><div class="line">	alert(a.caller);   </div><div class="line">&#125;   </div><div class="line"><span class="keyword">var</span> b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;   </div><div class="line">	a();   </div><div class="line">&#125;   </div><div class="line">b();</div></pre></td></tr></table></figure>
 <p>上面的代码中，b调用了a，那么a.caller返回的是b的引用，结果如下:</p>
@@ -408,7 +409,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> c = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>) </span>&#123;  </div><div class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>.length,<span class="built_in">arguments</span>.callee.length,<span class="built_in">arguments</span>.callee)</div><div class="line">&#125;;</div><div class="line"></div><div class="line">c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="comment">//输出3 2 </span></div><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;<span class="built_in">console</span>.log(<span class="built_in">arguments</span>.length,<span class="built_in">arguments</span>.callee.length,<span class="built_in">arguments</span>.callee)&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>本文结束，感谢阅读。</p>
-<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/" target="_blank" rel="external">https://melodyvoid/</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/" target="_blank" rel="noopener">https://melodyvoid/</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
 </div>
       
     </div>
@@ -548,7 +549,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">130</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -644,7 +645,7 @@
 <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
