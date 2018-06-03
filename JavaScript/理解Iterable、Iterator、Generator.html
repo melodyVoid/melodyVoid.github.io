@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Generator," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="什么是迭代器(Iterator)?迭代器协议 当一个对象被认为是一个迭代器时，它实现了一个 next()的方法并且拥有以下含义：对象的next方法是一个无参函数，它返回一个对象，该对象拥有done和value两个属性：  done: 布尔值 如果迭代器已经经过了被迭代序列时为true。这时value可能描述了该迭代器的返回值。 如果迭代器可以产生序列中的下一个值，则为false。这等效于连同don">
+<meta name="keywords" content="Generator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Iterable、Iterator、Generator">
+<meta property="og:url" content="http://yoursite.com/JavaScript/理解Iterable、Iterator、Generator.html">
+<meta property="og:site_name" content="melody0z">
+<meta property="og:description" content="什么是迭代器(Iterator)?迭代器协议 当一个对象被认为是一个迭代器时，它实现了一个 next()的方法并且拥有以下含义：对象的next方法是一个无参函数，它返回一个对象，该对象拥有done和value两个属性：  done: 布尔值 如果迭代器已经经过了被迭代序列时为true。这时value可能描述了该迭代器的返回值。 如果迭代器可以产生序列中的下一个值，则为false。这等效于连同don">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-03T01:55:06.177Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Iterable、Iterator、Generator">
+<meta name="twitter:description" content="什么是迭代器(Iterator)?迭代器协议 当一个对象被认为是一个迭代器时，它实现了一个 next()的方法并且拥有以下含义：对象的next方法是一个无参函数，它返回一个对象，该对象拥有done和value两个属性：  done: 布尔值 如果迭代器已经经过了被迭代序列时为true。这时value可能描述了该迭代器的返回值。 如果迭代器可以产生序列中的下一个值，则为false。这等效于连同don">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/JavaScript/理解Iterable、Iterator、Generator.html"/>
+
+
+
+
+
+  <title>理解Iterable、Iterator、Generator | melody0z</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">melody0z</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/JavaScript/理解Iterable、Iterator、Generator.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="薄涛">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="melody0z">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解Iterable、Iterator、Generator</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T09:45:51+08:00">
+                2018-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/JavaScript/理解Iterable、Iterator、Generator.html" class="leancloud_visitors" data-flag-title="理解Iterable、Iterator、Generator">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是迭代器-Iterator"><a href="#什么是迭代器-Iterator" class="headerlink" title="什么是迭代器(Iterator)?"></a>什么是迭代器(Iterator)?</h1><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#迭代器协议" target="_blank" rel="noopener">迭代器协议</a></p>
+<p>当一个对象被认为是一个迭代器时，它实现了一个 <code>next()</code>的方法并且拥有以下含义：对象的<code>next</code>方法是一个无参函数，它返回一个对象，该对象拥有<code>done</code>和<code>value</code>两个属性：</p>
+<ul>
+<li><code>done</code>: 布尔值<ul>
+<li>如果迭代器已经经过了被迭代序列时为<code>true</code>。这时<code>value</code>可能描述了该迭代器的返回值。</li>
+<li>如果迭代器可以产生序列中的下一个值，则为<code>false</code>。这等效于连同<code>done</code>属性也不指定。</li>
+</ul>
+</li>
+<li><code>value</code>:迭代器返回的任何JavaScript值。<code>done</code>为true时可省略</li>
+</ul>
+<p>手写一个简单迭代器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">0</span></div><div class="line"><span class="keyword">const</span> iterator = &#123;</div><div class="line">  next() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">value</span>: i++,</div><div class="line">      <span class="attr">done</span>: <span class="literal">false</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(iterator.next())    <span class="comment">// &#123; value: 0, done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next())    <span class="comment">// &#123; value: 1, done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next())    <span class="comment">// &#123; value: 2, done: false&#125;</span></div></pre></td></tr></table></figure>
+<p>一些迭代器是转换自<strong>可迭代对象</strong>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="keyword">const</span> arrEntries = arr.entries()</div><div class="line"><span class="keyword">const</span> arrKeys = arr.keys()</div><div class="line"><span class="keyword">const</span> arrVal = arr[<span class="built_in">Symbol</span>.iterator]()</div><div class="line"><span class="built_in">console</span>.log(arrEntries)  <span class="comment">// Array Iterator</span></div><div class="line"><span class="built_in">console</span>.log(arrKeys)  <span class="comment">// Array Iterator</span></div><div class="line"><span class="built_in">console</span>.log(arrVal)   <span class="comment">// Array Iterator</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(arrEntries.next())  <span class="comment">// &#123; value: [0, 1], done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(arrEntries.next())  <span class="comment">// &#123; value: [1, 2], done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(arrEntries.next())  <span class="comment">// &#123; value: [2, 3], done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(arrEntries.next())  <span class="comment">// &#123; value: undefined, done: true&#125;</span></div></pre></td></tr></table></figure>
+<h2 id="next-迭代"><a href="#next-迭代" class="headerlink" title="next()迭代"></a>next()迭代</h2><p>让我们来看一个数组，它是一个可迭代对象，可以生成一个迭代器来消费它的值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="keyword">const</span> it = arr[<span class="built_in">Symbol</span>.iterator]()  <span class="comment">// 生成迭代器</span></div><div class="line"><span class="comment">// next()迭代</span></div><div class="line">it.next();		<span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">it.next();		<span class="comment">// &#123; value: 2, done: false &#125;</span></div><div class="line">it.next();		<span class="comment">// &#123; value: 3, done: false &#125;</span></div><div class="line"></div><div class="line">it.next();		<span class="comment">// &#123; value: undefined, done: true &#125;</span></div></pre></td></tr></table></figure>
+<p>每一次定位在<code>[Symbol.iterator]</code>上的方法在值<code>arr</code>上被调用时，它都将生成一个全新的迭代器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="keyword">const</span> it = arr[<span class="built_in">Symbol</span>.iterator]()  <span class="comment">// 生成迭代器</span></div><div class="line"><span class="keyword">const</span> it2 = arr[<span class="built_in">Symbol</span>.iterator]()  <span class="comment">// 生成迭代器2</span></div><div class="line"><span class="built_in">console</span>.log(it === it2)   <span class="comment">// false</span></div></pre></td></tr></table></figure>
+<p>基本类型的字符串值也默认地是可迭代对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span></div><div class="line"><span class="keyword">const</span> it = str[<span class="built_in">Symbol</span>.iterator]()</div><div class="line"><span class="built_in">console</span>.log(it.next())    <span class="comment">// &#123; value: 'h', done: false &#125;</span></div><div class="line"><span class="built_in">console</span>.log(it.next())    <span class="comment">// &#123; value: 'e', done: false &#125;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>一个迭代器的<code>next(…)</code>方法能够可选地接收一个或多个参数</li>
+<li><strong>大多数内建的迭代器不可以</strong></li>
+<li><strong>Generator的迭代器可以</strong></li>
+</ul>
+<p>根据一般的惯例，包括所有的内建迭代器，在一个已经被耗尽的迭代器上调用<code>next(…)</code>不是一个错误，而是简单地持续返回结果<code>{ value: undefined, done: true }</code>。</p>
+<h2 id="可选的return"><a href="#可选的return" class="headerlink" title="可选的return(..)"></a>可选的return(..)</h2><p><code>return(..)</code>被定义为向一个迭代器发送一个信号，告知它消费者代码已经完成而且不会再从它那里抽取更多的值。这个信号可以用于通知生产者（应答<code>next(..)</code>调用的迭代器）去实施一些可能的清理作业，比如释放/关闭网络，数据库，或者文件引用资源。</p>
+<p>如果一个迭代器拥有<code>return(..)</code>，而且发生了可以自动被解释为非正常或者提前终止消费迭代器的任何情况，<code>return(..)</code>就将会被自动调用。你也可以手动调用<code>return(..)</code>。</p>
+<h2 id="可选的throw"><a href="#可选的throw" class="headerlink" title="可选的throw(..)"></a>可选的throw(..)</h2><p><code>throw(..)</code>被用于向一个迭代器发送一个异常/错误信号，与<code>return(..)</code>隐含的完成信号相比，它可能会被迭代器用于不同的目的。它不一定像<code>return(..)</code>一样暗示着迭代器的完全停止。</p>
+<p>例如，在generator迭代器中，<code>throw(..)</code>实际上会将一个被抛出的异常注射到generator暂停的执行环境中，这个异常可以用<code>try..catch</code>捕获。一个未捕获的<code>throw(..)</code>异常将会导致generator的迭代器异常中止。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li>在迭代器接口上的可选方法 —— <code>return(..)</code>和<code>throw(..)</code> —— 在大多数内建的迭代器上都没有被实现。但是，它们在generator的上下文环境中会用到。</li>
+<li>根据一般的惯例，在<code>return(..)</code>或<code>throw(..)</code>被调用之后，一个迭代器就不应该在产生任何结果了。</li>
+</ul>
+<h1 id="什么是可迭代对象-Iterable-？"><a href="#什么是可迭代对象-Iterable-？" class="headerlink" title="什么是可迭代对象(Iterable)？"></a>什么是可迭代对象(Iterable)？</h1><p>满足<a href="https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FReference%2FIteration_protocols%23%25E5%258F%25AF%25E8%25BF%25AD%25E4%25BB%25A3%25E5%258D%258F%25E8%25AE%25AE" target="_blank" rel="noopener">可迭代协议</a>的对象是可迭代对象。<br><a href="https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FReference%2FIteration_protocols%23%25E5%258F%25AF%25E8%25BF%25AD%25E4%25BB%25A3%25E5%258D%258F%25E8%25AE%25AE" target="_blank" rel="noopener">可迭代协议</a>: 对象的<code>[Symbol.iterator]</code>值是一个无参函数，该函数返回一个迭代器。</p>
+<p>在ES6中，所有的集合对象（<code>Array</code>、 <code>Set</code> 与 <code>Map</code>）以及<code>String</code>、<code>arguments</code>都是可迭代对象，它们都有默认的迭代器。</p>
+<p><strong>内建迭代器(iterator)也是可迭代对象(iterable)</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="comment">// 调用arr的[Symbol.iterator]()返回一个迭代器</span></div><div class="line"><span class="keyword">const</span> it = arr[<span class="built_in">Symbol</span>.iterator]()</div><div class="line"><span class="comment">// 满足可迭代协议的对象是可迭代对象</span></div><div class="line"><span class="comment">// it仍然有[Symbol.iterator]()方法,它返回的结果是一个迭代器(它自己)</span></div><div class="line"><span class="built_in">console</span>.log(it[<span class="built_in">Symbol</span>.iterator]() === it)   <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(arr[<span class="built_in">Symbol</span>.iterator]() === arr) <span class="comment">// false  因为arr不是迭代器，而是可迭代对象</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(...it) <span class="comment">// 1 2 3</span></div></pre></td></tr></table></figure>
+<p><strong>自定义迭代器可以通过给予迭代器一个简单地返回它自身的<code>[Symbol.iterator]</code>方法，就可以使它成为一个可迭代对象</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">0</span></div><div class="line"><span class="keyword">const</span> iterator = &#123;</div><div class="line">  <span class="comment">// 使迭代器iterator成为一个可迭代对象</span></div><div class="line">  [<span class="built_in">Symbol</span>.iterator]() &#123; <span class="keyword">return</span> <span class="keyword">this</span> &#125;,</div><div class="line">  next() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">value</span>: i++,</div><div class="line">      <span class="attr">done</span>: <span class="literal">false</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(iterator.next())</div><div class="line"><span class="built_in">console</span>.log(iterator.next())</div><div class="line"><span class="built_in">console</span>.log(iterator.next())</div><div class="line"><span class="built_in">console</span>.log(iterator[<span class="built_in">Symbol</span>.iterator]() === iterator)  <span class="comment">// true</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">const</span> val <span class="keyword">of</span> iterator) &#123;</div><div class="line">  <span class="keyword">if</span> (val &gt; <span class="number">10</span>) <span class="keyword">break</span></div><div class="line">  <span class="built_in">console</span>.log(val)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可迭代对象可以在以下语句中使用：</p>
+<h2 id="for…of循环"><a href="#for…of循环" class="headerlink" title="for…of循环"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of" target="_blank" rel="noopener">for…of循环</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]) &#123;</div><div class="line">  <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line"><span class="comment">// "a"</span></div><div class="line"><span class="comment">// "b"</span></div><div class="line"><span class="comment">// "c"</span></div></pre></td></tr></table></figure>
+<h3 id="理解for-of循环"><a href="#理解for-of循环" class="headerlink" title="理解for...of循环"></a>理解<code>for...of</code>循环</h3><p><code>for...of</code>接受一个可迭代对象（Iterable），或者能被强制转换/包装成一个可迭代对象的值（如’abc’）。遍历时，<code>for...of</code>会获取可迭代对象的<code>[Symbol.iterator]()</code>，对该迭代器逐次调用next()，直到迭代器返回对象的<code>done</code>属性为<code>true</code>时，遍历结束，不对该value处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> arr) &#123;</div><div class="line">  <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line"><span class="comment">// "a"</span></div><div class="line"><span class="comment">// "b"</span></div><div class="line"><span class="comment">// "c"</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> val, res, it = arr[<span class="built_in">Symbol</span>.iterator]();(res = it.next() &amp;&amp; !res.done;)) &#123;</div><div class="line">  val = res.value</div><div class="line">  <span class="built_in">console</span>.log(val)</div><div class="line">&#125;</div><div class="line"><span class="comment">// "a"</span></div><div class="line"><span class="comment">// "b"</span></div><div class="line"><span class="comment">// "c"</span></div></pre></td></tr></table></figure>
+<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_operator" target="_blank" rel="noopener">扩展运算符</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// rest</span></div><div class="line"><span class="keyword">const</span> [a, b, ...c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</div><div class="line"><span class="built_in">console</span>.log(a, b, c)  <span class="comment">// 1, 2, [3, 4, 5]</span></div><div class="line"></div><div class="line"><span class="comment">// spread</span></div><div class="line"><span class="built_in">console</span>.log([a, ...c, b]) <span class="comment">// [1, 3, 4, 5, 2]</span></div><div class="line">[...<span class="string">'abc'</span>];   <span class="comment">// ['a', 'b', 'c']</span></div><div class="line"><span class="built_in">console</span>.log(...[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);   <span class="comment">// 'a', 'b', 'c'</span></div></pre></td></tr></table></figure>
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="noopener">解构赋值</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</div><div class="line"><span class="keyword">const</span> it = a[<span class="built_in">Symbol</span>.iterator]()</div><div class="line"><span class="keyword">const</span> [x, y] = it  <span class="comment">// 仅从`it`中取前两个元素</span></div><div class="line"><span class="keyword">const</span> [z,...w] = it  <span class="comment">// 取第三个，然后一次取得剩下所有的</span></div><div class="line"></div><div class="line"><span class="comment">// `it`被完全耗尽了吗？是的</span></div><div class="line"><span class="built_in">console</span>.log(it.next())	<span class="comment">// &#123; value: undefined, done: true &#125;</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(x)					<span class="comment">// 1</span></div><div class="line"><span class="built_in">console</span>.log(y)					<span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(z)					<span class="comment">// 3</span></div><div class="line"><span class="built_in">console</span>.log(w)					<span class="comment">// [4,5]</span></div></pre></td></tr></table></figure>
+<h2 id="yield"><a href="#yield" class="headerlink" title="yield*"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield*" target="_blank" rel="noopener">yield*</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span>* [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">gen().next(); <span class="comment">// &#123; value: "a", done: false &#125;</span></div></pre></td></tr></table></figure>
+<h1 id="什么是生成器-Generator"><a href="#什么是生成器-Generator" class="headerlink" title="什么是生成器(Generator)?"></a>什么是生成器(Generator)?</h1><p><strong>生成器</strong>对象是由一个生成器函数（ <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*" target="_blank" rel="noopener">generator function</a> ）返回的,并且它符合<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#iterable" target="_blank" rel="noopener">可迭代协议</a>和<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#iterator" target="_blank" rel="noopener">迭代器协议</a>。</p>
+<h2 id="生成器函数"><a href="#生成器函数" class="headerlink" title="生成器函数"></a>生成器函数</h2><p>生成器函数是能返回一个生成器的函数。生成器函数由放在function关键字之后的一个星号<code>*</code>来表示，并能使用新的<code>yield</code>关键字。</p>
+<p>生成器函数简单地说就是可以暂停的函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> x = <span class="number">0</span></div><div class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">yield</span> <span class="number">2</span> * x + <span class="number">1</span></div><div class="line">    x++</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = fn()</div><div class="line"><span class="built_in">console</span>.log(gen.next().value)</div></pre></td></tr></table></figure>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="执行一个Generator"><a href="#执行一个Generator" class="headerlink" title="执行一个Generator"></a>执行一个Generator</h4><p>虽然一个generator使用<code>*</code>进行声明，但是你依然可以像一个普通函数那样执行它：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo();</div></pre></td></tr></table></figure>
+<p>你依然可以传给它参数值，就像：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x,y</span>) </span>&#123;</div><div class="line">	<span class="comment">// ..</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">foo( <span class="number">5</span>, <span class="number">10</span> );</div></pre></td></tr></table></figure>
+<p>主要区别在于，执行一个generator，比如<code>foo(5,10)</code>，并不实际运行generator中的代码。取而代之的是，它生成一个迭代器来控制generator执行它的代码。</p>
+<h3 id="yield-1"><a href="#yield-1" class="headerlink" title="yield"></a>yield</h3><h4 id="暂停"><a href="#暂停" class="headerlink" title="暂停"></a>暂停</h4><p>Generator还有一个你可以在它们内部使用的新关键字，用来表示<strong>暂停点</strong>：<code>yield</code>。考虑如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>)</div><div class="line">	<span class="keyword">yield</span>   <span class="comment">// 暂停</span></div><div class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line"><span class="built_in">console</span>.log(gen.next())</div><div class="line"><span class="built_in">console</span>.log(gen.next())</div></pre></td></tr></table></figure>
+<h4 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h4><p><code>yield</code>不只是暂停点，还可以在暂停generator时向外<strong>输出</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span>        <span class="comment">// 不带值的yield默认yield undefined</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line"><span class="built_in">console</span>.log(gen.next())   <span class="comment">// &#123;value: undefined, done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(gen.next())   <span class="comment">// &#123;value: 1, done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(gen.next())   <span class="comment">// &#123;value: 2, done: false&#125;</span></div><div class="line"><span class="built_in">console</span>.log(gen.next())   <span class="comment">// &#123;value: undefined, done: true&#125;</span></div></pre></td></tr></table></figure>
+<p><code>yield</code>不只是暂停点，还可以在暂停generator时等待一个<strong>输入</strong>值， 这个值稍后被用于各个表达式环境中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> x = <span class="keyword">yield</span></div><div class="line">  <span class="built_in">console</span>.log(x)</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next(<span class="number">12</span>)   <span class="comment">// 第一个next()调用的作用仅仅是开始这个generator，只是为了后面的输入做准备</span></div><div class="line">gen.next(<span class="number">5</span>)     </div><div class="line"></div><div class="line"><span class="comment">// 5</span></div></pre></td></tr></table></figure>
+<p>坑：yield优先级问题</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> x = <span class="keyword">yield</span> <span class="number">2</span> + <span class="number">1</span>  <span class="comment">// 等同于yield (2 + 1)</span></div><div class="line">  <span class="built_in">console</span>.log(x)</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()</div><div class="line">gen.next(<span class="number">5</span>)     </div><div class="line"><span class="comment">// 5</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> x = (<span class="keyword">yield</span> <span class="number">2</span>) + <span class="number">1</span>  <span class="comment">// 首先yield 2, 然后 + 1</span></div><div class="line">  <span class="built_in">console</span>.log(x)</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()</div><div class="line">gen.next(<span class="number">5</span>)     </div><div class="line"><span class="comment">// 6</span></div></pre></td></tr></table></figure>
+<h2 id="生成器对象"><a href="#生成器对象" class="headerlink" title="生成器对象"></a>生成器对象</h2><h3 id="生成器对象既是迭代器，有是可迭代对象"><a href="#生成器对象既是迭代器，有是可迭代对象" class="headerlink" title="生成器对象既是迭代器，有是可迭代对象"></a>生成器对象既是迭代器，有是可迭代对象</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line"><span class="built_in">console</span>.log(gen)</div><div class="line"><span class="comment">// gen有next()方法，满足迭代器协议，是迭代器</span></div><div class="line">gen.next()   <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">gen.next()   <span class="comment">// &#123; value: 2, done: false &#125;</span></div><div class="line">gen.next()   <span class="comment">// &#123; value: 3, done: false &#125;</span></div><div class="line">gen.next()   <span class="comment">// &#123; value: undefined, done: true &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// gen实现了[Symbol.iterator]接口，并返回一个迭代器，满足可迭代协议，所以是可迭代对象</span></div><div class="line">gen[<span class="built_in">Symbol</span>.iterator]() === gen   <span class="comment">// true</span></div><div class="line"><span class="keyword">const</span> gen1 = foo()</div><div class="line">[...gen1]   <span class="comment">// 1, 2, 3</span></div></pre></td></tr></table></figure>
+<h3 id="在生成器中return"><a href="#在生成器中return" class="headerlink" title="在生成器中return"></a>在生成器中<code>return</code></h3><p>遍历器返回对象的<code>done</code>值为<code>true</code>时迭代器即结束，不对该<code>value</code>处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">return</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()   <span class="comment">// &#123;value: 1, done: false&#125;</span></div><div class="line">gen.next()   <span class="comment">// &#123;value: 2, done: true&#125; </span></div><div class="line">gen.next()   <span class="comment">// &#123;value: undefined, done: true&#125;</span></div></pre></td></tr></table></figure>
+<p><code>done</code>值为true时迭代即结束，迭代不对该value处理。所以对这个迭代器遍历，不会对值<code>2</code>处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">return</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line"><span class="built_in">console</span>.log(...gen)   <span class="comment">// 1</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">return</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">0</span></div><div class="line">  <span class="keyword">yield</span> *foo()</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = bar()</div><div class="line"><span class="built_in">console</span>.log(...gen)  <span class="comment">// 0 1</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">return</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">0</span></div><div class="line">  <span class="keyword">yield</span> <span class="keyword">yield</span> *foo()</div><div class="line">   </div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = bar()</div><div class="line"><span class="built_in">console</span>.log(...gen)   <span class="comment">// 0 1 2   在这里拿到了return的2</span></div></pre></td></tr></table></figure>
+<h3 id="在生成器中throw"><a href="#在生成器中throw" class="headerlink" title="在生成器中throw"></a>在生成器中<code>throw</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>)</div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line"><span class="built_in">console</span>.log(gen.next())     <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line"><span class="built_in">console</span>.log(gen.next())     <span class="comment">// error</span></div><div class="line"><span class="built_in">console</span>.log(gen.next())     <span class="comment">//</span></div></pre></td></tr></table></figure>
+<p><strong>小结：</strong>通过上面我们可以看出，<code>next()</code>可以产生三种类型的值</p>
+<ul>
+<li>对于可迭代序列中的一项a, 它返回<code>{ value: a, done: false}</code></li>
+<li>对于可迭代序列的最后一项，明确是<code>return</code>返回的是b, 它返回<code>{ value: b, done: true }</code></li>
+<li>对于异常，它抛出这个异常。</li>
+</ul>
+<h3 id="生成器委托yield"><a href="#生成器委托yield" class="headerlink" title="生成器委托yield*"></a>生成器委托<code>yield*</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">g1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">g2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> *g1();</div><div class="line">  <span class="keyword">yield</span> *[<span class="number">3</span>, <span class="number">4</span>];</div><div class="line">  <span class="keyword">yield</span> *<span class="string">"56"</span>;</div><div class="line">  <span class="keyword">yield</span> *<span class="built_in">arguments</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> generator = g2(<span class="number">7</span>, <span class="number">8</span>);</div><div class="line"><span class="built_in">console</span>.log(...generator);   <span class="comment">// 1 2 3 4 "5" "6" 7 8</span></div></pre></td></tr></table></figure>
+<p><code>yield*</code>考虑可迭代对象的最后一个值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="string">'a'</span></div><div class="line">  <span class="keyword">yield</span> <span class="string">'b'</span></div><div class="line">  <span class="keyword">return</span> <span class="string">'c'</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> x = <span class="keyword">yield</span> *foo()</div><div class="line">  <span class="built_in">console</span>.log(x)</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log([...bar()])   </div><div class="line"><span class="comment">// c</span></div><div class="line"><span class="comment">// ['a', 'b']</span></div></pre></td></tr></table></figure>
+<h2 id="generator能扮演的角色"><a href="#generator能扮演的角色" class="headerlink" title="generator能扮演的角色"></a>generator能扮演的角色</h2><h3 id="1-generator作为迭代器-数据生产者"><a href="#1-generator作为迭代器-数据生产者" class="headerlink" title="1. generator作为迭代器(数据生产者)"></a>1. generator作为迭代器(数据生产者)</h3><p>每一个<code>yield</code>可以通过<code>next()</code>返回一个值，这意味着generator可以通过循环或递归生产一系列的值，因为generator对象实现了Iterable接口。</p>
+<p>generators同时实现了接口Iterable 和 Iterator，这意味着，generator函数返回的对象<em>是一个迭代器也是一个可迭代的对象</em>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> a = <span class="number">0</span></div><div class="line">  <span class="keyword">let</span> b = <span class="number">1</span></div><div class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">yield</span> a;</div><div class="line">    [a, b] = [b, a + b]</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = fibonacci()</div><div class="line"><span class="keyword">for</span> (<span class="keyword">const</span> val <span class="keyword">of</span> gen) &#123;</div><div class="line">  <span class="keyword">if</span> (val &gt; <span class="number">100</span>) <span class="keyword">break</span></div><div class="line">  <span class="built_in">console</span>.log(val)   <span class="comment">// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-generator作为观察者-数据消费者"><a href="#2-generator作为观察者-数据消费者" class="headerlink" title="2. generator作为观察者(数据消费者)"></a>2. generator作为观察者(数据消费者)</h3><p><code>yield</code>可以通过<code>next()</code>接受一个值，这意味着generator变成了一个暂停执行的数据消费者直到通过<code>next()</code>给generator传递了一个新值。</p>
+<p>作为观察者，生成器暂停，直到它接收到输入。有三种输入，通过接口指定的方法传输：</p>
+<ul>
+<li><code>next()</code> 发送正常输入。</li>
+<li><code>return()</code> 终止生成器。</li>
+<li><code>throw()</code> 发出错误信号。</li>
+</ul>
+<h4 id="2-1next-发送正常输入"><a href="#2-1next-发送正常输入" class="headerlink" title="2.1next()发送正常输入"></a>2.1<code>next()</code>发送正常输入</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> [x, y, z] = [<span class="keyword">yield</span>, <span class="keyword">yield</span>, <span class="keyword">yield</span>]</div><div class="line">  <span class="built_in">console</span>.log(x, y, z)</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()</div><div class="line">gen.next(<span class="string">'1'</span>)</div><div class="line">gen.next(<span class="string">'2'</span>)</div><div class="line">gen.next(<span class="string">'3'</span>)</div><div class="line"><span class="comment">// 1 2 3</span></div></pre></td></tr></table></figure>
+<h4 id="2-2return-终止generator"><a href="#2-2return-终止generator" class="headerlink" title="2.2return()终止generator"></a>2.2<code>return()</code>终止generator</h4><p><code>return()</code>在生成器里的<code>yield</code>的位置执行<code>return</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()   <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">gen.return(<span class="string">'end'</span>) <span class="comment">// &#123; value: 'end', done: true &#125;</span></div><div class="line">gen.next()   <span class="comment">// &#123; value: undefined, done: true &#125;</span></div></pre></td></tr></table></figure>
+<p><strong>组织终止</strong></p>
+<p>我们可以阻止<code>return()</code>终止generator如果<code>yield</code>是在<code>finally</code>块内（或者在<code>finally</code>中使用<code>return</code>语句）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">    <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">  &#125; <span class="keyword">finally</span> &#123;</div><div class="line">    <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">    <span class="keyword">yield</span> <span class="number">4</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()  <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">gen.return(<span class="string">'not end'</span>)  <span class="comment">// &#123; value: 3, done: false &#125;</span></div><div class="line">gen.next()  <span class="comment">// &#123; value: 4, done: false &#125;</span></div><div class="line">gen.next()  <span class="comment">// &#123; value: "not end", done: true &#125;</span></div></pre></td></tr></table></figure>
+<h4 id="2-3throw-一个错误"><a href="#2-3throw-一个错误" class="headerlink" title="2.3throw()一个错误"></a>2.3<code>throw()</code>一个错误</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()    <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">gen.throw(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>))  <span class="comment">// Uncaught Error: error</span></div></pre></td></tr></table></figure>
+<p>捕获一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">yield</span> <span class="number">1</span></div><div class="line">    <span class="keyword">yield</span> <span class="number">2</span></div><div class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'捕获到'</span> + e)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> gen = foo()</div><div class="line">gen.next()    <span class="comment">// &#123; value: 1, done: false &#125;</span></div><div class="line">gen.throw(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>))   <span class="comment">// 捕获到Error: error</span></div></pre></td></tr></table></figure>
+<h3 id="3-协作程序-协同多任务"><a href="#3-协作程序-协同多任务" class="headerlink" title="3. 协作程序(协同多任务)"></a>3. 协作程序(协同多任务)</h3><p>考虑到generator是可以暂停的并且可以同时作为数据生产者和消费者，不会做太多的工作就可以把generator转变成协作程序(合作进行的多任务)</p>
+<h3 id="To-be-continued…"><a href="#To-be-continued…" class="headerlink" title="To be continued…"></a>To be continued…</h3><h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/es6%20%26%20beyond/ch3.md" target="_blank" rel="noopener">你不知道的JavaScript:ES6与未来–第三章:组织</a></p>
+<p><a href="http://exploringjs.com/es6/ch_generators.html#sec_generators-as-coroutines" target="_blank" rel="noopener">Genertaors</a></p>
+<p>[你不知道的JavaScript:异步与性能–第四章:Generator</p>
+<hr>
+<p>本文结束，感谢阅读。</p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/JavaScript/理解Iterable、Iterator、Generator.html" target="_blank" rel="noopener">https://melodyvoid/JavaScript/理解Iterable、Iterator、Generator.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.jpg" alt="薄涛 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.jpg" alt="薄涛 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Generator/" rel="tag"># Generator</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JavaScript/Share-meeting--Promise.html" rel="next" title="Share-meeting--Promise">
+                <i class="fa fa-chevron-left"></i> Share-meeting--Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="薄涛" />
+          <p class="site-author-name" itemprop="name">薄涛</p>
+           
+              <p class="site-description motion-element" itemprop="description">keep learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/melodyVoid" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://m.weibo.cn/u/2743008500" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/melodyVoid" target="_blank" title="Wechat">
+                  
+                    <i class="fa fa-fw fa-wechat"></i>
+                  
+                  Wechat
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是迭代器-Iterator"><span class="nav-number">1.</span> <span class="nav-text">什么是迭代器(Iterator)?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#next-迭代"><span class="nav-number">1.1.</span> <span class="nav-text">next()迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选的return"><span class="nav-number">1.2.</span> <span class="nav-text">可选的return(..)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选的throw"><span class="nav-number">1.3.</span> <span class="nav-text">可选的throw(..)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.4.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是可迭代对象-Iterable-？"><span class="nav-number">2.</span> <span class="nav-text">什么是可迭代对象(Iterable)？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#for…of循环"><span class="nav-number">2.1.</span> <span class="nav-text">for…of循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解for-of循环"><span class="nav-number">2.1.1.</span> <span class="nav-text">理解for...of循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展运算符"><span class="nav-number">2.2.</span> <span class="nav-text">扩展运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构赋值"><span class="nav-number">2.3.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yield"><span class="nav-number">2.4.</span> <span class="nav-text">yield*</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是生成器-Generator"><span class="nav-number">3.</span> <span class="nav-text">什么是生成器(Generator)?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器函数"><span class="nav-number">3.1.</span> <span class="nav-text">生成器函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">3.1.1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行一个Generator"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">执行一个Generator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">yield</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暂停"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">暂停</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入和输出"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">输入和输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器对象"><span class="nav-number">3.2.</span> <span class="nav-text">生成器对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器对象既是迭代器，有是可迭代对象"><span class="nav-number">3.2.1.</span> <span class="nav-text">生成器对象既是迭代器，有是可迭代对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在生成器中return"><span class="nav-number">3.2.2.</span> <span class="nav-text">在生成器中return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在生成器中throw"><span class="nav-number">3.2.3.</span> <span class="nav-text">在生成器中throw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器委托yield"><span class="nav-number">3.2.4.</span> <span class="nav-text">生成器委托yield*</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generator能扮演的角色"><span class="nav-number">3.3.</span> <span class="nav-text">generator能扮演的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-generator作为迭代器-数据生产者"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. generator作为迭代器(数据生产者)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-generator作为观察者-数据消费者"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. generator作为观察者(数据消费者)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1next-发送正常输入"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">2.1next()发送正常输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2return-终止generator"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">2.2return()终止generator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3throw-一个错误"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">2.3throw()一个错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-协作程序-协同多任务"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. 协作程序(协同多任务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#To-be-continued…"><span class="nav-number">3.3.4.</span> <span class="nav-text">To be continued…</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">薄涛</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EwOj8raPzEI0luGaRHGEGF1v-gzGzoHsz", "EDJ8GC3kukmyoEhMspIe1kNu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
