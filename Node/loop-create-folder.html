@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="学习笔记," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="创建文件夹目录结构 |— 20-mkdir.js 12345678const fs = require(&quot;fs&quot;);const path = require(&quot;path&quot;);fs.mkdir(path.join(__dirname,&quot;demo1&quot;),(err) =&amp;gt; &amp;#123;    console.log(err)&amp;#125;);fs.mkdir(path.join(__dirname,">
+<meta name="keywords" content="学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="循环创建文件夹">
+<meta property="og:url" content="https://melodyvoid.github.io/Node/loop-create-folder.html">
+<meta property="og:site_name" content="melody0z">
+<meta property="og:description" content="创建文件夹目录结构 |— 20-mkdir.js 12345678const fs = require(&quot;fs&quot;);const path = require(&quot;path&quot;);fs.mkdir(path.join(__dirname,&quot;demo1&quot;),(err) =&amp;gt; &amp;#123;    console.log(err)&amp;#125;);fs.mkdir(path.join(__dirname,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-03T03:41:03.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="循环创建文件夹">
+<meta name="twitter:description" content="创建文件夹目录结构 |— 20-mkdir.js 12345678const fs = require(&quot;fs&quot;);const path = require(&quot;path&quot;);fs.mkdir(path.join(__dirname,&quot;demo1&quot;),(err) =&amp;gt; &amp;#123;    console.log(err)&amp;#125;);fs.mkdir(path.join(__dirname,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://melodyvoid.github.io/Node/loop-create-folder.html"/>
+
+
+
+
+
+  <title>循环创建文件夹 | melody0z</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">melody0z</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://melodyvoid.github.io/Node/loop-create-folder.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="薄涛">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="melody0z">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">循环创建文件夹</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T09:11:50+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Node/loop-create-folder.html" class="leancloud_visitors" data-flag-title="循环创建文件夹">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h1><p>目录结构</p>
+<p>|— 20-mkdir.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">fs.mkdir(path.join(__dirname,<span class="string">"demo1"</span>),(err) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">&#125;);</div><div class="line">fs.mkdir(path.join(__dirname,<span class="string">"./demo2"</span>),(err) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>执行20-mkdir.js</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">20</span>-mkdir.js </div><div class="line">null</div><div class="line">null</div></pre></td></tr></table></figure>
+<p>目录结构变为</p>
+<p>|— 20-mkdir.js</p>
+<p>|— demo1</p>
+<p>|— demo2</p>
+<hr>
+<h1 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h1><p>什么情况下会报错呢？</p>
+<h2 id="文件夹已经存在"><a href="#文件夹已经存在" class="headerlink" title="文件夹已经存在"></a>文件夹已经存在</h2><p>目录结构</p>
+<p>|— 20-mkdir.js</p>
+<p>|— demo1</p>
+<p>|— demo2</p>
+<p>这里的意思是原本就已经存在demo1和demo2，我们试着再创建一下</p>
+<p>同样执行20-mkdir.js</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">20</span>-mkdir.js </div><div class="line">&#123; Error: EEXIST: file already exists, mkdir <span class="string">'/Users/melody0z/github/nodejs/second/demo1'</span></div><div class="line">  errno: -<span class="number">17</span>,</div><div class="line">  code: <span class="string">'EEXIST'</span>,</div><div class="line">  syscall: <span class="string">'mkdir'</span>,</div><div class="line">  path: <span class="string">'/Users/melody0z/github/nodejs/second/demo1'</span> &#125;</div><div class="line">&#123; Error: EEXIST: file already exists, mkdir <span class="string">'/Users/melody0z/github/nodejs/second/demo2'</span></div><div class="line">  errno: -<span class="number">17</span>,</div><div class="line">  code: <span class="string">'EEXIST'</span>,</div><div class="line">  syscall: <span class="string">'mkdir'</span>,</div><div class="line">  path: <span class="string">'/Users/melody0z/github/nodejs/second/demo2'</span> &#125;</div></pre></td></tr></table></figure>
+<p>报错信息为<code>Error: EEXIST: file already exists</code>说文件夹已经存在。</p>
+<h2 id="不存在的文件夹"><a href="#不存在的文件夹" class="headerlink" title="不存在的文件夹"></a>不存在的文件夹</h2><p>20-mkdir.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">  <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">- fs.mkdir(path.join(__dirname,<span class="string">"demo1"</span>),(err) =&gt; &#123;</div><div class="line">-     <span class="built_in">console</span>.log(err)</div><div class="line">- &#125;);</div><div class="line">- fs.mkdir(path.join(__dirname,<span class="string">"./demo2"</span>),(err) =&gt; &#123;</div><div class="line">-     <span class="built_in">console</span>.log(err)</div><div class="line">- &#125;);</div><div class="line">+ fs.mkdir(path.join(__dirname,<span class="string">"./test/demo3"</span>),(err) =&gt; &#123;</div><div class="line">+     <span class="built_in">console</span>.log(err);</div><div class="line">+ &#125;);</div></pre></td></tr></table></figure>
+<p>执行20-mkdir.js</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">20</span>-mkdir.js </div><div class="line">&#123; Error: ENOENT: no such file or directory, mkdir <span class="string">'/Users/melody0z/github/nodejs/second/test/demo3'</span></div><div class="line">  errno: -<span class="number">2</span>,</div><div class="line">  code: <span class="string">'ENOENT'</span>,</div><div class="line">  syscall: <span class="string">'mkdir'</span>,</div><div class="line">  path: <span class="string">'/Users/melody0z/github/nodejs/second/test/demo3'</span> &#125;</div></pre></td></tr></table></figure>
+<p>报错信息<code>Error: ENOENT: no such file or directory</code>不存在的文件夹，因为我们并没有test文件夹，所以它不会帮我们创建，就直接报错。</p>
+<h1 id="创建层级目录"><a href="#创建层级目录" class="headerlink" title="创建层级目录"></a>创建层级目录</h1><p>我们先来创建一个模块</p>
+<p>mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname,callback</span>)</span>&#123;&#125;</div><div class="line"><span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>在21-mkdirs.js中引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"><span class="keyword">const</span> mkdirs = <span class="built_in">require</span>(<span class="string">"./mkdirs"</span>);</div></pre></td></tr></table></figure>
+<p>这是大体的骨架，然后我们来完善mkdirs.js模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">+ <span class="comment">//我们需要文件操作，文件操作就需要引入fs和path</span></div><div class="line">+ <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">+ <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">+     <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">+     pathname = path.isAbsolute(pathname)</div><div class="line">+         ? pathname</div><div class="line">+         : path.join(__dirname, pathname);</div><div class="line">+     <span class="comment">//2.获取想要创建的部分</span></div><div class="line">+     <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">+     <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">+     <span class="comment">//   dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">+     pathname = pathname.replace(__dirname,<span class="string">""</span>);</div><div class="line">+     <span class="built_in">console</span>.log(pathname);</div><div class="line">  </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>写到这里我们来测试一下，在21-mkdirs.js中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"><span class="keyword">const</span> mkdirs = <span class="built_in">require</span>(<span class="string">"./mkdirs"</span>);</div><div class="line"></div><div class="line">mkdirs(<span class="string">"test/demo3"</span>);</div><div class="line">mkdirs(<span class="string">"/Users/melody0z/github/nodejs/second/test/demo3"</span>)</div></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">21</span>-mkdirs.js </div><div class="line">/test/demo3</div><div class="line">/test/demo3</div></pre></td></tr></table></figure>
+<p>是我们想要的结果，我们得到了test和demo3</p>
+<p>然而我们还有一种方法，那就是path模块自带的path.relative()方法</p>
+<p>mkdirs.js中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">  <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">      <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">      pathname = path.isAbsolute(pathname)</div><div class="line">          ? pathname</div><div class="line">          : path.join(__dirname, pathname);</div><div class="line">      <span class="comment">//2.获取想要创建的部分</span></div><div class="line">      <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">      <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">      <span class="comment">//   dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">-     <span class="comment">//pathname = pathname.replace(__dirname,"");</span></div><div class="line">+     pathname = path.relative(__dirname,pathname);</div><div class="line">      <span class="built_in">console</span>.log(pathname);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>其余不变，我们再来执行21-mkdirs.js</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">21</span>-mkdirs.js </div><div class="line">test/demo3</div><div class="line">test/demo3</div></pre></td></tr></table></figure>
+<p>同样也能得到test和demo3。</p>
+<p>以上两种方法的区别仅仅是多一个少一个<code>/</code></p>
+<p>好了，我们用第二种方法接着往下写</p>
+<p>mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">    <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">    pathname = path.isAbsolute(pathname)</div><div class="line">        ? pathname</div><div class="line">        : path.join(__dirname, pathname);</div><div class="line">    <span class="comment">//2.获取想要创建的部分</span></div><div class="line">    <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">    <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">    <span class="comment">//   dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">    <span class="keyword">let</span> relativePath = path.relative(__dirname,pathname);</div><div class="line">    <span class="keyword">let</span> folders = relativePath.split(path.sep);</div><div class="line">    <span class="built_in">console</span>.log(folders);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>注意14行<code>let folders = relativePath.split(path.sep);</code>中不能写成<code>let folders = relativePath.split(&quot;/&quot;);</code>因为windows和POSIX平台上是不同的，需要用path.sep来代替。</p>
+<p>然后我们执行一下21-mkdirs.js来测试一下</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ node <span class="number">21</span>-mkdirs.js </div><div class="line">[ <span class="string">'test'</span>, <span class="string">'demo3'</span> ]</div><div class="line">[ <span class="string">'test'</span>, <span class="string">'demo3'</span> ]</div></pre></td></tr></table></figure>
+<p>good！是我们想要的结果。</p>
+<p>我们继续写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">  <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">      <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">      pathname = path.isAbsolute(pathname)</div><div class="line">          ? pathname</div><div class="line">          : path.join(__dirname, pathname);</div><div class="line">      <span class="comment">//2.获取想要创建的部分</span></div><div class="line">      <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">      <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">      <span class="comment">//   dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">      <span class="keyword">let</span> relativePath = path.relative(__dirname,pathname);</div><div class="line">      <span class="keyword">let</span> folders = relativePath.split(path.sep);</div><div class="line">+     <span class="comment">//3.遍历，由于遍历是同步的(文件夹需要有顺序)，创建文件夹也需要同步</span></div><div class="line">+     <span class="comment">//同步的话就需要用try...catch来捕获错误</span></div><div class="line">+     <span class="keyword">try</span>&#123;</div><div class="line">+         folders.forEach(<span class="function"><span class="params">folder</span> =&gt;</span> &#123;</div><div class="line">+             fs.mkdirSync(path.join(__dirname,folder));</div><div class="line">+         &#125;);</div><div class="line">+         callback &amp;&amp; callback(<span class="literal">null</span>);</div><div class="line">+     &#125;<span class="keyword">catch</span> (error)&#123;</div><div class="line">+         callback &amp;&amp; callback(error)</div><div class="line">+     &#125;</div><div class="line">  </div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>21-mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"><span class="keyword">const</span> mkdirs = <span class="built_in">require</span>(<span class="string">"./mkdirs"</span>);</div><div class="line"></div><div class="line">mkdirs(path.join(__dirname,<span class="string">"test/demo3"</span>));</div></pre></td></tr></table></figure>
+<p>我们来执行一下21-mkdirs.js</p>
+<p>目录结构发生了变化</p>
+<p>|— 21-mkdirs.js</p>
+<p>|— mkdirs.js</p>
+<p>|— test</p>
+<p>|— demo3</p>
+<p>我们发现demo3并没有在test文件夹里面，所以我们还需要修改</p>
+<p>mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">  <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">      <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">      pathname = path.isAbsolute(pathname)</div><div class="line">          ? pathname</div><div class="line">          : path.join(__dirname, pathname);</div><div class="line">      <span class="comment">//2.获取想要创建的部分</span></div><div class="line">      <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">      <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">      <span class="comment">//   dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">      <span class="keyword">let</span> relativePath = path.relative(__dirname,pathname);</div><div class="line">      <span class="keyword">let</span> folders = relativePath.split(path.sep);</div><div class="line">+     <span class="keyword">let</span> pre = <span class="string">""</span>;</div><div class="line">      <span class="keyword">try</span>&#123;</div><div class="line">          folders.forEach(<span class="function"><span class="params">folder</span> =&gt;</span> &#123;</div><div class="line">-             fs.mkdirSync(path.join(__dirname,folder));</div><div class="line">+             fs.mkdirSync(path.join(__dirname,pre,folder));</div><div class="line">+             pre = path.join(pre,folder);</div><div class="line">          &#125;);</div><div class="line">  </div><div class="line">          callback &amp;&amp; callback(<span class="literal">null</span>);</div><div class="line">      &#125;<span class="keyword">catch</span> (error)&#123;</div><div class="line">          callback &amp;&amp; callback(error)</div><div class="line">      &#125;</div><div class="line">  </div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>我们再来执行21-mkdirs.js</p>
+<p>目录结构</p>
+<p>|— 21-mkdirs.js</p>
+<p>|— mkdirs.js</p>
+<p>|— test</p>
+<p>  |— demo3</p>
+<p>这样就打成我们的目标了</p>
+<p>​    </p>
+<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p>我们更改一下目录结构</p>
+<p>|— module</p>
+<p>  |— mkdirs.js</p>
+<p>|— 21-mkdirs.js</p>
+<p>再来执行21-mkdirs.js就会报错，说文件夹已存在，原因就在于mkdirs.js模块里的__dirname;</p>
+<p>__dirname是相对于mkdirs.js模块的路径，而我们需要的是谁引用了mkdirs.js模块，路径就相对于谁，这里需要使用module.parent.</p>
+<p>module/mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkdirs</span>(<span class="params">pathname, callback</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> filename = <span class="built_in">module</span>.parent.filename;</div><div class="line">    <span class="keyword">const</span> root = path.dirname(filename);</div><div class="line">    <span class="comment">//1.判断传入的是否是绝对路径</span></div><div class="line">    pathname = path.isAbsolute(pathname)</div><div class="line">        ? pathname</div><div class="line">        : path.join(root, pathname);</div><div class="line">    <span class="comment">//2.获取想要创建的部分</span></div><div class="line">    <span class="comment">//   /Users/melody0z/github/nodejs/second/test/demo3</span></div><div class="line">    <span class="comment">//   test文件夹和demo3文件夹需要创建，我们需要获取</span></div><div class="line">    <span class="comment">//   __dirname 是/Users/melody0z/github/nodejs/second</span></div><div class="line">    <span class="comment">//pathname = pathname.replace(__dirname,"");</span></div><div class="line">    <span class="comment">//注意：这里的__dirname有问题，应该是谁调用这个模块，__dirname就是就是这个文件的路径</span></div><div class="line"></div><div class="line">    <span class="keyword">let</span> relativePath = path.relative(root,pathname);</div><div class="line">    <span class="keyword">let</span> folders = relativePath.split(path.sep);</div><div class="line">    <span class="keyword">let</span> pre = <span class="string">""</span>;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        folders.forEach(<span class="function"><span class="params">folder</span> =&gt;</span> &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="comment">//检测文件夹状态，文件夹不存在跳到catch里面去创建</span></div><div class="line">                fs.statSync(path.join(root,pre,folder));</div><div class="line">            &#125;<span class="keyword">catch</span> (error)&#123;</div><div class="line">                fs.mkdirSync(path.join(root,pre,folder));</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            pre = path.join(pre,folder);</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        callback &amp;&amp; callback(<span class="literal">null</span>);</div><div class="line">    &#125;<span class="keyword">catch</span> (error)&#123;</div><div class="line">        callback &amp;&amp; callback(error)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = mkdirs;</div></pre></td></tr></table></figure>
+<p>21-mkdirs.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</div><div class="line"><span class="keyword">const</span> mkdirs = <span class="built_in">require</span>(<span class="string">"./module/mkdirs"</span>);</div><div class="line"></div><div class="line">mkdirs(path.join(__dirname,<span class="string">"test/demo3/demo4"</span>),(err) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">&#125;);</div><div class="line">mkdirs(path.join(__dirname,<span class="string">"test/demo3/demo5"</span>),(err) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(err)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我们执行后，创建的目录如下</p>
+<p>|— test</p>
+<p>  |— demo3</p>
+<p>    |— demo4</p>
+<p>    |— demo5</p>
+<p>​    </p>
+<p>​    </p>
+<hr>
+<p>本文结束，感谢阅读。</p>
+<div class="note danger"><p><strong>本文作者：</strong>melody0z <br><strong>本文链接：</strong><a href="https://melodyvoid/Node/cycle-creation-folder.html" target="_blank" rel="noopener">https://melodyvoid/Node/cycle-creation-folder.html</a> <br><strong>欢迎转载，转载请注明文本链接</strong></p>
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.jpg" alt="薄涛 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.jpg" alt="薄涛 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/English/english-reading-plan-0728.html" rel="next" title="英语跟读计划0728">
+                <i class="fa fa-chevron-left"></i> 英语跟读计划0728
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JavaScript/ecmascript-6.html" rel="prev" title="ECMAScript 6">
+                ECMAScript 6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="薄涛" />
+          <p class="site-author-name" itemprop="name">薄涛</p>
+           
+              <p class="site-description motion-element" itemprop="description">keep learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/melodyVoid" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://m.weibo.cn/u/2743008500" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/melodyVoid" target="_blank" title="Wechat">
+                  
+                    <i class="fa fa-fw fa-wechat"></i>
+                  
+                  Wechat
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建文件夹"><span class="nav-number">1.</span> <span class="nav-text">创建文件夹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#报错"><span class="nav-number">2.</span> <span class="nav-text">报错</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件夹已经存在"><span class="nav-number">2.1.</span> <span class="nav-text">文件夹已经存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不存在的文件夹"><span class="nav-number">2.2.</span> <span class="nav-text">不存在的文件夹</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建层级目录"><span class="nav-number">3.</span> <span class="nav-text">创建层级目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意点"><span class="nav-number">4.</span> <span class="nav-text">注意点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">薄涛</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EwOj8raPzEI0luGaRHGEGF1v-gzGzoHsz", "EDJ8GC3kukmyoEhMspIe1kNu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

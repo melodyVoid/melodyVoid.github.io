@@ -2,10 +2,18 @@
 <search>
   <entry>
     <title><![CDATA[后端返回的流文件乱码的问题]]></title>
-    <url>%2FJavaScript%2Fthe-stream-file-garbled-returned-by-backend.html</url>
+    <url>%2FJavaScript%2Fthe-problem-of-garbled-stream-files-returned-by-backend.html</url>
     <content type="text"><![CDATA[在调用后端导出 excel 接口的时候，后端返回的是文件流，会乱码 解决方法1234567891011121314151617181920212223242526async exportExc() &#123; if (!this.searchForm.time) &#123; this.$message.warning('请选择导出月份') &#125; else &#123; try &#123; let start_time = parseTime(this.searchForm.time, '&#123;y&#125;-&#123;m&#125;') start_time += '-01' const res = await exportFinancial(&#123;start_time: start_time &#125;) // 得到流文件 // 1.用 Blob 包装一下，注意设置 type 类型和编码 const excel = new Blob([res], &#123;type: 'application/vnd.ms-excel;charset=utf-8'&#125;) // 2.给创建的 Blob 实例创建一个 url const excelUrl = URL.createObjectURL(excel) // 3.创建一个 a 标签，为了方便给导出的 excle 命名 const link = document.createElement('a') // 4.将创建的 url 赋值给 a 标签的 href link.href = excelUrl // 5.给文件命名 link.download = '财务对账 ' + start_time.slice(0, -3) // 6.触发 click 事件，相当于下载文件 link.click() &#125; catch (err) &#123; console.log(err) &#125; &#125;&#125; 这个时候我们虽然可以导出文件了，但是打开文件还是乱码的，为什么呢？因为我们还必须得配置 responseType 然后我们修改一下 api 123456789// 财务对账导出export function exportFinancial(params) &#123; return request(&#123; url: '/account/financial/export', method: 'get', params, responseType: 'arraybuffer' // 注意配置这个选项 &#125;)&#125; done。 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/JavaScript/the-stream-file-garbled-returned-by-backend.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS居中总结]]></title>
+    <url>%2FCSS%2Fcss-centered-summary.html</url>
+    <content type="text"><![CDATA[水平居中是否是 inline 或 inline-* 元素（比如文本或链接)?在块级的父元素中添加 123.center-children &#123; text-align: center;&#125; 这对 inline，inline-block，inline-table，inline-flex都有效。 是否是块级元素？你可以通过给块级元素设置 margin-left 和 margin-right 或者 auto 来居中它。 123.center-me &#123; margin: 0 auto;&#125; 不管块级元素的宽度设置多少，我们都可以用这种方式来居中。 多个块级元素？如果需要在一行内居中两个或者更多的块级元素，可以将他们转换显示类型。 将块级元素转换为 display: inline-block;，然后给其父元素添加 text-align: center; 给父级设置 display: flex; justify-content: center; 垂直居中是否是 inline 或 inline-* 元素（比如文本或链接)?单行？单行居中的话，只需要设置相同的上下 padding 即可。 1234.link &#123; padding-top: 30px; padding-bottom: 30px;&#125; 如果不想设置 padding 的话，那么还有一个办法，将 line-height 和 height 设置成一样的高度。 多行？给多行内联元素设置相同的上下 padding 也是可以做到居中的。但是如果这样不起作用，那么文本所在的元素可能是表格的单元格，我们用 vertical-align: middle 解决。 1234567891011&lt;table&gt; &lt;tr&gt; &lt;td&gt; I'm vertically centered multiple lines of text in a real table cell. &lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;div class="center-table"&gt; &lt;p&gt;I'm vertically centered multiple lines of text in a CSS-created table layout.&lt;/p&gt;&lt;/div&gt; 12345678910111213141516171819202122232425262728293031323334353637body &#123; background: #f06d06; font-size: 80%;&#125;table &#123; background: white; width: 240px; border-collapse: separate; margin: 20px; height: 250px;&#125;table td &#123; background: black; color: white; padding: 20px; border: 10px solid white; /* default is vertical-align: middle; */&#125;.center-table &#123; display: table; height: 250px; background: white; width: 240px; margin: 20px;&#125;.center-table p &#123; display: table-cell; margin: 0; background: black; color: white; padding: 20px; border: 10px solid white; vertical-align: middle;&#125; 觉得表格 out 了？那么试试 flex 吧 123456.flex-center-vertically &#123; display: flex; justify-content: center; flex-direction: column; height: 400px;&#125; 请记住，如果父容器具有固定高度（px，％等），那么它才真正起作用，这就是为什么这里的容器有一个高度。 如果这两种技术都没有了，那么可以使用“ghost element”技术，在该技术中，将全高伪元素放置在容器内，并且文本与该元素垂直对齐。 123456789101112131415.ghost-center &#123; position: relative;&#125;.ghost-center::before &#123; content: " "; display: inline-block; height: 100%; width: 1%; vertical-align: middle;&#125;.ghost-center p &#123; display: inline-block; vertical-align: middle; width: 190px; // 注意宽度一定要有&#125; 是否为块级元素？知道块级元素的高度吗？不知道网页布局的高度是相当普遍的，有以下几个原因：如果宽度改变，那么文本重排会改变高度。文字造型的差异可以改变高度，文字数量的变化可以改变高度。具有固定宽高比的元素（如图像）可在更改大小时更改高度，等等。 但是，如果你知道元素的高度的话，那么你可以用下面的方法来居中。 123456789.parent &#123; position: relative;&#125;.child &#123; position: absolute; top: 50%; height: 100px; margin-top: -50px; /* account for padding and border if not using box-sizing: border-box; */&#125; 不确定的高度？如果不知道块级元素的高度，那么可以这样做 12345678.parent &#123; position: relative;&#125;.child &#123; position: absolute; top: 50%; transform: translateY(-50%);&#125; 用 flex 了吗？12345.parent &#123; display: flex; flex-direction: column; justify-content: center;&#125; 12345.parent &#123; display: flex; align-item: center; justify-content: center;&#125; 水平垂直同时居中您可以以任何方式将上述技巧结合起来，以获得完美居中的元素。但我发现这通常分为三个阵营： 元素是不是弹性的宽度和高度？使用等于该宽度和高度的一半的负边距，在将其绝对定位在50％/ 50％后，将以极佳的跨浏览器支持为中心： 123456789101112131415.parent &#123; position: relative;&#125;.child &#123; width: 300px; height: 100px; padding: 20px; position: absolute; top: 50%; left: 50%; margin: -70px 0 0 -170px;&#125; 元素是不是不确定的宽度和高度？如果您不知道宽度或高度，则可以使用transform属性和两个方向上的50％负向平移（它基于元素的当前宽度/高度）居中： 123456789.parent &#123; position: relative;&#125;.child &#123; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);&#125; 用 flex 了吗？要使用flexbox在两个方向上居中，您需要使用两个居中属性： 12345.parent &#123; display: flex; justify-content: center; align-items: center;&#125; 用 grid 了吗？1234567body, html &#123; height: 100%; display: grid;&#125;span &#123; /* thing to center */ margin: auto;&#125; 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/ 欢迎转载，转载请注明文本链接]]></content>
+      <categories>
+        <category>CSS</category>
       </categories>
   </entry>
   <entry>
@@ -21,7 +29,7 @@
   </entry>
   <entry>
     <title><![CDATA[iTerms配和sshpass记住密码]]></title>
-    <url>%2FNote%2Fiterms-match-and-sshpass-remember-password.html</url>
+    <url>%2FNote%2Fiterms-with-sshpass-remember-password.html</url>
     <content type="text"><![CDATA[sshpass 配置安装sshpass 介绍ssh登陆不能在命令行中指定密码，需要用户交互输入密码，sshpass 的出现，解决了这一问题。它允许你用 -p 参数指定明文密码，然后直接登录远程服务器， 它支持密码从命令行、文件、环境变量中读取。所以，通过sshpass实现以非交互的形式为ssh提供密码。 安装配置下载： http://sourceforge.net/projects/sshpass/files/ 解压后，进入sshpass目录，执行安装 123./configuremakemake install 安装完输入 sshpass 123456789101112Usage: sshpass [-f|-d|-p|-e] [-hV] command parameters -f filename Take password to use from file -d number Use number as file descriptor for getting password -p password Provide password as argument (security unwise) -e Password is passed as env-var &quot;SSHPASS&quot; With no parameters - password will be taken from stdin -P prompt Which string should sshpass search for to detect a password prompt -v Be verbose about what you&apos;re doing -h Show help (this screen) -V Print version informationAt most one of -f, -d, -p or -e should be used 出现上述内容表明安装成功。 或者 1brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb 1brew install http://git.io/sshpass.rb 配置 iTerm2打开 profile 1/usr/local/bin/sshpass -f /Users/melody0z/sshpass/t5 ssh -p50039 dylan@101.201.73.49 下面我把上面的命令拆解 /usr/local/bin/sshpass -f 表示读取密码。 /Users/melody0z/sshpass/t5 表示我密码存放的地址， t5是一个普通文件，没有后缀名，里面只写密码即可。 ssh -p50039 dylan@101.201.73.49 这个就不用我解释了。 在上图我标3的里面可以写脚本。 OK,配置完成。 下一次再进入服务器的时候就不用每次再去输入服务器地址和密码了，提高效率有没有！！！ 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Note/iterms-match-and-sshpass-remember-password.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Note</category>
@@ -32,7 +40,7 @@
   </entry>
   <entry>
     <title><![CDATA[配置 vscode 的 postfix]]></title>
-    <url>%2FNote%2Fconfigure-postcode-for-vscode.html</url>
+    <url>%2FNote%2Fconfiguring-postfix-for-vscode.html</url>
     <content type="text"><![CDATA[安装 postfix 插件，然后发现输入 .log后按 tab 并不能补全，因为，postfix 的配置建议并没有排在第一顺位，所以需要添加配置项。 12345// 控制是否将代码段与其他建议一起显示以及它们的排序方式。 "editor.snippetSuggestions": "inline", // 当其前缀匹配时插入代码段。当 "quickSuggestions" 未启用时，效果最佳。 "editor.tabCompletion": false 修改为下面的样子 12"editor.snippetSuggestions": "top","editor.tabCompletion": true 这样就能愉快地写代码了，哈哈哈。 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Note/configure-postcode-for-vscode.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Note</category>
@@ -76,7 +84,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0930]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0930.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0930.html</url>
     <content type="text"><![CDATA[必备句型​ I spent three hours cooking this meal. 我花了三小时做这顿饭 How’s the food today? 今天的饭菜怎么样 ​ 场景对话​ A: How’s the food today? B: It’s okay. A: It’s okay? I spent three hours cooking this meal. How do you think it makes me feel when you say “it’s okay” in that sullen tone? ​ 参考译文​ A: 今天的饭菜怎么样？ B: 还可以。 A: 只是还可以？我花了三小时做这顿饭，但别人却随口敷衍一句“还可以”想想看是什么感觉？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -87,7 +95,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0929]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0929.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0929.html</url>
     <content type="text"><![CDATA[必备句型​ Word on the street is… 有传言说… I am not wasting my time talking to you. 我就不浪费自己时间了 ​ 场景对话​ A: Word on the street is, you lit that match so you could pin it on me. B: I don’t know what you are talking about.And apparently, neither do you. I am not wasting my time talking to you. ​ 参考译文​ A: 有传言说，是你放了火，然后想嫁祸于我。 B: 我不知道你在乱扯什么，很显然你也不知道自己在讲什么，我就不浪费自己的时间了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -98,7 +106,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0928]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0928.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0928.html</url>
     <content type="text"><![CDATA[必备句型​ What the hell is wrong with you? 您到底怎么了？ I mean it 我是认真的 ​ 场景对话​ A: I’ve had enough, I don’t wanna talk to you anymore, and I don’t want to see you again in my life. B: What the hell is wrong with you? Are you kidding me? A: No, I mean it. ​ 参考译文​ A: 我真的受够了，不想再跟你说话，这辈子都不想再见到你了。 B: 你到底怎么了？你是在开玩笑吗？ A: 不，我是认真的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -109,7 +117,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0927]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0927.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0927.html</url>
     <content type="text"><![CDATA[必备句型​ I’ve been thinking about this for a long time. 我思考这个问题已经很长时间了 I will always, honestly, truly, completely love you. 我都会永远真诚地，全心全意地爱你 ​ 场景对话​ A: Hey,Clair told me that you wanna talk to me. B: Yes, I’ve been thinking about this for a long time. I love you, and no matter where you are or what you are doing or who you are with. I will always, honestly, truly, completely love you. ​ 参考译文​ A: 嘿，Clair告诉我你有事跟我讲。 B: 是的，我思考这个问题已经有很长时间了。我爱你，不管你在哪里，在做什么，跟谁在一起。我都会永远真诚地，全心全意地爱你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -120,12 +128,12 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0926]]></title>
-    <url>%2Funcategorized%2Fenglish-follow-plan-0926.html</url>
+    <url>%2Funcategorized%2Fenglish-followup-program-0926.html</url>
     <content type="text"><![CDATA[必备句型​ I have Alzheimer’s disease, early onset. 我的了阿兹海默症，早发性的。 Live in the moment, I tell myself. 我要求自己活在当下。 ​ 场景对话​ A: I need to talk to you,I’ve got something wrong with me. B: What’s going on? A: I have Alzheimer’s disease, early onset. B: My God! A: Live in the moment, I tell myself, it’s really all I can do. Live in the moment. ​ 参考译文​ A: 我有事告诉你，我生病了。 B: 出什么事了？ A: 我得了阿兹海默症，早发性的。 B: 天哪。 A: 我要求自己活在当下，我现在也只能活在当下了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0925]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0925.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0925.html</url>
     <content type="text"><![CDATA[必备句型​ I still can’t believe what you have done. 我仍然没有拌饭相信你做了什么 It’s my life, I did it my way. 这是我的生活，我有自己的方式 ​ 场景对话​ A: I still can’t believe what you have done.Why did you do that? B: I know that you care about me,but I know what I am doing. It’s my life, I did it my way. ​ 参考译文​ A: 我仍然没有办法相信你做了什么，你为什么这么做？ B: 我知道你关心我，但是我知道自己在做什么。这是我的生活，我有自己的方式。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -136,7 +144,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0924]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0924.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0924.html</url>
     <content type="text"><![CDATA[必备句型​ We hit the road early. 我们很早就出发了 Enjoy your holiday 假期愉快 ​ 场景对话​ A: When did you get there? B: We hit the road early so that we reached the village by lunchtime. A: Nice, enjoy your holiday. ​ 参考译文​ A: 你们什么时候到的？ B: 我们很早就出发了，所以午饭时间就到达村庄了。 A: 真好，假期愉快。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -147,7 +155,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0923]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0923.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0923.html</url>
     <content type="text"><![CDATA[必备句型​ Are you travelling light? 你们轻装旅行吗？ We would only stay for three days, so we packed light. 我们只待三天，所以我们没带太多行李。 ​ 场景对话​ A: What’s your plan for the holiday? B: I’ll go to New York with my friends. A: Do you need some help collecting your luggage, or are you travelling light? B: We would only stay for three days, so we packed light. ​ 参考译文​ A: 假期有什么计划吗？ B: 我跟朋友要去纽约。 A: 需要帮忙拿行李吗还是你们是轻装旅行？ B: 我们只待三天，所以我们没带太多行李。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -158,7 +166,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0922]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0922.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0922.html</url>
     <content type="text"><![CDATA[必备句型​ Just stay for one more cup of coffee. 再喝杯咖啡再走吧 I am leaving now. See ya! 我现在得走了，再见！ ​ 场景对话​ A: Just stay for one more cup of coffee. B: I really can’t, I’m in a hurry. A: Alright, did you forget anything? B: Oh,right. The keys, I am leaving now. See ya! ​ 参考译文​ A: 再喝杯咖啡再走吧。 B: 真得不行，我得赶紧走了！ A: 好吧，你没忘什么东西吧？ B: 噢，对了，忘拿钥匙了。我现在得走了，再见！ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -169,7 +177,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0921]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0921.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0921.html</url>
     <content type="text"><![CDATA[必备句型​ You are just blinded by your pain. 你只是被疼痛蒙蔽了双眼 There can be miracles, when you believe. 当你充满信心，奇迹就会出现 ​ 场景对话​ A: I am so sorry, I wanna give up, I just couldn’t find a way out. B: You are just blinded by your pain. There can be miracles, when you believe. All you need to do right now is just trust yourself and do your best. ​ 参考译文​ A: 对不起，我想放弃了。感觉自己找不到了出路。 B: 你只是被疼痛蒙蔽了双眼，当你充满信心，奇迹就会出现。你需要做的就是相信自己，尽自己最大的努力。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -180,7 +188,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0920]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0920.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0920.html</url>
     <content type="text"><![CDATA[必备句型​ Do you know how long I’ve been dreaming about this day? 知道我梦想着着一天有多久了吗？ This is the happiest moment in my life. 这是我一生中最快乐的时刻 ​ 场景对话​ A: What’s the rush? B: I am sorry, I just couldn’t wait. Do you know how long I’ve been dreaming about this day?I’m finally surrounded by moment in my life. ​ 参考译文​ A: 那么急干嘛？ B: 对不起，我只是等不及了。你知道我梦想着这一天有多久了吗？我终于能跟聪明又充满好奇的人在一起了。这是我一生中最快乐的时刻。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -191,7 +199,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0919]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0919.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0919.html</url>
     <content type="text"><![CDATA[必备句型​ I am not all that certain that little girl was you. 我有点不确定你就是当年那个小女孩 Why don’t you cut the crap and tell me what I’m really doing here? 废话少说，告诉我今天你让我来的目的吧 ​ 场景对话​ A: Actually when I come to think of it, I am not all that certain that little girl was you. B: Alright, why don’t you cut the crap and tell me what I’m really doing here? ​ 参考译文​ A: 其实，当我回想当年。我有点不确定你就是当年那个小女孩。 B: 好了，废话少说，告诉我今天你让我来的目的吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -202,7 +210,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0918]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0918.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0918.html</url>
     <content type="text"><![CDATA[必备句型​ I have no idea what’s going on. 我不知道发生了什么事 We’ll be safe and sound. 我们会安然无恙的 ​ 场景对话​ A: I have no idea what’s going on. We are in big trouble this time, what should I do? B: Don’t worry about it. You’ll be alright. We’ll be safe and sound. ​ 参考译文​ A: 我不知道发生了什么事。我们这次有大麻烦了，我该怎么办？ B: 别担心，你会没事的。我们都会安然无恙的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -213,7 +221,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0917]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0917.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0917.html</url>
     <content type="text"><![CDATA[必备句型​ Speaking of chores, I prefer to do laundry. 说到家务杂事，我更愿意洗衣服 I don’t know how to cook. 我不会做饭 ​ 场景对话​ A: Do you like cooking? B: Not at all. Speaking of chores, I prefer to do laundry. A: How come? B: Because I don’t know how to cook. ​ 参考译文​ A: 你喜欢做饭吗？ B: 一点也不喜欢，说到家务杂事，我更愿意洗衣服。 A: 为什么？ B: 因为我不会做饭。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -224,7 +232,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0916]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0916.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0916.html</url>
     <content type="text"><![CDATA[必备句型​ I don’t wanna explain their whole story. It’s very complicated. 我就不一一解释整个故事，太复杂了 In a nutshell, they just wanted different things. 简单地说，他们想要的东西都不一样 ​ 场景对话​ A: What’s wrong with them? B: I don’t wanna explain their whole story.It’s very complicated, but in a nutshell, they just wanted different things. She wanted travel and adventure, he wanted to focus on his career. So in the end, they broke up. ​ 参考译文​ A: 他们发生了什么事？ B: 我就不一一解释整个故事了，太复杂了。简单地说，他们想要的东西不一样，她想要旅游和冒险，他想专注于自己的事业，所以最后他们分手了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -235,7 +243,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0915]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0915.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0915.html</url>
     <content type="text"><![CDATA[必备句型​ How about a cup of coffee at a nearby cafe? 去附近的咖啡屋喝杯咖啡吧。 I’ll have a soy latte. 我要豆奶拿铁咖啡。 ​ 场景对话​ A: How about a cup of coffee at a nearby cafe? B: That’s nice, what would you like to drink? A: I am a little hungry, I want some muffins, and a cup of cappuccino. B: I’ll have a soy latte. ​ 参考译文​ A: 去附近的咖啡屋喝杯咖啡吧？ B: 好啊，你想喝什么？ A: 我有点饿了，我想要一些松饼，还有一杯卡布奇诺。 B: 我要豆奶拿铁咖啡。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -246,7 +254,7 @@
   </entry>
   <entry>
     <title><![CDATA[八段代码理解Promise]]></title>
-    <url>%2FJavaScript%2Feight-code-understanding-promise.html</url>
+    <url>%2FJavaScript%2Feight-paragraphs-of-code-to-understand-promise.html</url>
     <content type="text"><![CDATA[Promise的立即执行性12345678910let p = new Promise((resolve,reject)=&gt;&#123; console.log("create a promise"); resolve("success");&#125;);console.log("after new Promise");p.then((value)=&gt;&#123; console.log(value);&#125;); 控制台输出 123create a promiseafter new Promisesuccess Promise对象表示未来某个将要发生的事件，但在创建（new）Promise时，作为Promise参数传入的函数是会被立即执行的，只是其中执行的代码可以是异步代码。有些同学会认为，当Promise对象调用then方法时，Promise接收的函数才会执行，这是错误的。因此，代码中”create a promise”先于”after new Promise”输出。 Promise三种状态123456789101112131415161718192021222324252627282930313233343536373839let p1 = new Promise((resolve,reject)=&gt;&#123; resolve(1);&#125;);let p2 = new Promise((resolve,reject)=&gt;&#123; setTimeout(()=&gt;&#123; resolve(2); &#125;,500)&#125;);let p3 = new Promise((resolve,reject)=&gt;&#123; setTimeout(()=&gt;&#123; reject(3); &#125;,500)&#125;);console.log(p1); //Promise &#123;[[PromiseStatus]]: "resolved", [[PromiseValue]]: 1&#125;console.log(p2); //Promise &#123;[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined&#125;console.log(p3); //Promise &#123;[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined&#125;setTimeout(()=&gt;&#123; console.log(p2); //Promise &#123;[[PromiseStatus]]: "resolved", [[PromiseValue]]: 2&#125;&#125;,1000);setTimeout(()=&gt;&#123; console.log(p3) //Promise &#123;[[PromiseStatus]]: "rejected", [[PromiseValue]]: 3&#125;&#125;,1000);p1.then(value=&gt;&#123; console.log(value); //1&#125;);p2.then(value=&gt;&#123; console.log(value); //2&#125;);p3.catch(err=&gt;&#123; console.log(err) //3&#125;); 控制台输出 12345678Promise &#123;[[PromiseStatus]]: "resolved", [[PromiseValue]]: 1&#125;Promise &#123;[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined&#125;Promise &#123;[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined&#125;123Promise &#123;[[PromiseStatus]]: "resolved", [[PromiseValue]]: 2&#125;Promise &#123;[[PromiseStatus]]: "rejected", [[PromiseValue]]: 3&#125; Promise的内部实现是一个状态机。Promise有三种状态：pending、resolved、rejected。当Promise刚创建完成时，处于pending状态；当Promise中的函数参数执行了resolve后，Promise由pending状态变成resolved状态；如果在Promise的函数参数中执行的不是resolve方法，而是reject方法，那么Promise会由pending状态变成rejected状态。 p2/p3刚创建完成时，控制台输出的这两台Promise都处于pending状态，但为什么p1是resolved状态呢？这是因为p1的函数参数中执行的是一段同步代码，Promise刚创年完成，resolve方法就已经被调用了，因而紧跟着的输出显示p1是resolved状态。我们通过两个setTimeout函数，延迟1s后再次输出p2、p3的状态，此时p2、p3已经执行完成，状态分别变成resolved和rejected。 Promise状态的不可逆性1234567891011121314151617let p1 = new Promise((resolve,reject)=&gt;&#123; resolve("success1"); resolve("success2");&#125;);let p2 = new Promise((resolve,reject)=&gt;&#123; resolve("success"); reject("reject");&#125;);p1.then(value=&gt;&#123; console.log(value);&#125;);p2.then(value=&gt;&#123; console.log(value);&#125;); 控制台输出 12success1success Promise状态一旦变成resolve或rejected时，Promise的状态和值就固定下来了，不论你后续再怎么调用resolve或reject方法，都不能改变它的状态和值。因此，p1中resolve(“success2”)并不能将p1的值更改为success2，p2中reject(“reject”)也不能将p2的状态由resolved改变为rejected。 链式调用1234567891011121314151617181920let p = new Promise((resolve,reject)=&gt;&#123; resolve(1);&#125;);p.then(value=&gt;&#123; //第一个then console.log(value); //1 return value * 2;&#125;).then(value=&gt;&#123; //第二个then console.log(value); //2&#125;).then(value=&gt;&#123; //第三个then console.log(value); //undefined return Promise.resolve('resolve')&#125;).then(value=&gt;&#123; //第四个then console.log(value); //'resolve' return Promise.reject('reject')&#125;).then(value=&gt;&#123; //第五个then console.log('resolve:' + value)&#125;,err=&gt;&#123; console.log('reject:' + err); //'reject:reject'&#125;); 控制台输出： 1234512undefinedresolvereject:reject Promise对象的then方法返回一个新的Promise对象，因此可以通过链式调用then方法。then方法接收两个函数作为参数，第一个参数是Promise执行成功时的回调，第二个参数是Promise执行失败时的回调。两个函数只会有一个被调用，函数的返回值将被用作创建then返回的Promise对象。这两个参数的返回值可以是以下三种情况中的一种： return 一个同步的值 ，或者 undefined（当没有返回一个有效值时，默认返回undefined），then方法将返回一个resolved状态的Promise对象，Promise对象的值就是这个返回值。 return 另一个 Promise，then方法将根据这个Promise的状态和值创建一个新的Promise对象返回。 throw 一个同步异常，then方法将返回一个rejected状态的Promise, 值是该异常。 根据以上分析，代码中第一个then会返回一个值为2（1*2），状态为resolved的Promise对象，于是第二个then输出的值是2。第二个then中没有返回值，因此将返回默认的undefined，于是在第三个then中输出undefined。第三个then和第四个then中分别返回一个状态是resolved的Promise和一个状态是rejected的Promise，依次由第四个then中成功的回调函数和第五个then中失败的回调函数处理。 Promise then()回调异步性123456789let p = new Promise((resolve,reject)=&gt;&#123; resolve("success")&#125;);p.then(value=&gt;&#123; console.log(value);&#125;);console.log("which one is called first?"); 控制台输出： 12which one is called first?success Promise接收的函数参数是同步执行的，但then方法中的回调函数执行则是异步的，因此，”success”会在后面输出。 Promise中的异常12345678910111213141516171819202122232425262728293031323334let p1 = new Promise((resolve,reject)=&gt;&#123; foo.bar(); resolve(1);&#125;);p1.then((value)=&gt;&#123; console.log('p1 then value:' + value); //&#125;,(err)=&gt;&#123; console.log('p1 then err:' + err);&#125;).then((value)=&gt;&#123; console.log('p1 then then value:' + value);&#125;,(err)=&gt;&#123; console.log('p1 then then err:' + err);&#125;);let p2 = new Promise((resolve,reject)=&gt;&#123; resolve(2);&#125;);p2.then((value)=&gt;&#123; console.log('p2 then value:' + value); foo.bar();&#125;,(err)=&gt;&#123; console.log('p2 then err:' + err);&#125;).then((value)=&gt;&#123; console.log('p2 then then value:' + value);&#125;,(err)=&gt;&#123; console.log('p2 then then err:' + err); return 1;&#125;).then((value)=&gt;&#123; console.log('p2 then then then value:' + value);&#125;,(err)=&gt;&#123; console.log('p2 then then then err:' + err);&#125;); 控制台输出： 12345p1 then err:ReferenceError: foo is not definedp2 then value:2p1 then then value:undefinedp2 then then err:ReferenceError: foo is not definedp2 then then then value:1 Promise中的异常由then参数中第二个回调函数（Promise执行失败的回调）处理，异常信息将作为Promise的值。异常一旦得到处理，then返回的后续Promise对象将恢复正常，并会被Promise执行成功的回调函数处理。另外，需要注意p1、p2 多级then的回调函数是交替执行的 ，这正是由Promise then回调的异步性决定的。 Promise.resolve()1234567891011121314151617181920212223242526let p1 = Promise.resolve(1);let p2 = Promise.resolve(p1);let p3 = new Promise((resolve,reject)=&gt;&#123; resolve(1);&#125;);let p4 = new Promise((resolve,reject)=&gt;&#123; resolve(p1);&#125;);console.log(p1 === p2);console.log(p1 === p3);console.log(p1 === p4);console.log(p3 === p4);p4.then((value)=&gt;&#123; console.log('p4=' + value);&#125;);p2.then((value)=&gt;&#123; console.log('p2=' + value);&#125;);p1.then((value)=&gt;&#123; console.log('p1=' + value);&#125;); 控制台输出(node v8.2.1) 1234567truefalsefalsefalsep4=1p2=1p1= 在Chrome或Safari的控制台里 1234567truefalsefalsefalsep2=1p1=1p4=1 Promise.resolve(...)可以接受一个值或者一个Promise对象作为参数。 当参数是普通值时，它返回一个resolved状态的Promise对象，对象的值就是这个参数； 当参数是一个Promise对象时，它直接返回这个Promise参数。 因此，p1 === p2。但通过new的方式创建的Promise对象都是一个新的对象，因此后面的三个比较结果都是false。另外，为什么p4的then最先调用，但在控制台上是最后输出结果的呢？因为p4的resolve中接收的参数是一个Promise对象p1，resolve会对p1“拆箱”，获取p1的状态和值，但这个过程是异步的。 resolve vs reject123456789101112131415161718192021222324let p1 = new Promise((resolve, reject) =&gt; &#123; resolve(Promise.resolve("resolve"));&#125;);let p2 = new Promise((resolve, reject) =&gt; &#123; resolve(Promise.reject("reject"));&#125;);let p3 = new Promise((resolve, reject) =&gt; &#123; reject(Promise.resolve("resolve"));&#125;);p1.then(value =&gt; &#123; console.log("fulfilled:" + value); //fulfilled:resolve&#125;, err =&gt; &#123; console.log("rejected:" + err)&#125;);p2.then(value =&gt; &#123; console.log("fulfilled:" + value);&#125;, err =&gt;&#123; console.log("rejected:" + err); //rejected: reject&#125;);p3.then(value =&gt; &#123; console.log("fulfilled:" + value);&#125;, err =&gt;&#123; console.log("rejected:" + err); //rejected:[object Promise]&#125;); 控制台输出： 123rejected:[object Promise]fulfilled:resolverejected:reject Promise回调函数中的第一个参数resolve，会对Promise执行“拆箱”动作。即当resolve的参数是一个Promise对象时，resolve会“拆箱”获取这个Promise对象的状态和值，但这个过程是异步的。p1“拆箱”后，获取到Promise对象的状态时resolved，因此fulfilled回调被执行；p2”拆箱“后，获取到Promise对象的状态是rejected，因此rejected回调被执行。但Promise回到函数中的第二个参数reject不具备”拆箱“的能力，reject的参数会直接传递给then方法中的rejected回调。因此，即使p3reject接受了一个resolveed状态的Promise，then方法中被调用的依然是rejected,并且参数就是reject接收到的Promise对象。 参考地址：https://juejin.im/post/597724c26fb9a06bb75260e8?utm_source=gold_browser_extension 本文结束，感谢阅读。 本文作者： 苍山沭河本文链接：https://melodyvoid.github.io/JavaScript/eight-sections-of-code-understanding-promise.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
@@ -257,7 +265,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0914]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0914.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0914.html</url>
     <content type="text"><![CDATA[必备句型​ Life is a journey, we need to experience a lot of things. 人生如旅，我们需要经历很多事情。 I know I’m not the only one who regrets the things they’ve done. 我知道并非只有我自己后悔曾经做过的事。 ​ 场景对话​ A: Life is a journey, we need to experience a lot of things, to learn and to enjoy. Don’t you think so? B: You are absolutely right.I have some regrets though, but I konw I’m not the only one who regrets the things they’ve done. ​ 参考译文​ A: 人生如旅，我们需要经历很多事情，去学习和享受。你不这样觉得吗？ B: 完全正确，我也有一些遗憾，但是我知道并非只有我自己后悔曾经做过的事。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -268,7 +276,7 @@
   </entry>
   <entry>
     <title><![CDATA[vuex官方文档学习]]></title>
-    <url>%2Fvuex%2Fvuex-official-document-learning.html</url>
+    <url>%2Fvuex%2Fvuex-official-documentation-learning.html</url>
     <content type="text"><![CDATA[安装vuexnpm install vuex --save 捎带脚把element-ui也安装上了 npm install element --save #引入vuex 然后再main.js中引入vuex和element-ui 123456import ElementUI from 'element-ui'import 'element-ui/lib/theme-default/index.css'import Vuex from 'vuex'Vue.use(ElementUI)Vue.use(Vuex) Vuex是什么？Vuex是一个专为vue.js应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。 我们写个小的计数器Hello.vue中 123456789101112131415161718192021222324252627&lt;template&gt; &lt;div class=&quot;hello&quot;&gt; &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt; &lt;el-button @click=&quot;increment&quot;&gt;增加&lt;/el-button&gt; &lt;el-button type=&quot;primary&quot;&gt;减少&lt;/el-button&gt; &lt;h1&gt;&#123;&#123; count &#125;&#125;&lt;/h1&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; name: &apos;hello&apos;, //state data () &#123; return &#123; msg: &apos;Welcome to Your Vue.js App&apos;, count: 0 &#125; &#125;, //aactions methods: &#123; increment () &#123; this.count++ &#125; &#125; &#125;&lt;/script&gt; 这个计数器包含以下几个部分： state, 驱动应用的数据源 view, 以生命方式将state映射到视图 (即模板template) actions, 响应在view上的用户输入导致的状态变化 但是，当我们的应用遇到多个组件共享状态时，单项数据流的简洁性就很容易被破坏： 多个视图依赖于同一状态 来自不同视图的行为需要变更同一状态 对于问题一，传参的方法对于多层嵌套的组件将会非常的繁琐，并且对于兄弟组件间的状态传递无能为力。 对于问题二，我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。以上的这些模式非常脆弱，通常会导致无法维护的代码。 因此，我们为什么不把组件的共享状态抽取出来，以一个全局单例模式管理呢？在这种模式下，我们的组件树构成了一个巨大的“视图”，不管在树的哪个位置，任何组件都能获取状态或者触发行为。 另外，通过定义和隔离状态管理中的各种概念并强制遵守一定的规则，我们的代码将会变得更结构化且易维护。 开始每一个Vuex应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分状态（state）。Vuex和单纯的全局对象有以下两点不同： Vuex的状态存储是响应式的。当Vue组件从store中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。 你不能直接改变store中的状态。改变store总的状态的唯一途径就是显式地提交(commit)mutations。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。 简单的计数器 1234567&lt;div id="app"&gt; &lt;p&gt;&#123;&#123; count &#125;&#125;&lt;/p&gt; &lt;p&gt; &lt;button @click="increment"&gt;+&lt;/button&gt; &lt;button @click="decrement"&gt;-&lt;/button&gt; &lt;/p&gt;&lt;/div&gt; 12345678910111213141516171819202122232425262728// make sure to call Vue.use(Vuex) if using a module systemconst store = new Vuex.Store(&#123; state: &#123; count: 0 &#125;, mutations: &#123; increment: state =&gt; state.count++, decrement: state =&gt; state.count-- &#125;&#125;)new Vue(&#123; el: '#app', computed: &#123; count () &#123; return store.state.count &#125; &#125;, methods: &#123; increment () &#123; store.commit('increment') &#125;, decrement () &#123; store.commit('decrement') &#125; &#125;&#125;) State在Vue组件中获得Vuex状态在store实例中读取状态最简单的方法就是在计算属性中返回某个状态， 项目结构Vuex并不限制你的代码结构。但是，它规定了一些需要遵守的规则： 应用层级的状态应该集中到单个store对象中。 提交mutation是更改状态的唯一方法，并且这个过程是同步的。 异步逻辑都应该封装到action里面。 只要你遵守以上规则，如何组织代码随便。如果你的store文件太大，只需将action、mutation、和getters分割到单独的文件。 对于大型应用，我们会希望把Vuex相关代码分割到模块中。下面是结构实例： 1234567891011121314├── index.html├── main.js├── api│ └── ... # 抽取出API请求├── components│ ├── App.vue│ └── ...└── store ├── index.js # 我们组装模块并导出 store 的地方 ├── actions.js # 根级别的 action ├── mutations.js # 根级别的 mutation └── modules ├── cart.js # 购物车模块 └── products.js # 产品模块 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/ 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>vuex</category>
@@ -279,7 +287,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0913]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0913.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0913.html</url>
     <content type="text"><![CDATA[必备句型​ This is role-playing game. 这是一个角色扮演游戏 I’m still a newbie. 我还是个新手 ​ 场景对话​ A: This is a role-playing game. B: The game sounds boring to me, maybe because I’m still a newbie. Can you show me how to play this game? A: Okay, but I want you to follow me on Twitter first. ​ 参考译文​ A: 这是一个角色扮演游戏。 B: 对我而言，这个游戏很无聊。可能是因为我还是个新手，你能告诉我怎么玩的吗？ A: 可以啊，但是我想让先关注我的推特。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -290,7 +298,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0912]]></title>
-    <url>%2FEnglish%2Fenglish-followup-plan-0912.html</url>
+    <url>%2FEnglish%2Fenglish-reading-program-0912.html</url>
     <content type="text"><![CDATA[必备句型​ The entire thing was a scam, you are a liar. 这整件事就是个骗局。 You’re overreacting, I wouldn’t tell lies to you. 你反应过激了，我不会对你说谎的。 ​ 场景对话​ A: Tell me what did you do last week. B: You still don’t believe me. A: The entire thing was a scam, you are a liar. B: You’re overreacting, I wouldn’t tell lies to you. I will never lie to you, and I am not a liar. ​ 参考译文​ A: 告诉我你上周做了什么。 B: 你还是不相信我。 A: 这整件事就是个骗局，你这个骗子。 B: 你反应过激了，我不会对你说谎的，我永远也不会欺骗你，我根不是骗子。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -301,7 +309,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0911]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0911.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0911.html</url>
     <content type="text"><![CDATA[必备句型​ What a mess! 怎么这么乱！ I have to say that I don’t feel like doing the dishes today. 不得不说我今天不想洗碗。 ​ 场景对话​ A: Oh my God, What a mess! B: But the dinner is ready! A: Alright, let’s enjoy the dinner first. B: Okay, but I have to say that I don’t feel like doing the dishes today. I really tired. A: Fine, I’ll do it. ​ 参考译文​ A: 天啊，怎么这么乱！ B: 但是晚餐准备好啦！ A: 好吧，先吃饭。 B: 但是我不得不说我今天不想洗碗，我真的很累。 A: 好吧，我来。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -312,7 +320,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0910]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0910.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0910.html</url>
     <content type="text"><![CDATA[必备句型​ It’s too late, I really have to go. 太晚了，我现在必须得走了。 Keep in touch, I hope to see you soon. 保持联系，希望很快再见到你。 ​ 场景对话​ A: Thank you so much for inviting me today, I had a wonderful evening with you. But I am afraid that I have to go right now. B: Can’t you stay a little longer? A: It’s too late, I really have to go. I hope we’ll get together again soon. B: Okay, keep in touch, I hope to see you soon. ​ 参考译文​ A: 谢谢你yao’iqng’w邀请我，今晚过得很愉快。但是kong恐怕现在我得走了。 B: 不能多待一会儿吗？ A: 太晚了，我现在必须得走了，希望不久以后可以再相聚。 B: 那好，保持联系，希望很快再见到你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -323,7 +331,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0909]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0909.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0909.html</url>
     <content type="text"><![CDATA[必备句型​ Would you like to hang out? 要不要出去逛逛？ It’s so good to get close to the nature. 和大自然亲近真好。 ​ 场景对话​ A: It’s Saturday again! Would you like to hang out? B: I’m going for a hike, I am also planning to go camping this weekend with my friends. Do you wanna go with us? A: Sure, It’s so good to get close to the nature. ​ 参考译文​ A: 又到周六啦！要不要出去逛逛？ B: 我打算图徒步旅行，也跟朋友计划去野营。你想要一起去吗？ A: 当然啦，和大自然亲近真好。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -334,7 +342,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0908]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0908.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0908.html</url>
     <content type="text"><![CDATA[必备句型​ You look familiar,have we met before ? 你看起来很面熟，我们以前见过吗？ You’ve got the wrong person. 你认错人了。 ​ 场景对话​ A: Is this seat taken ? B: No. A: Excuse me, you look familiar, have we met before? B: I don’t think so. You’ve got the wrong person. A: No, I am sure I’ve met you somewhere. ​ 参考译文​ A: 这个座位有人坐吗？ B: 没人。 A: 不好意思，你看起来很面熟，我们以前见过吗？ B: 没有，没见过。你认错人了。 A: 不，我肯定在哪见过你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -345,7 +353,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0907]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0907.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0907.html</url>
     <content type="text"><![CDATA[必备句型​ Is it scary to sleep in your house after it was broken into ? 家里被人闯过之后，现在晚上睡觉会害怕吗？ It’s a nightmare. 就是场噩梦。 ​ 场景对话​ A: You still look pale. How’s everything? B: I’m okay now. A: Is it scary to sleep in your house after it was broken into? B: Yes,definitely. It’s a nightmare. I was terrified. ​ 参考译文​ A: 你看上去脸色还是不太好。一切还好吧？ B: 我现在好了。 A: 家里被闯入过了之后，现在晚上睡觉还会害怕吗？ B: 是的，当然啦。就是场噩梦，我当时都吓坏了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -356,7 +364,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0906]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0906.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0906.html</url>
     <content type="text"><![CDATA[必备句型​ I highly recommend Ordinary World. 我强烈推荐《平凡的世界》 You should really have a look. 你真的可以看看 ​ 场景对话​ A: Do you like reading? B: Yes, of course. I really enjoy reading books and collecting books. A: I highly recommend Ordinary World. This is the most wonderful book I’ve ever read. You should really have a look. 参考译文​ A: 你喜欢看书吗？ B: 是的，非常感兴趣。我对看书和藏书都很喜欢。 A: 我强烈推荐《平凡的shi’j世界》。这是我读过最棒的一本书，你真的可以看看。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -367,7 +375,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0905]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0905.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0905.html</url>
     <content type="text"><![CDATA[必备句型​ Joey and I are engaged! 我和Joey订婚了。 I feel that I am the luckiest person in the world. 我感觉自己是这个世界上最幸运的人。 ​ 场景对话​ A: Joey and I are engaged. B: Wow! Congrats! A: I feel that I am the luckiest person in the world and the wedding is in 3 weeks. I am really excited. B: That’s amazing, I wish you both have a wonderful life together. ​ 参考译文​ A: 我和Joey订婚了。 B: 太好了，恭喜你们！ A: 我感觉自己是这个世界上最幸运的人，婚礼三周后就举行了。我好兴奋啊！ B: 太棒了，希望你们有一个幸福的生活。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -378,7 +386,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0904]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0904.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0904.html</url>
     <content type="text"><![CDATA[必备句型​ You have to promise that you won’t tell anyone. 你必须保证你不会告诉其他人。 Your secert is safe with me. 我会保守秘密的。 ​ 场景对话​ A: Something is wrong, I’ve made a mistake. B: What happened? Do you need help? A: You have to promise that you won’t tell anyone. B: Sure,I’m your best friend. Your secret is safe with me. ​ 参考译文​ A: 坏事了，我犯错了。 B: 发生了什么？有什么需要帮忙的吗？ A: 你必须保证不告诉其他人。 B: 当然啦，我可是你最好的朋友，我会保守秘密的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -389,7 +397,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0903]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0903.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0903.html</url>
     <content type="text"><![CDATA[必备句型​ You haven’t returned any of my callls. 你一个电话也没给我回。 Please, don’t call me anymore. 以后再也不要给我打电话了。 ​ 场景对话​ A: Hey, can I talk to you for a minutes? B: What’s wrong? A: Where have you been lately? You haven’t returned any of my calls. B: We’re done, Charles.Please, don’t call me anymore. A: If that’s what you want. ​ 参考译文​ A: 嘿，能跟你聊聊吗？ B: 怎么了？ A: 你最近都上哪了？一个电话都没给我回。 B: 我们之间结束了，Charles.以后再也不要给我打电话了。 A: 如果你想要这样的话。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -400,7 +408,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0901]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0901.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0901.html</url>
     <content type="text"><![CDATA[必备句型​ I know, and I don’t blame you. 我知道，我不怪你。 Thank you for your understanding. 谢谢你的理解。 ​ 场景对话​ A: I never told my family we adopted a baby. B: I know, and I don’t blame you, I know your family. If you told them, they would say something judgmental. A: Exactly.Thank you for your understanding. ​ 参考译文​ A: 我还没告诉我家人我们领养了一个孩子。 B: 我知道，我不怪你，我了解你家人。你一告诉他们，他们就会说三道四。 A: 就是这样，谢谢你的理解。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -411,7 +419,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0831]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0831.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0831.html</url>
     <content type="text"><![CDATA[必备句型​ I am afraid that I can’t agree with you. 我不太同意你的看法。 I’m just not a big fan of horror movies. 我不太喜欢看恐怖片。 ​ 场景对话​ A: I think it is one of the best movies I’ve seen this year. What do you think of it? B: I am afraid that I can’t agree with you, it’s not so good. A: How come? B: I’m just not a big fan of horror movies. ​ 参考译文​ A: 我觉得这是我今年看过的最好的电影之一。你觉得呢？ B: 我不太同意你的看法，这部电影没那么好。 A: 怎么会？ B: 我不太喜欢看恐怖片。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -422,7 +430,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0830]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0830.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0830.html</url>
     <content type="text"><![CDATA[必备句型​ Are you feeling better? 你感觉好点了吗？ You look much better, and we all care about you. 你看上去气色好多了，我们都很关心你。 ​ 场景对话​ A: Are you feeling better? B: I’m healing fast. A: That’s good, how long do you have to stay? B: You look much better, and we all care about you. By the way, I am looking forward to playing basketball with you again. ​ 参考译文​ A: 你感觉好点了吗？ B: 我恢复得很快。 A: 太好了，你还要在这里待多久？ B: 差不多还要一周。 A: 你看上去气色好多了，我们都很关心你。瞬变说一下，我还期待着跟你再打一次篮球呢。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -433,7 +441,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0829]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0829.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0829.html</url>
     <content type="text"><![CDATA[必备句型​ Is there anything worth watching on the channel? 有什么好看的节目吗？ But the first season is over. 但是第一季已经演完了。 ​ 场景对话​ A: Is there anything worth watching on the channel? B: I heard that you love Grimm, but the first season is over,right? A: Yes, Fortunately, the second season is showing on TV at the moment, so I can catch up with it now. ​ 参考译文​ A: 有什么好看的节目吗？ B: 我听说你超喜欢《格林》，但是第一季已经演完了，是吗？ A: 是演完了，幸运的是第二季又开始播了，我又有机会追这部剧了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -444,7 +452,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0828]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0828.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0828.html</url>
     <content type="text"><![CDATA[必备句型​ You mean the world to me. 你是我的一切。 Let me take care of you forever. 让我来照顾你一辈子吧。 ​ 场景对话​ A: After all of this, I think that I can’t live without you. B: I feel the same way, Charles. You mean the world to me, and thank you for being my boyfriend and being around. A: Let me take care of you forever. Annie. ​ 参考译文​ A: 经历了所有这些之后，我想不能没有你。 B: 我也是，Charles.你说我的一切，谢谢你当我的男朋友，并且一直陪在我的身边。 A: 让我来照顾你一辈子吧，Annie。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -455,7 +463,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0827]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0827.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0827.html</url>
     <content type="text"><![CDATA[必备句型​ He would do anything to help the people in need. 他会尽力帮助有困难的人。 He has a bad temper though. 他确实脾气不好。 ​ 场景对话​ A: He’s warm-hearted, he would do anything to help the people in need. B: Well,that’s true.But I still couldn’t believe that he yelled at the waitress last week. A: I know. He has a bad temper though. ​ 参考译文​ A: 他很热心，会尽力帮助有困难的人。 B: 是的。但是我还是无法相信他上周朝服务员大声喊叫。 A: 我知道，他确实脾气不好。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -466,7 +474,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0826]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0826.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0826.html</url>
     <content type="text"><![CDATA[必备句型​ I’m afraid that I don’t have enough time to take care fo the pets. 我恐怕没有那么多时间照顾宠物。 I am going to walk the dog. 我要去遛狗了。 ​ 场景对话​ A: Wow,You really like your dog. B: Yes, he means a lot to me. I consider him as a part of the family. A: I’m afraid that I don’t have enough time to take care fo the pets. B: You are just too busy, anyway,I am going to walk the dog.Talk to you later. ​ 参考译文​ A: 哇，你真的很爱你的狗。 B: 是啊，他对我来说可重要了，我把他看成是家庭的一份子。 A: 我恐怕没有那么多时间照顾宠物。 B: 你就是太忙了，我要去遛狗了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -482,7 +490,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0825]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0825.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0825.html</url>
     <content type="text"><![CDATA[必备句型​ I am going to have a picnic with my friends. 我打算跟朋友去野餐。 I think we have a bad connection. 我觉得信号不太好。 ​ 场景对话​ A: Hey, Frank. It’s me, Allen. Do you have any plans for this weekend? B: I am going to have a picnic with my friends. A: I think we have a bad connection, could you speak a little bit louder please? B: Okay,I’ll call you back. ​ 参考译文​ A: 嘿，Frank，是我Allen，你这周末有什么安排吗？ B: 我打算跟朋友去野餐。 A: 我觉得信号不太好，你能说大声点吗？ B: 好的，我再打给你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -493,7 +501,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0824]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0824.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0824.html</url>
     <content type="text"><![CDATA[必备句型​ The food is extremely delicious but so spicy! 事物非常好吃就是太辣了。 I am kind of picky about what I eat. 我吃东西比较挑剔。 ​ 场景对话​ A: Hello,everybody. The party is going to begin and let’s start eating now. B: Wow, the food is extremely delicious but so spicy. A: Do you like spicy food? B: I am kind of picky about what I eat, but I love spicy food. ​ 参考译文​ A: 大家好，派对马上开始，现在咱们开始吃吧。 B: 食物非常好吃就是太辣了。 A: 你喜欢吃辣的吗？ B: 我吃东西比较挑剔，但是我很爱吃辣的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -504,7 +512,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0823]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0823.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0823.html</url>
     <content type="text"><![CDATA[必备句型​ I must apologize for the mistake. Please forgive me. 我必须为了这个错误向你道歉，请原谅我。 It’s not all your fault, never mind. 也不全是你的错，没关系。 ​ 场景对话​ A: Look at what you have done. B: I’m so sorry. I didn’t mean it. I must apologize for the mistake. Please forgive me. A: It’s not all your fault,never mind. B: Are we still firends? A: Sure. ​ 参考译文​ A: 看看你都做了什么？ B: 对不起，我不是故意的。我必须为了这个错误向你道歉，请原谅我。 A: 也不全是你的错，没关系。 B: 我们还是朋友吗？ A: 当然。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -515,7 +523,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0822]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0822.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0822.html</url>
     <content type="text"><![CDATA[必备句型​ It’s been a while, how’s it going? 有段时间没见了，你最近好吗？ You deserve it! 这是你应得的 ​ 场景对话​ A: Hi, It’s been a while, how’s it going? B: Pretty good. A: Any good news? B: I passed the exam last week. A: Wow, that’s nice. You are a hard-working girl, you deserve it. ​ 参考译文​ A: 嗨，有段时间不见了，你最近好吗？ B: 非常好。 A: 有什么好消息吗？ B: 我上周通过了考试。 A: 哇，太好了。你很勤奋，这是你应得的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -526,7 +534,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0821]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0821.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0821.html</url>
     <content type="text"><![CDATA[必备句型​ I have to say that I don’t like classical music very much. 我不得不说我不太喜欢古典音乐。 Rock and roll helps me escape from the pressures of life. 摇滚能释放我的生活压力。 ​ 场景对话​ A: Can you sing, Tom? B: Nope, but I like classical music a lot. A: I have to say that I don’t like classical music very much. B: What kind of music do you like? A: I am a rock and roll person. Rock and roll helps me escape from the pressures of life. ​ 参考译文​ A: Tom,你会唱歌吗？ B: 不，但是我很喜欢古典音乐。 A: 我不得不说我不太喜欢古典音乐。 B: 你喜欢什么音乐？ A: 我爱摇滚，你知道的，摇滚能释放我的生活压力。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -537,7 +545,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0820]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0820.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0820.html</url>
     <content type="text"><![CDATA[必备句型​ Don’t give me that look. 别这样看我。 Believe it or not, I didn’t do that. 信不信由你，我没那样做。 ​ 场景对话​ A: How could you do this to me? B: Don’t give that look, it’s not my fault. A: Why did you do that? B: Believe it or not, I didn’t do that.There’s no need for me to explain if you don’t believe me. ​ 参考译文​ A: 你怎么能这样对我？ B: 别这样看我，不是我的错。 A: 你为什么那样做？ B: 信不信由你，我没那样做。你不相信我，我也没有必要解释。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -548,7 +556,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0819]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0819.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0819.html</url>
     <content type="text"><![CDATA[必备句型​ You are so pretty and I really like your T-shirt. 你太好看了，我真的很喜欢你的T恤。 That’s a steal. 真便宜。 ​ 场景对话​ A: Wow, look at you, You are so pretty and I really like your T-shirt. B: Thank you. A: How much is it? B: 5 dollars. A: That’s a steal. ​ 参考译文​ A: 哇，看看你！太好看了，我真的很喜欢你的T恤。 B: 谢谢。 A: 多少钱？ B: 5美元。 A: 真便宜。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -559,7 +567,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0818]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0818.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0818.html</url>
     <content type="text"><![CDATA[必备句型​ Why are you staring at me? 你为什么盯着我看。 I think I have a crush on you 我觉得我喜欢上你了。 ​ 场景对话​ A: What’s wrong? B: I wanna talk to you. A: But why are you staring at me? B: Look, We’ve been going out together for a couple of times, I think I have a cursh on you. ​ 参考译文​ A: 怎么了？ B: 想跟你聊聊。 A: 但是你干嘛盯着我看？ B: 我们一起出去玩过几次了，我觉得我喜欢上你了。 ​ 短语分享​ I have no choice. 我别无选择。 I like ice-cream. 我喜欢吃冰淇淋。 I love this game. 我钟爱这项运动。 I’ll try my best. 我尽力而为。 I’m on your side. 我全力支持你。 No pain,no gain. 不劳无获 Long time no see. 好久不见。 Well, it depends. 噢，这得看情况。 We’re all for it. 我们全都同意。 What a good deal. 真便宜。 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -581,7 +589,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0817]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0817.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0817.html</url>
     <content type="text"><![CDATA[必备句型​ I plan to go to the movies with Paul. 我打算跟Paul一起去看电影。 Count me in. 算上我。 ​ 场景对话​ A: It’s Friday night! Do you have any plans? B: Yes, I plan to go the movies with Paul.I am totally free because the exam is over. A: Wow, that’s nice. Count me in. B: Sure, let’s go together. ​ 参考译文​ A: 到周五晚上啦，有什么计划吗？ B: 有的，我打算跟Paul一起去看电影。考试结束了，感觉自己完全自由了。 A: 哇，太好了。我也要去。 B: 好的，一起去。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -592,7 +600,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0816]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0816.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0816.html</url>
     <content type="text"><![CDATA[必备句型​ I know that I let you down last week. 我知道上周让你失望了。 You can count on me. 你可以依靠我。 ​ 场景对话​ A: I know that I let you down last week,but you can count on me this time. B: I still trust you, don’t worry about it. Just do your best. A: Thank you. B: That’s what friends are supposed to do. ​ 参考译文​ A: 我知道上周让你失望了，但是这次你可以信赖我。别担心。 B: 我依然相信你，尽力就好。 A: 谢谢你。 B: 本来就是朋友该做的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -603,7 +611,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0815]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0815.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0815.html</url>
     <content type="text"><![CDATA[必备句型​ You finished the exam lightening fast! 你这么快就完成了考试。 It’s a piece of cake for me. 对我来说这是小菜一碟。 ​ 场景对话​ A: I just couldn’t believe how early you left the room! You finished the exam lightening fast! B: You konw that I’m pretty good at math,it’s a piece of cake for me. ​ 参考译文​ A: 我没想到你很早就离开教室了，这么快就完成了考试！ B: 你知道的，我数学很好。对我来说就是小菜一碟。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -614,7 +622,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0814]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0814.html</url>
+    <url>%2FEnglish%2Fenglish-reading-program-0814.html</url>
     <content type="text"><![CDATA[必备句型​ You wouldn’t believe what happened to me yesterday! 你不会相信昨天我碰上了什么事。 When it rains,it pours! 祸不单行。 ​ 场景对话​ A: Hey, you look depressed. What’s wrong? B: You wouldn’t believe what happened to me yesterday! I missed my train, and I lost my wallet. Even worse,I got sick that night! When it rains,it pours! ​ 参考译文​ A: 嘿，你看上去很沮丧，怎么了？ B: 你不会相信昨天我碰上了什么事！错过了火车，钱包还丢了。更糟糕的是，那天晚上还生病了，真是祸不单行。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -636,7 +644,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0813]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0813.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0813.html</url>
     <content type="text"><![CDATA[必备句型​ I’ve made up my mind. 我做好决定了。 How could you do this to me ? 你怎么能这样对我？ ​ 场景对话​ A: I’ve been thinking about this for a long time, and I’ve made up my mind. B: What? Are you gonna break up with me? A: I’m sorry. B: How could you do this to me? ​ 参考译文​ A: 我想了很长一段时间，也做好决定了。 B: 怎么？要跟我分手吗？ A: 对不起。 B: 你怎么能这样对我？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -647,7 +655,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0812]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0812.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0812.html</url>
     <content type="text"><![CDATA[必备句型​ Do you wanna go out and have a drink? 要不要出去喝一杯。 I’m a night person. 我是个夜猫子。 ​ 场景对话​ A: Hey,it’s me Alex. What are you doing? B: I’m watching TV right now. What’s up? A: Do you wanna go out and have a drink? B: Are you kidding me? It’s 11 pm now. A: You know that’s I’m a night person. ​ 参考译文​ A: 嘿，是我，Alex。现在在做什么呢？ B: 我在看电视，怎么了？ A: 要不要出去喝一杯？ B: 开什么玩笑？现在都11点了。 A: 我知道，我是个夜猫子。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -658,7 +666,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0811]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0811.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0811.html</url>
     <content type="text"><![CDATA[必备句型​ Hold your horses. 别着急 There’s no need to rush. 没有必要这么匆忙。 ​ 场景对话​ A: What are you doing? Hurry up, or we’ll be late! B: Hold your horses.We still have 15minutes,there’s no need to rush. A: Alright,I’ll go first. ​ 参考译文​ A: 你在做什么呢？快点吧，不然我们就要迟到了。 B: 别着急，我们还有15分钟的时间。没有必要这么匆忙。 A: 好吧，那我先走了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -669,7 +677,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0810]]></title>
-    <url>%2FEnglish%2Fenglish-followup-plan-0810.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0810.html</url>
     <content type="text"><![CDATA[必备句型​ Would you like to join me for dinner tonight? 晚上要跟我一起吃饭吗？ That’s would be nice. 那太好了。 ​ 场景对话​ A: Would you like to join me for dinner tonight? B: Could you recommend some good restaurants around here? A: How about the new restaurant near the bus stop? B: That would be nice. ​ 参考译文​ A: 晚上要跟我一起吃饭吗？ B: 你能推荐几家附件的好餐馆吗？ A: 车站旁边新开张的那家餐馆怎么样？ B: 那太好了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -680,7 +688,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0809]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0809.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0809.html</url>
     <content type="text"><![CDATA[必备句型​ Are we short of tea and coffee? 茶叶和咖啡不多了吧。 I’ll go to the shop with the shopping list. 我拿着购物单去买东西。 ​ 场景对话​ A: Are we short fo tea and coffee? B: Oh,yes.We should buy some tea and coffee. We need a lot of things this week. A: List all the items you need from the store. I’ll go to the shop with the shopping list. ​ 参考译文​ A: 我们的茶叶和咖啡不多了吧。 B: 噢，是的。我们得买些茶叶和咖啡。这周我们需要购买很多东西。 A: 把你要买的物品列在购物单上。我拿着购物单去买东西。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -691,7 +699,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0808]]></title>
-    <url>%2FEnglish%2F.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0808.html</url>
     <content type="text"><![CDATA[必备句型​ You look terrible, What’s the matter? 你的脸色不太好，怎么了？ Your gums are bleeding,you’d better see a doctor. 你的牙龈在出血，最好去看一下医生。 ​ 场景对话​ A: You look terrible. What’s the matter? B: I don’t feel well. The tooth is killing me as soon as I eat sour food. A: Open your mouth,and let me have a look. Your gums are bleeding, you’d better see a doctor. ​ 参考译文​ A: 你的脸色不太好，怎么了？ B: 我感觉不舒服，我这颗牙一吃酸的东西就疼得难受。 A: 你张开嘴巴我看看，你的牙龈在出血，最好去看一下医生。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -702,7 +710,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0807]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0807.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0807.html</url>
     <content type="text"><![CDATA[必备句型​ Excuse me, do you speak English? 抱歉打扰了，你说英语吗？ I can’t follow you when you speak fast. 你说得太快了，我没听懂。 ​ 场景对话​ A: Excuse me, do you speak English? B: Yes,but just a little. A: That’s great, could you please tell me where the nearest drug-store is? B: I am so sorry, I can’t follow you when you speak fast. ​ 参考译文​ A: 抱歉，打扰了。你说英语吗？ B: 会一点点。 A: 太好了，你能告诉我最近的药店在哪里吗？ B: 对不起，你说得太快，我没听懂。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -713,7 +721,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0806]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0806.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0806.html</url>
     <content type="text"><![CDATA[必备句型​ I actually don’t like her. 我其实不喜欢她 So what? 那又怎么样？ ​ 场景对话​ A: I actually don’t like her. B: How come? I think she’s the most beautiful girl in our class. A: So what? She’s stupid. B: You are just jealous. ​ 参考译文​ A: 我其实不喜欢她。 B: 为什么？我觉得她是我们班上最漂亮的。 A: 那又怎么样？她很蠢。 B: 你只不过是嫉妒罢了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -724,7 +732,7 @@
   </entry>
   <entry>
     <title><![CDATA[跟李涛老师学后期04]]></title>
-    <url>%2FPhotography%2Flearn-from-teacher-li-taos-late-04.html</url>
+    <url>%2FPhotography%2Flearning-from-the-late-li-tao-teacher-04.html</url>
     <content type="text"><![CDATA[HSL颜色调节所谓HSL其实就是三个英文字母的缩写 H：Hue 色相 就是我们平常说的颜色，赤橙黄绿青蓝紫，黑白没有色相。 S：Saturation 饱和度 饱和度就是指颜色的鲜艳程度 L：Lightness 亮度 亮度就是指颜色的明暗程度 HSL既可以做颜色，也可以做灰度，点击转换为灰度图片就会变灰，转换为灰度后，就只剩下亮度的变化了，不会再有饱和度和色相的变化。 我们在调片的时候要明确哪个颜色需要出来，哪个颜色需要下去，哪些颜色色相和色相之间可以转换。 但是我们如果想调一个颜色，但是我们又不确定它是什么颜色的时候怎么办呢？这时候就需要借助目标调整工具了 注意点： 一定要先选择需要改变的HSL，在去滑动鼠标。比如我们选择了色相，那么改变的就是色相。 效果如下： 通过HSL转灰度 颜色很丰富，有时候范围控制不住。所以过早的进入颜色控制，反而不容易控制。 看彩色照片时候，还是应该先从影调入手。有时候异彩纷呈反而没了重点。 在黑白照片里，是控制明暗来控制照片。 做黑白片，不建议直接转灰度，而是把所有的颜色的饱和度关掉。好处是可以继续控制色相、自然饱和度还是可以调整，可调整的范围更大。另外可以在黑白片里保留一个颜色，造成了片子的特殊性，也可以营造低饱和度的氛围（德系）。 黑白片里靠黑白来营造层次。 调性黑白影调后期处理与控制摄影中的影调，指照片的基调和调子。影调解决的是视觉画面中黑白明暗层次、虚实对比和色彩色相纯度等之间的关系问题。通过这些关系，使欣赏者感到光的变化流动，感受节奏与韵律构成的视觉美感。 影和调要提前决定自己的片子调成什么影调，不能随机、漫无目的，自己要有预感。原因是颜色层级关系太多，不容易平衡。 彩色和黑白均有影调的问题。 影调来源于音乐。 影：光影、明暗、黑白关系（节奏）（明快、平缓等等呢） 调：色调（tone）、色彩（韵律）—（冷暖等等呢） 影调在摄影中的作用 基本作用：创造色彩、光线效果，构成影片色彩和黑白的阶调（影调）基调。 准确表现主体。影调的准确表现会大大加强片子的表现力。 渲染片子气氛。 体现片子个性与风格。 塑造人物形象 亚当斯分区曝光法将0~255这256个色阶分为0~10这11个色阶。其中 0为纯黑 1、2、3为低调 4、5、6为中调 7、8、9为高调 10为纯白 片子又可以分为三个调性，分别是短调，中调和长调。这样我们建立一个坐标 这样我们就可以划分出9种片子，这就是9中调性 高长调的特征：大面积亮色，里面有黑白关系，如果是长调的话，既有黑又有白。 高中调：跨度范围没有那么长 高短调：很亮，但是调性非常短 最常见的片子是中长调，就是我们说的标准调色方式，有纯黑的地方做实了，但是不多，有纯白的地方做实了，但是也不多，整个调性拉长，大面积是中间的灰性调。所以这是我们最常见的片子。 思考：我们有九种调性可查，为什么我们所有人调的片子都只有中长调一个选择标准。 中短、高短、低短都挺难做的。在收藏级的作品里大多是低长调或者低中调，但是低中调会更多一些 九种调性例片高长调 高调的片子适合表现雪景、水面这种比较亮的东西 高中调 通过直方图我们可以看出其实这是一张高长调的片子 高短调 山本博司的作品 中长调 中中调 中短调 低长调 低中调 准确地说应该是低长调，有高光的东西在里面。 低短调 这个也应该是低长，短调的东西特别难做。 全长调只有黑白两个色，有灰色就成中长调了 所以我们应该先从中长调开始做起，然后慢慢尝试一些其他调性的片子，来体会不同调性片子的感受。 先定调还是先定影？取决于个人习惯，这里先定调性，定完调再定影 硬调和软调 暖调 冷调 先定调性 影调的决定因素 保存调片的参数在预设里面可以保存参数 清除调整参数 图片右上角-开发设置-清除设置 直接删除文件夹里的xmp。 亚当斯风格中长调调片技巧 先做渐变再做降色，会有层级关系出来。 画笔流动性放在20%，慢慢刷。 要把主题做出来，不能面面俱到，要有重点，要有主观情绪，带着自己的情绪，明白自己想表现的是什么，突出重点，其余的地方做减法。 全长调调片技巧 高光压下去，出亮部细节；阴影提上来，出暗部细节。 做片子前要想到需要做什么调性（前文提到的）。 可以修复或删除一些不需要的、影响视觉效果的、干扰画面的元素。（在ACR或PS里做均可） 内容感知移动工具，可以移动元素到需要的位置上。（单纯考虑画面而不考虑摄影的真实性的情况下） 通过画面比例调整，可以达到另外的观察视角。 全长调的色调适合反差很大的片子。 夸张是艺术表达的第一手法。 平衡有时候是破坏片子的最大的东西，经常为了照顾平衡丧失了片子的冲击力。 剪影是全长调的一种，但全长调不等于剪影。要适当控制细节，还要注意材质和纹理。 低短调调片技巧 要找到需要控制的对象。 选高亮法： 选择-色彩范围-点照片亮部取样-再选择容差值（不准）。 选择-色彩范围-选择颜色或高中低光（准） 选择-反选-图层-通过拷贝建立图层-正片叠底。 最后用画笔工具，精细化处理：拼合（盖印）ctrl+Alt+Shift+E，选出局部（例：眼睛），做羽化-拷贝建立图层-滤色（或假色）-画笔工笔，蘸白色，刷出高光。 做黑白要决定做什么调子 调性总结 不能漫无目的的调片子，要有目的性，可以通过影调来定。 注意运用夸张的手法。 学会分析什么样的片子适合什么样的调子。 ​ 本文结束，感谢阅读。 参考资料：[李涛] 简单摄影后期课本文作者：melody0z 本文链接：https://melodyvoid/Photography/folow-teacher-li-tao-in-the-later-04.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Photography</category>
@@ -735,7 +743,7 @@
   </entry>
   <entry>
     <title><![CDATA[跟李涛老师学后期03]]></title>
-    <url>%2FPhotography%2Ffollow-the-teacher-li-tao-to-learn-later-03.html</url>
+    <url>%2FPhotography%2Flearned-with-li-tao-teacher-late-03.html</url>
     <content type="text"><![CDATA[输出与文件夹结构流程的最后一步就是输出了。 根据不同的使用场景（印刷还是放网上），选择不同的输出。 在Camera raw中，左下角点击储存图像 作为印刷输出在Bridge中单张输出格式选择为TIFF 压缩格式为LZW和ZIP都可以，这两个都是无损压缩，如果不勾这个选项，输出的片子会非常大，因为TIFF都是全尺寸输出。 色彩空间选择Adobe RGB(1998) 色彩空间相加端可以设置，要设置成Adobe RGB(1998),不能用sRGB,因为前者的色域比后者的色域大很多，sRGB只有一个地方可用，那就是互联网，如果是向网上输出，采用sRGB 色彩深度最好设置成16位，16位的空间更大。如果真要高品质的输出一定要16位地输出。一个通道里面如果是8位，这个通道是256个颜色，每个通道是256个颜色；如果是16位，每个通道是65000色。 然后输出到“成品”文件夹，项目结构如下 12345|--20170805_demo |--成品 |--_DSC0019.JPG |--_DSC0019.ARW |--... 批处理先选中需要存储的片子，然后command + R或者ctrl + R打开Camera raw，然后点击全选，在点击存储图像,然后重复上面的步骤。 在Photoshop中文件 ——&gt;存储为——&gt;格式选择为TIFF，勾选”嵌入颜色配置文件：Adobe RGB(1998)”——&gt;然后在压缩 作为网络输出在Bridge中把文件选中，command + R打开Camera raw，点击存储图像，格式选择为“JPEG”，品质给到8，只能存双数，不要存单数，因为单数的损失更大。默认值设置为8，觉得不太重要就给6.色彩空间一定要变为sRGB,因为是向互联网输出，浏览器只认sRGB,色彩深度只能是8位，因为JEPG记录不了16位的色彩深度，设置16位也没有用，输出大小单边尺寸1500点~2000点就够了。 在Photoshop中选择文件——&gt;脚本——&gt;图像处理器 连文件夹都不用给，点击运行之后会在目录下自动生成一个叫JPEG的文件夹，里面就是jpeg文件。 最后的目录结构是这个样子的 12345678910|--20170805_demo |--成品 |--JPEG |--_DSC0019.jpeg |--... |--_DSC0019.TIFF |--... |--_DSC0019.JPG |--_DSC0019.ARW |--... 水平校正好照片决定性瞬间可能达不到，需要二次构图。 布列松的口号是决定性瞬间，他的取景器是倒置的，学生：马克吕布的第一张作品《跳舞的油漆工人》拿到了大奖。倒置就排除了很多干扰，观察的世界不是印象中的世界，只能看到一些形体化的东西，所以拍出了不一样的东西。 二次构图的技巧，垂直线技巧，一定要保证片子横平竖直，这是基本功。 因为镜头是有畸变的，所以把线拍直有时并不是那么简单。 水平垂直校正可用拉直工具，根据照片需要的效果去裁切。 垂直校正用广角镜头拍，水平保证了，我们会发现垂直的都歪了，这就是广角透视造成的，产生了畸变，垂直校正用镜头校正 镜头校正要在基本的五步之前。 摄影基本功扎不扎实，看你拍东西能不能拍直。 启用镜头配置文件 删除色差值，色差就是在大光比的情况下，会出现的紫边，不容易察觉，但是删除色差能把它剔除掉。 手动，手动调节 调相机校准 总结标准流程： 文件夹命名（日期文件夹、成品文件夹、jpeg文件夹、作品文件夹） 打星过滤 相机、镜头校准 五条技术指标规范。 局部处理。 二次构图二次构图就是做减法，减到趣味中心点上，减到自己想要的东西，画面干干净净。 思考： 摄影师能否在拍摄的一瞬间，融入到当前的拍摄环境中去？ 是否令观者感同身受？ 这些都跟自己的经历与阅历有关系 局部处理工具：调整画笔、渐变滤镜 多数情况下我们是使用调整画笔来调的 局部调整时，先动参数，再用工具。 用渐变滤镜时候，先缩小图片。 渐变滤镜只能从边上到中间。 如果要加滤镜，要先点新建。 画笔：羽化是渐变的范围。流动不要开太大，更浓度有关。可以慢慢刷。 ​ 本文结束，感谢阅读。 参考资料：[李涛] 简单摄影后期课本文作者：melody0z 本文链接：https://melodyvoid.github.io/Photography/folow-teacher-li-tao-in-the-later-03.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Photography</category>
@@ -746,7 +754,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0805]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0805.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0805.html</url>
     <content type="text"><![CDATA[必备句型​ What luck! We’ve run out of gas. 真倒霉！汽油用光了 Today just isn’t my day. 今天真是什么都不顺心 ​ 场景对话​ A: What luck! We’ve run out of gas. B: Today just isn’t my day. What should we do now? A: Then we’ll have to get off and run to our office. B: I hope we won’t be late. ​ 参考译文​ A: 真倒霉！汽油用光了。 B: 今天真是什么都不顺心。我们现在该怎么办？ A: 那我们得要下车跑到办公室了。 B: 希望我们不会迟到。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -757,7 +765,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0804]]></title>
-    <url>%2FEnglish%2Fenglish-followup-plan-0804.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0804.html</url>
     <content type="text"><![CDATA[必备句型​ The point is that you’ve been trying your best. 重点是你一直在努力 Everything will be fine. 一切都会好的 ​ 场景对话​ A: You look depressed, is everything okay? B:I lost my job one month ago,and I still can’t find a new one. A: Don’t be so upset, the point is that you’ve been trying your best to find one. Everything will be fine. ​ 参考译文​ A: 你看起来很沮丧，一切还好吧？ B: 失业一个月了，我还没找到工作。 A: 不要那么低落，重点是你一直在努力，一切都会好的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -768,7 +776,7 @@
   </entry>
   <entry>
     <title><![CDATA[跟李涛老师学后期02]]></title>
-    <url>%2FPhotography%2Fteacher-li-tao-to-learn-late-02.html</url>
+    <url>%2FPhotography%2Flearning-from-the-late-li-tao-teacher-02.html</url>
     <content type="text"><![CDATA[全局操作的五个步骤我们经常会看到有人拍片子会带着色板去拍，为什么会带这样的东西去拍片子呢？ 如果我们在Brideg里面看到了我们需要的片子，我们也定好要调节了，我们就需要进入调节的状态，调节状态的方式不要直接双击，在没有打开Photoshop的情况下，我们调用Bridge正确的方式不是双击，应使用command + R 为什么要做这一步？因为这样可以检测到你的软件正常不正常，或者你的软件合理不合理的一个重要的指标，比如我们看到一张raw的源文件，然后我们按下command + R,然后就直接打开到了Camera raw里面。 Camera raw就是我们说的阅读器，用来解读底片的阅读器 Camera raw 有两套，一个在Bridge里面，一个在Photoshop里面，我们通过双加击打开，是进到了Photoshop里面，这样并没有在Bridge里面直接把它解决掉，多数情况下，我们是不需要进到Photoshop，在Bridge里面就已经可以调用到，所以它有两个Camera raw，这个必须是有两个，一个在Bridge里面，一个在Photoshop里面，这两个都打开才正常。要不开这个会有小问题，比如批处理会有问题，假设有一组片子，我们把一张片子调好之后，其他片子直接通过拷贝粘贴就可以把效果粘贴过去了，但是没有这个选项，就粘贴不过去。 我们进入正式调片流程的情况下，有五个环节（技术指标） 准确的色彩还原 正确的黑白场 足够的清晰度 适当的饱和度 丰富合理的层次 以上五个是技术指标 准确的色彩还原为什么要校色我们修片第一件事情就是校色，顾名思义校正颜色。 什么叫准确的色彩还原？ 因为白平衡的原因，我们必须要做校色，光是会被改变的，也是会被欺骗的。光和颜色会收到影响，就好比有的时候白的东西看上去并不是白色。光是有欺骗性的。默认情况下我们所说的光，是传统意义上的白光。但实际上光本身是有颜色的，白天的光也会发生颜色的变化，早上的颜色和夕阳的颜色肯定是不一样。 假如我们处在一个光照环境不是很正常的环境，颜色就会出现偏差，这就是我们把光的记录方式放错了。 我们打灯拍摄，灯的色温不同也会影响照片的颜色 如何校色白平衡工具,command + R之后，在左上角有一个白平衡工具 白平衡要吸在什么地方呢？吸灰的地方，准确点说是找18%的中性灰，注意是找画面中的18%中性灰，那么我们怎么知道画面中什么地方是18%的中性灰呢？ 在拍照的时候拿个灰卡 没有灰卡就在照片里面找类似灰的地方，注意灰色一定不能带有色相，找黑白灰 所以我们在拍人像的时候最好带上色卡。 群组校色如何群组校色？选中一组（在同一光源下拍摄），然后command + R打开Camera raw，这样我们只需要校准第一张（照片里有色卡），校正完后点击全选，然后点击同步，最后点击确定，这样所有的片子都校正完了。或者在Camera raw里面command + A全选，然后在全选的状态下校准第一张，这样其余的也都跟着变了。 校错会是什么情况正常情况下我们校正是吸取18%中性灰，但是我们吸取到黑色或者白色会是什么情况？ 色温会发生变化。 黑白灰的特点是它没有色相，白平衡有一定的宽容度，它认为18%灰是最准的，但是如果在不准的情况下，在宽容度范围内色温会发生一些变化。但是注意：千万千万不能吸取到黑白灰以外的颜色，如果在有色相的地方去吸取就会发生偏差了。举个例子：如果吸取到了红色，那么片子就会发绿发青。为什么会发青呢？因为红和青是补色，只要认为红颜色是准的，它就要补青色在里面。你要是认为黄颜色是准的，它就会补蓝色。所以千万不能点到有色相的地方。 灰色找不到找白色，白色找不到找黑色。黑、白、灰的校正之间没有那么大的差别，只是在色温上稍微有点差别。 正确的黑白场什么是确定片子的黑白场说白了就是知道这个片子什么地方最黑，什么地方最白。 先找图片的最黑和最白，要把白和黑都做实。白的漂亮，黑的很实。 正确的黑白场是指调性是全长的。 黑白场确定下来，这个片子就是白的是高光，漂亮。黑的是死黑一片。但是我们是不是要那么多的死黑一片？这就需要根据片子的情况来决定了。有的时候我们不要要死黑一片，因为暗部里面我们需要细节。 怎么来调黑白场在Camera raw面板的最右边，有一个黑色和白色,那个就是调黑白场的。 调片子倒着调：上来并不是先动曝光，而是先动的是黑白场。 调色用CMY去调，而不是用RGB去调，就是因为CMY好计算，我们队RGB的直接反应是迟钝的。 调黑白场：按住alt或者option键，然后调节白色和黑色 然后通过看直方图，我们可以看出照片的黑白场信息 足够的清晰度清晰度的设置 相机上设置：饱和度、锐化度、清晰度。清晰度在可以不加或者减一档，但是万万不要在相机里面做过多的加的设置，因为会对片子的后期的底片有一定的影响。 在Camera raw里面设置：在Camera raw面板的右面有一个叫做清晰度的选项，在黑色下面。根据不同片子的情况来决定清晰度是加是减还是不动。动清晰度会影响曝光值的变化。或者说对比度发生变化。如果之前曝光正确，我们增加了清晰度，那么曝光就会增加，这是我们应该将曝光减一档或者半档来进行修正。 Camera raw右面板的第三标签细节里面有锐化：这个指的是最后输出的时候做锐化。因为在Bridge这样的预处理软件能够完成60%~70%的工作，然后再经过Photoshop，不断的加层，层多了必然对图片的清晰度有一定的影响，所以我们整个片子修完了，最后一步再调一下锐化，让它平衡一下图层过多的影响。做锐化一定要用蒙版做：因为锐化是针对轮廓的，对于虚焦的物体来说我们并没有必要做锐化。其实蒙版就是局部处理，只要是局部处理就是蒙版的问题。按下option或者alt键，然后滑动蒙版我们就可以看到效果。蒙版就是锐化的有效范围放在哪里，所谓的有效范围就是白颜色的地方，白颜色的地方就是我们要做锐化的地方。 适当的饱和度在Camera raw的面板右侧，有一个叫做自然饱和度和一个叫做饱和度的选项。 二者的区别： 自然饱和度能把隐现的颜色提出来，说白了就是把似有似无的颜色加强了、 饱和度是在画面平均的情况下，把画面所有颜色的纯度给它提高，颜色就变鲜艳了 欠饱和度是一种影调，很舒服的影调 过饱的片子打眼，欠饱的片子耐看 丰富合理的层次丰富合理的层次就是说暗部、亮部，整个长调的片子，整个调性很长，会看到细节。 学会看直方图，直方图涵盖了整个片子里面特别重要的颜色信息值在里面，我们来看一个直方图 我们可以看到直方图的右边几乎没有信息，从中间这个调性以后，后面整个都没有细节了，说明这个片子欠曝，或者说它比较暗，不亮。 那么我们怎么调呢？ 先加一点曝光，暗部的细节会出现 再加一点阴影，此时我们发现全部东西都出来了，但是气氛却不如以前了 觉得天空太亮了，我们收一下高光，此时天空的暗部细节就会出现多一些，出现层次 觉得不够亮，就再补一点白色 第二张片子 暗部溢出了，暗部溢出整个片子就会整体偏暗 先校色，一般情况下，云彩是灰色，我们可以根据取色器显示的RGB值来确定灰色，三个数值一样就是灰色 然后确定黑白场 把阴影的地方调亮，暗部的地方就会出现细节 高光收下去，因为太阳太亮了，亮的地方往下收，亮部也出现细节 自然饱和度和清晰度追加一点点 然后如果想让片子偏冷或者偏暖一点需要调节色温，调之前一定要记住原始色温，因为它不可以ctrl+Z撤销回去 我们把色温调的冷一点，然后把色调往上调一点，把暖色稍微追上来一点 以上操作就把片子调完了，我们做的是全局操作，全局操作就是定片子的调性，打片子的基础，定片子规范的框架，物先大体，然后再进入局部调节，精调片子。 本文结束，感谢阅读。 参考资料：[李涛] 简单摄影后期课本文作者：melody0z 本文链接：https://melodyvoid/Photography/folow-teacher-li-tao-in-the-later-02.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Photography</category>
@@ -779,7 +787,7 @@
   </entry>
   <entry>
     <title><![CDATA[跟李涛老师学后期01]]></title>
-    <url>%2FPhotography%2Fteacher-li-tao-learning-post-01.html</url>
+    <url>%2FPhotography%2Flearning-from-the-late-li-tao-teacher-01.html</url>
     <content type="text"><![CDATA[摄影后期的概述发现 • 联系 • 重组 --简单摄影后期课 越简单的东西越难 有些片子的后期只停留在校色、修正等简单处理上，还有些后期的功能很强大，它加入了创作者的创作思维在里面，就变成了另外一个阶层的事情在里面。 后期只要讲的说白了就是：艺道 志于道 据于德 依于人 游于艺 -- 《论语·述而》 依游于艺，道不远人 你执着于，长时间执着于，像被黑洞吸附了一样地去做一件事情，直到从这件事情上，得到你这件事情上的道，然后就通了。 为什么每个人的作品不一样，每个人多美学有不同的看法，有独特的眼光，不同的处理方式，不同的想法。 道，法，术。术是最低级的东西，也就是我们说的Photoshop操作。我们要培养自己的美感。把美的东西带进去。 艺术通感有时候我们会觉得我们拍的片子或者我们调的片子调不出好的感觉，调不出好的境界，很多情况是我们的艺术通感没有实现。艺术的东西背后都有一套心理学、美学、哲学体系在支撑着。这套支撑的体系导致我们看到的东西跟别人不一样。所以我们如果只是一味地学习Photoshop是远远不够的，那样我们永远跳不出来，我们必须涉猎跟艺术相关的东西。 艺术通感就是指所有的艺术门类是互通的，比如绘画，音乐，摄影… “摄影师谱曲，后期是演奏” -- Ansel Adams 谱曲和演奏都有才是一个完整的作品 前期和后期是一个阴阳关系，缺一不可，彼此互相依赖。技术可以提炼后期，后期返过去再为前期服务。前期要不打好基础，那么后期什么都做不了。 “我们不只使用相机拍照，我们带到摄影中去的是所有我们读过的书、看过的电影、听过的音乐、走过的路、爱过的人。” -- Ansel Adams 是我们的经历和眼界决定我们的片子是一个什么样的状态，只有带着这样的胸襟，带着这样的状态，去拍片子，去调片子，你的片子才能富有情感，才能被读者接收到，观众才能被打动。 不能因为有术而心中无道。 如果想要拍出好的照片，做出好的效果，我们不是要苦学Photoshop技巧，而是应该培养自己的艺术素养，多看书，多听音乐，多走路，多爱人。 学习方法取法乎上，寻师经典 取法于上 仅得为中 取法为中 故为其下 --唐太宗《帝范》卷四 求其上 得其中 求其中 得其下 求其下 必败 --《孙子兵法》 就好比我们挝钢筋，我们想要挝到90度，那一定是需要先挝到40度，然后它在反弹回去，要是我们一开始就挝90度，那它最后一定是会比90度大的 物先大体，鉴必穷源 先物大体 鉴必穷源 乘一总万 举要治繁 --《文心雕龙》 就是我们找东西，必须找到根源，要拍一个思路，一个体系，要有想法，必须找到根源，而且我们要有整个的大体观。要在大的框架里面找到它的根源是什么。 诚心正意，自证良知诚心正意是专心只干一件事，自证良知是亲自去实践它 怎么评判一张片子的好坏好片子的标准：赏心、悦目 悦目：物理层面，就是指作品好看，比如说：漂亮、聚焦、简洁（ 赏心：心里层面，就是类似共鸣、兴趣 如何打造一张好的片子，三个切入点 天下大事，必做于细片子里的细节是否到位，细节到位是一个很重要的环节。当然并不是所有的作品都是追求细节的，例如山本博文的作品就都是虚焦的。但是我们刚接触摄影，是需要先从细节开始下手的。 众生平等，皆有联系我们一定要从联系中间看待问题。我们和众生都是都是平等的，和万物都是平等的，然后再去发现之间的联系。如果我们不能正确看待众生平等这件事，那么我们就是孤立的，那也就没有联系可言。因为你看到别人都是别人，你看到自己就是自己。我们和别人没有联系，那么我们的作品就没办法达到共鸣，无法站在观众的角度去体会这个作品的深刻含义在里面。 情理之中，意料之外在片子里面要有兴趣点，而这个兴趣点是意料之外的。如果我们抓住这个了，那么我们的作品就会非常点题。如果我们想要自己的作品不平淡，那么我们的画面中必须要有一个焦点，我们不要以为这个焦点是很实的，也不要以为这个焦点是一个灭点，其实这个点是兴趣点 发现（观察力）· 联系（想象力）· 重组（创造力）——重要的学习方法。 图片管理Bridge拍完片子我们需要做的第一件事就是图片的管理 养成好的文件夹命名习惯：一般以日期+主题作为命名：2017.02.14_情人节 Bridge最重要的浏览方式在于右上方的几个选项必要项 、胶片、元数据、关键字、预览、看片台、文件夹 这里我们选择文件夹方式来浏览，左侧面板第一个模块设置为文件夹模块，第二个模块设置为过滤器模块。 快速预览快速预览：space空格，图片就会全屏显示，想要看细节的话，用鼠标点一下，图片就会100%显示，上下左右可以翻图片，Esc退出全屏。 例选模式选中片子，然后按command + B或者ctrl + B，进入例选模式。←和→是选择图片，↓是剔除图片。 数字底片一定要选用raw格式，一定要用raw的原片去拍，坚决禁止用JPEG（李涛老师好无情）因为用raw格式的原片才能给后期更大的空间 标记command + 数字键或ctrl + 数字键 1~5是打1~5颗星，6是红色，7是黄色，8是绿色，9是蓝色，0是取消星数。 我们从三星开始打起，只要片子看着打眼就标记为三星，忽然间发现一张片子特别棒，给四星。然后片子挑完之后，从四星里面拔五星，从三星里面剔二星。 处理一组片子如果想把一组片子放在一起，比如拍延时，或者接片的这种，我们可以用command + G或者ctrl + G把它们放到一个组里，Group。 本文结束，感谢阅读。 参考资料：[李涛] 简单摄影后期课本文作者：melody0z 本文链接：https://melodyvoid/Photography/folow-teacher-li-tao-in-the-later-01.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Photography</category>
@@ -790,7 +798,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0731]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0731.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0731.html</url>
     <content type="text"><![CDATA[必备句型​ Each of us has our own understanding of what love is. 我们每个人都对爱情有着不同的理解 Love is mysterious. 爱很神秘 ​ 场景对话​ A: What do people mean when they say they love someone? B: Each of us has our own understanding of what love is. A: Do you believe in love? B: Love is mysterious, but I do believe in it. ​ 参考译文​ A: 当人们说他们爱某人时，他们是怎么想的呢？ B: 我们每个人都对爱情有着不同的理解。 A: 你相信爱情吗？ B: 爱是很神秘，但是我真的相信它。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -824,7 +832,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0730]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0730.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0730.html</url>
     <content type="text"><![CDATA[必备句型​ We are close friend. 我们是很亲密的朋友 Suspicion is the poison fo true friendship 猜疑是真诚友谊的一副毒剂 ​ 场景对话​ A: It seems that you and Alex are good friends. B: Well,yes. We are close friends, but I don’t really trust him. A: You know,suspicon is the posion of true friendship. ​ 参考译文​ A: 看起来你和Alex非常好。 B: 是的呢，我们是很亲密的朋友，但是我并不是真正信任她。 A: 你要知道，猜疑是真诚友谊的一副毒剂。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -846,7 +854,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0729]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0729.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0729.html</url>
     <content type="text"><![CDATA[必备句型​ I do love you. 我真的爱你 I don’t buy your story. 我不相信你的话 ​ 场景对话​ A: Last fall you said we couldn’t be together, and I believe you. Why are you here now? B: I am sorry Alex, but I do love you. And I… A: Enough, I don’t buy your story. ​ 参考译文​ A: 去年秋天你说我们不能在一起，而我相信了你。你来这里做什么？ B: 对不起，Alex。但是我是真的爱你。我… A: 够了，我猜不相信你的话。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -868,7 +876,7 @@
   </entry>
   <entry>
     <title><![CDATA[循环创建文件夹]]></title>
-    <url>%2FNode%2Floop-to-create-a-folder.html</url>
+    <url>%2FNode%2Floop-create-folder.html</url>
     <content type="text"><![CDATA[创建文件夹目录结构 |— 20-mkdir.js 12345678const fs = require("fs");const path = require("path");fs.mkdir(path.join(__dirname,"demo1"),(err) =&gt; &#123; console.log(err)&#125;);fs.mkdir(path.join(__dirname,"./demo2"),(err) =&gt; &#123; console.log(err)&#125;); 执行20-mkdir.js 123$ node 20-mkdir.js nullnull 目录结构变为 |— 20-mkdir.js |— demo1 |— demo2 报错什么情况下会报错呢？ 文件夹已经存在目录结构 |— 20-mkdir.js |— demo1 |— demo2 这里的意思是原本就已经存在demo1和demo2，我们试着再创建一下 同样执行20-mkdir.js 1234567891011$ node 20-mkdir.js &#123; Error: EEXIST: file already exists, mkdir '/Users/melody0z/github/nodejs/second/demo1' errno: -17, code: 'EEXIST', syscall: 'mkdir', path: '/Users/melody0z/github/nodejs/second/demo1' &#125;&#123; Error: EEXIST: file already exists, mkdir '/Users/melody0z/github/nodejs/second/demo2' errno: -17, code: 'EEXIST', syscall: 'mkdir', path: '/Users/melody0z/github/nodejs/second/demo2' &#125; 报错信息为Error: EEXIST: file already exists说文件夹已经存在。 不存在的文件夹20-mkdir.js 1234567891011 const fs = require("fs"); const path = require("path");- fs.mkdir(path.join(__dirname,"demo1"),(err) =&gt; &#123;- console.log(err)- &#125;);- fs.mkdir(path.join(__dirname,"./demo2"),(err) =&gt; &#123;- console.log(err)- &#125;);+ fs.mkdir(path.join(__dirname,"./test/demo3"),(err) =&gt; &#123;+ console.log(err);+ &#125;); 执行20-mkdir.js 123456$ node 20-mkdir.js &#123; Error: ENOENT: no such file or directory, mkdir '/Users/melody0z/github/nodejs/second/test/demo3' errno: -2, code: 'ENOENT', syscall: 'mkdir', path: '/Users/melody0z/github/nodejs/second/test/demo3' &#125; 报错信息Error: ENOENT: no such file or directory不存在的文件夹，因为我们并没有test文件夹，所以它不会帮我们创建，就直接报错。 创建层级目录我们先来创建一个模块 mkdirs.js 12function mkdirs(pathname,callback)&#123;&#125;module.exports = mkdirs; 在21-mkdirs.js中引入 123const fs = require("fs");const path = require("path");const mkdirs = require("./mkdirs"); 这是大体的骨架，然后我们来完善mkdirs.js模块 123456789101112131415161718+ //我们需要文件操作，文件操作就需要引入fs和path+ const fs = require("fs");+ const path = require("path"); function mkdirs(pathname, callback) &#123;+ //1.判断传入的是否是绝对路径+ pathname = path.isAbsolute(pathname)+ ? pathname+ : path.join(__dirname, pathname);+ //2.获取想要创建的部分+ // /Users/melody0z/github/nodejs/second/test/demo3+ // test文件夹和demo3文件夹需要创建，我们需要获取+ // dirname 是/Users/melody0z/github/nodejs/second+ pathname = pathname.replace(__dirname,"");+ console.log(pathname); &#125; module.exports = mkdirs; 写到这里我们来测试一下，在21-mkdirs.js中 123456const fs = require("fs");const path = require("path");const mkdirs = require("./mkdirs");mkdirs("test/demo3");mkdirs("/Users/melody0z/github/nodejs/second/test/demo3") 执行 123$ node 21-mkdirs.js /test/demo3/test/demo3 是我们想要的结果，我们得到了test和demo3 然而我们还有一种方法，那就是path模块自带的path.relative()方法 mkdirs.js中 12345678910111213141516 const fs = require("fs"); const path = require("path"); function mkdirs(pathname, callback) &#123; //1.判断传入的是否是绝对路径 pathname = path.isAbsolute(pathname) ? pathname : path.join(__dirname, pathname); //2.获取想要创建的部分 // /Users/melody0z/github/nodejs/second/test/demo3 // test文件夹和demo3文件夹需要创建，我们需要获取 // dirname 是/Users/melody0z/github/nodejs/second- //pathname = pathname.replace(__dirname,"");+ pathname = path.relative(__dirname,pathname); console.log(pathname); &#125; module.exports = mkdirs; 其余不变，我们再来执行21-mkdirs.js 123$ node 21-mkdirs.js test/demo3test/demo3 同样也能得到test和demo3。 以上两种方法的区别仅仅是多一个少一个/ 好了，我们用第二种方法接着往下写 mkdirs.js 12345678910111213141516171819const fs = require("fs");const path = require("path");function mkdirs(pathname, callback) &#123; //1.判断传入的是否是绝对路径 pathname = path.isAbsolute(pathname) ? pathname : path.join(__dirname, pathname); //2.获取想要创建的部分 // /Users/melody0z/github/nodejs/second/test/demo3 // test文件夹和demo3文件夹需要创建，我们需要获取 // dirname 是/Users/melody0z/github/nodejs/second let relativePath = path.relative(__dirname,pathname); let folders = relativePath.split(path.sep); console.log(folders);&#125;module.exports = mkdirs; 注意14行let folders = relativePath.split(path.sep);中不能写成let folders = relativePath.split(&quot;/&quot;);因为windows和POSIX平台上是不同的，需要用path.sep来代替。 然后我们执行一下21-mkdirs.js来测试一下 123$ node 21-mkdirs.js [ 'test', 'demo3' ][ 'test', 'demo3' ] good！是我们想要的结果。 我们继续写 12345678910111213141516171819202122232425262728 const fs = require("fs"); const path = require("path"); function mkdirs(pathname, callback) &#123; //1.判断传入的是否是绝对路径 pathname = path.isAbsolute(pathname) ? pathname : path.join(__dirname, pathname); //2.获取想要创建的部分 // /Users/melody0z/github/nodejs/second/test/demo3 // test文件夹和demo3文件夹需要创建，我们需要获取 // dirname 是/Users/melody0z/github/nodejs/second let relativePath = path.relative(__dirname,pathname); let folders = relativePath.split(path.sep);+ //3.遍历，由于遍历是同步的(文件夹需要有顺序)，创建文件夹也需要同步+ //同步的话就需要用try...catch来捕获错误+ try&#123;+ folders.forEach(folder =&gt; &#123;+ fs.mkdirSync(path.join(__dirname,folder));+ &#125;);+ callback &amp;&amp; callback(null);+ &#125;catch (error)&#123;+ callback &amp;&amp; callback(error)+ &#125; &#125;module.exports = mkdirs; 21-mkdirs.js 12345const fs = require("fs");const path = require("path");const mkdirs = require("./mkdirs");mkdirs(path.join(__dirname,"test/demo3")); 我们来执行一下21-mkdirs.js 目录结构发生了变化 |— 21-mkdirs.js |— mkdirs.js |— test |— demo3 我们发现demo3并没有在test文件夹里面，所以我们还需要修改 mkdirs.js 123456789101112131415161718192021222324252627282930 const fs = require("fs"); const path = require("path"); function mkdirs(pathname, callback) &#123; //1.判断传入的是否是绝对路径 pathname = path.isAbsolute(pathname) ? pathname : path.join(__dirname, pathname); //2.获取想要创建的部分 // /Users/melody0z/github/nodejs/second/test/demo3 // test文件夹和demo3文件夹需要创建，我们需要获取 // dirname 是/Users/melody0z/github/nodejs/second let relativePath = path.relative(__dirname,pathname); let folders = relativePath.split(path.sep);+ let pre = ""; try&#123; folders.forEach(folder =&gt; &#123;- fs.mkdirSync(path.join(__dirname,folder));+ fs.mkdirSync(path.join(__dirname,pre,folder));+ pre = path.join(pre,folder); &#125;); callback &amp;&amp; callback(null); &#125;catch (error)&#123; callback &amp;&amp; callback(error) &#125; &#125; module.exports = mkdirs; 我们再来执行21-mkdirs.js 目录结构 |— 21-mkdirs.js |— mkdirs.js |— test |— demo3 这样就打成我们的目标了 ​ 注意点我们更改一下目录结构 |— module |— mkdirs.js |— 21-mkdirs.js 再来执行21-mkdirs.js就会报错，说文件夹已存在，原因就在于mkdirs.js模块里的__dirname; __dirname是相对于mkdirs.js模块的路径，而我们需要的是谁引用了mkdirs.js模块，路径就相对于谁，这里需要使用module.parent. module/mkdirs.js 12345678910111213141516171819202122232425262728293031323334353637383940const fs = require("fs");const path = require("path");function mkdirs(pathname, callback) &#123; const filename = module.parent.filename; const root = path.dirname(filename); //1.判断传入的是否是绝对路径 pathname = path.isAbsolute(pathname) ? pathname : path.join(root, pathname); //2.获取想要创建的部分 // /Users/melody0z/github/nodejs/second/test/demo3 // test文件夹和demo3文件夹需要创建，我们需要获取 // __dirname 是/Users/melody0z/github/nodejs/second //pathname = pathname.replace(__dirname,""); //注意：这里的__dirname有问题，应该是谁调用这个模块，__dirname就是就是这个文件的路径 let relativePath = path.relative(root,pathname); let folders = relativePath.split(path.sep); let pre = ""; try&#123; folders.forEach(folder =&gt; &#123; try&#123; //检测文件夹状态，文件夹不存在跳到catch里面去创建 fs.statSync(path.join(root,pre,folder)); &#125;catch (error)&#123; fs.mkdirSync(path.join(root,pre,folder)); &#125; pre = path.join(pre,folder); &#125;); callback &amp;&amp; callback(null); &#125;catch (error)&#123; callback &amp;&amp; callback(error) &#125;&#125;module.exports = mkdirs; 21-mkdirs.js 12345678910const fs = require("fs");const path = require("path");const mkdirs = require("./module/mkdirs");mkdirs(path.join(__dirname,"test/demo3/demo4"),(err) =&gt; &#123; console.log(err)&#125;);mkdirs(path.join(__dirname,"test/demo3/demo5"),(err) =&gt; &#123; console.log(err)&#125;); 我们执行后，创建的目录如下 |— test |— demo3 |— demo4 |— demo5 ​ ​ 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/Node/cycle-creation-folder.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Node</category>
@@ -879,7 +887,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0728]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0728.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0728.html</url>
     <content type="text"><![CDATA[必备句型​ What the hell is wrong with you? 你到底怎么了？ I mean it. 我是认真的。 ​ 场景对话​ A: I’ve had enough, I don’t wanna talk to you anymore,and I don’t want to see you again in my life. B: What the hell is wrong with you? Are you kidding me? A: No,I mean it. ​ 参考译文​ A: 我真的受够了，不想再跟你说话，这辈子都不想再见到你了。 B: 你到底怎么了？你是在开玩笑吗？ A: 不，我是认真的。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -913,7 +921,7 @@
   </entry>
   <entry>
     <title><![CDATA[node学习笔记02]]></title>
-    <url>%2FNode%2Fnode-study-note-02.html</url>
+    <url>%2FNode%2Fnode-study-notes-02.html</url>
     <content type="text"><![CDATA[核心模块和对象核心模块的意义 如果只是在服务器运行JavaScript代码，意义并不大，因为无法实现任何功能（读写文件，访问网络）。 Node的用处在于它本身还提供的一系列功能模块，用于与操作系统互动。 这些核心的功能模块在Node中内置。 内置模块： path: 处理文件路径 fs: 操作（CRUD）文件系统 CRUD—增加（Create）、读取查询（Retrieve)、更新（Update）和删除（Delete） child_process: 新建子进程 util: 提供一系列实用小工具 http: 提供HTTP服务器功能 url: 用于解析URL querystring: 解析URL中的查询字符串 crypto: 提供加密和解密功能 …… 包的概念什么是包 由于Node是一套轻内核的平台，虽然提供了一系列的内置模块，但是不足以满足开发者的需求，于是乎出现了包（package）的概念。 与核心模块类似，就是将一些预先设计好的功能或者API封装到一个文件夹，提供给开发者使用 包的加载机制 id：包名的情况：require(“http”) 现在系统核心（优先级最高）的模块中找（以后不要创建一些和现有的包重名的包） 然后再到当前项目中node_modules目录中找 如何管理那么多的包 由于Node本身并没有太多的功能性API，所以市面上涌现出大量的第三方人员开发出来的Package 包的生态圈一旦繁荣起来，就必须有工具去代替人脑或者文档的方式管理 NPMNPM概述Node Package Manager 随着时间的发展，NPM出现了两层概念： 一层含义是Node的开放式模块登记和管理系统，也可以说是一个生态圈，一个社区 另一层含义是Node默认的模块管理器，是一个命令行下的软件，用来安装和管理Node模块 安装NPM NPM不需要单独安装，默认在安装Node的时候，会连带一起安装NPM。 但是，Node附带的NPM可能不是最新版本，最好用下面的命令，更新到最新版本 npm install npm -g 默认安装到当前系统Node所在目录下。 常用NPM命令 npm config npm init npm search npm info npm install npm uninstall npm list npm outdated npm update npm run npm cache 文件系统操作相关模块 fs：基础的文件操作API path：提供和路径相关的操作API readline：用于读取大文本文件，一行一行读 fs-extra(第三方) https://www.npmjs.com/package/fs-extra 路径操作模块（path) 在文件操作的过程中，都“必须”使用物理路径（绝对路径） path模块提供了一系列一系列与路径相关的API path.join([p1][,p2]…) =&gt;连接多个路径 path.basename(p,ext) =&gt;获取文件名 path.dirname(p) =&gt;获取文件夹路径 path.extname(p) =&gt;获取文件扩展名 path.format(obj) 和path.parse(p) 一个是格式化对象为字符串，一个是将字符串解析为对象 path.relative(from,to) =&gt; 获取从from到to的相对路径。 同步或异步调用 fs模块对文件的几乎所有操作都有同步和异步两种形式 例如：readFile() 和readFileSync() 区别： 同步调用会阻塞代码的执行，异步则不会 异步调用会将读取任务下达到任务队列，知道任务执行完成才会回调 异常处理方面，同步必须使用try…catch方式，异步可以通过回调函数的第一个参数（错误优先） 文件读取 异步文件读取 fs.readFile(file[,option],callback(err,data)) 同步文件读取 fs.readFileSync(file[,option]) 文件流的方式读取 fs.createReadStream(path[,options]) readline模块逐行读取文本12345678const readline = require("readline");const fs = require("fs");const rl = readline.createInterface(&#123;input:fs.createReadStream("sample.txt")&#125;);rl.on("line",(line) =&gt; &#123; console.log("Line from file:",line);&#125;); 文件写入 确保操作没有额外的问题，一定使用绝对路径的方式 异步文件写入 fs.writeFile(file,data[,option],callback(err)) 同步文件写入 fs.writeFileSync(file,data[,option]) 流式文件写入 fs.createWriteStream(path[,option]) 默认写入操作是覆盖源文件 异步追加 fs.appendFile(file,data[,option],callback(err)) 同步追加 fs.appendFileSync(file,data[,options]) 其他文件操作 获取文件信息 fs.stat(path,callback(err,stats)) fs.statSync(path) =&gt;返回一个fs.stats实例 移动文件 fs.rename(oldPath,newPath) 重命名文件或目录 fs.rename(oldPath,newPath,callback) fs.renameSync(oldPath,newPath) 删除文件 fs.unlink(path,callback(err)) fs.unlinkSync(path) 目录操作 创建一个目录 fs.mkdir(path[,model],callback) fs.mkdirSync(path[,model]) 删除一个空目录 fs.rmdir(path,callback) fs.rmdirSync(path) 读取一个目录 fs.readdir(path,callback(err,files)) fs.readdirSync(path) =&gt; 返回files 监视文件 监视文件变化 fs.watchFile(filename[,options],listener(curr,prev)) options:{persistent,interval} fs.watch(filename[,options][,listener]) 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/Node/node-learning-notes-02.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Node</category>
@@ -924,7 +932,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0727]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0727.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0727.html</url>
     <content type="text"><![CDATA[必备句型​ Mind your own business. 管好你自己的事 What do you mean by saying so? 你这样说是什么意思？ ​ 场景对话​ A: I still don’t understand, why did you do that? B: It’s not what you think. Mind your own business. A: What do you mean by saying so? I was just trying to help. ​ 参考译文​ A: 我还是不明白，你为什么要那样做？ B: 不是你想的那样，管好你自己的事。 A: 你这样说是什么意思？我只是想帮忙。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -935,7 +943,7 @@
   </entry>
   <entry>
     <title><![CDATA[以文件流的方式读取文件内容]]></title>
-    <url>%2FNode%2Fread-file-content-as-a-stream.html</url>
+    <url>%2FNode%2Fread-file-contents-as-a-stream.html</url>
     <content type="text"><![CDATA[目录结构 |— 16.createStream.js |— blood.lrc 12345678910111213141516171819const fs = require("fs");const path = require("path");const iconv = require("iconv-lite");const filename = path.join(__dirname,"./blood.lrc");//创建一个文件读取流let stream = fs.createReadStream(filename);//让文件流通过iconv过滤编码stream = stream.pipe(iconv.decodeStream("gbk"));let content = "";stream.on("data",(chunk) =&gt; &#123; content += chunk;&#125;);//读取结束stream.on("end",() =&gt; &#123; console.log(content);&#125;) 我们来执行一下它 1234567$ node 16-createStream.js [ti:血染的风采][ar:黄耀明]...中间省略[03:19.42] 共和国的旗帜上有我们血染的风采[03:25.51] * * *[03:32.98] ---End--- 我们尝试着让歌词滚动显示 |— 17-showLyric.js 123456789101112131415161718192021222324252627282930313233const fs = require("fs");const path = require("path");const iconv = require("iconv-lite");const filename = path.join(__dirname,"./blood.lrc");fs.readFile(filename,(err,data) =&gt; &#123; if(err) throw err; let lines = iconv.decode(data,"gbk").split("\n"); //[00:32.67] 也许我告别 将不再回来 let regexp = /\[(\d&#123;2&#125;):(\d&#123;2&#125;)\.(\d&#123;2&#125;)]\s(.+)/; let start = new Date().getTime(); //遍历 lines.forEach((line) =&gt; &#123; // [00:32.67] 也许我告别 将不再回来 let matches = regexp.exec(line); if(matches)&#123; let min = matches[0]; let sec = parseFloat(matches[2]); let ms = parseFloat(matches[3]); let lyric = matches[4]; let time = min * 60 * 1000 + sec * 1000 + ms; //当前歌词不是立即执行，由于下达任务的时刻不同我们要设置时间偏移量 let offset = new Date().getTime(); setTimeout(() =&gt; &#123; console.log(lyric) &#125;,time - offset); &#125;else&#123; //不是一句歌词 console.log(line); &#125; &#125;)&#125;) 执行16.showLyric.js 12345678910$ node 17-showLyric.js [ti:血染的风采][ar:黄耀明][al:人山人海][offset:500][00:55.04]中文歌词库 www.CnLyric.com歌曲：血染的风采歌手：黄耀明^C 我们成功了。 我们以上拆分歌词是用split(&quot;\n&quot;)拆分成数组，然后再遍历每一句这样做的。然而node给我们提供了一个模块叫做readline.我们下面用readline模块完成同样的业务。 18-readline.js 12345678910111213141516171819202122232425262728293031//readline实现一行一行读取歌词const fs = require("fs");const path = require("path");const iconv = require("iconv-lite");const readline = require("readline");const filename = path.join(__dirname,"./blood");const readStream = fs.createReadStream(filename) .pipe(iconv.decodeStream("gbk"));let rl = readline.createInterface(&#123;input:readStream&#125;);let regexp = /\[(\d&#123;2&#125;):(\d&#123;2&#125;)\.(\d&#123;2&#125;)]\s(.+)/;let start = new Date().getTime();rl.on("line",(line) =&gt; &#123; if(matches)&#123; let min = parseFloat(matches[1]); let sec = parseFloat(matches[2]); let ms = parseFloat(matches[3]); let lyric = matches[4]; let time = min * 60 * 1000 + sec * 1000 + ms; //当前歌词不是立即执行，由于下达任务的时刻不同我们要设置时间偏移量 let offset = new Date().getTime() - start; setTimeout(() =&gt; &#123; console.log(lyric); &#125;,time - offset); &#125;else&#123; //不是一句歌词 console.log(line); &#125;&#125;) 执行18-readline.js 12345678910$ node 18-readline.js [ti:血染的风采][ar:黄耀明][al:人山人海][offset:500][00:55.04]中文歌词库 www.CnLyric.com歌曲：血染的风采歌手：黄耀明^C ​ ​ 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/Node/reads-file-contents-in-a-file-stream.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Node</category>
@@ -947,7 +955,7 @@
   </entry>
   <entry>
     <title><![CDATA[用自定义事件的方法实现拖拽组件的开发]]></title>
-    <url>%2FJavaScript%2Fimplement-drag-and-drop-component-development-with-custom-event-methods.html</url>
+    <url>%2FJavaScript%2Fimplementing-drag-and-drop-component-development-with-custom-event-methods.html</url>
     <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100&lt;script&gt; window.onload = function () &#123; var d1 = new Drag(); d1.init(&#123; id: "div1" &#125;); var d2 = new Drag(); d2.init(&#123; id: "div2" &#125;); bindEvent(d2, "toDown", function () &#123; document.getElementById("div2").style.backgroundColor = "yellow" &#125;); var d3 = new Drag(); d3.init(&#123; id: "div3" &#125;); bindEvent(d3, "toDown", function () &#123; document.getElementById("div3").style.backgroundColor = "yellowgreen" &#125;); bindEvent(d3, "toUp", function () &#123; document.getElementById("div3").style.backgroundColor = "purple" &#125;); var d4 = new Drag(); d4.init(&#123; id: "div4" &#125;); bindEvent(d4, "toUp", function () &#123; alert("byebye") &#125;) &#125;; function Drag() &#123; this.obj = null; this.deltaX = 0; this.deltaY = 0; this.settings = &#123;&#125; &#125; Drag.prototype.init = function (opt) &#123; var This = this; this.obj = document.getElementById(opt.id); extend(this.settings, opt); this.obj.onmousedown = function (ev) &#123; var ev = ev || window.event; This.fnDown(ev); fireEvent(This, "toDown"); document.onmousemove = function (ev) &#123; var ev = ev || window.event; This.fnMove(ev); return false; &#125;; document.onmouseup = function () &#123; This.fnUp(); fireEvent(This, "toUp"); &#125;; return false; &#125; &#125;; Drag.prototype.fnDown = function (ev) &#123; this.deltaX = ev.clientX - this.obj.offsetLeft; this.deltaY = ev.clientY - this.obj.offsetTop; &#125;; Drag.prototype.fnMove = function (ev) &#123; this.obj.style.left = ev.clientX - this.deltaX + "px"; this.obj.style.top = ev.clientY - this.deltaY + "px"; &#125;; Drag.prototype.fnUp = function () &#123; document.onmousemove = null; document.onmouseup = null; &#125;; function bindEvent(obj, events, fn) &#123; obj.listeners = obj.listeners || &#123;&#125;; obj.listeners[events] = obj.listeners[events] || []; obj.listeners[events].push(fn); if (obj.nodeType) &#123; if (obj.addEventListener) &#123; obj.addEventListener(events, fn, false); &#125; else &#123; obj.attachEvent("on" + events, fn); &#125; &#125; &#125; function fireEvent(obj, events) &#123; if (obj.listeners &amp;&amp; obj.listeners[events]) &#123; for (var i = 0; i &lt; obj.listeners[events].length; i++) &#123; obj.listeners[events][i](); &#125; &#125; &#125; function extend(obj1, obj2) &#123; for (var attr in obj2) &#123; obj1[attr] = obj2[attr]; &#125; &#125; &lt;/script&gt; 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/implementation-of-drag-and-drop-components-using-custom-events.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
@@ -970,7 +978,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0726]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0726.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0726.html</url>
     <content type="text"><![CDATA[必备句型​ This is gonna be the hottest day we’ve had so far this summer. 今夏以来这大概是最热的一天了 You can say that again. 你说的一点也没错 ​ 场景对话​ A: Oh my God. It’s so hot today. This is gonna be the hottest day we’ve had so far this summer. B: You can say that again! I’ve never suffered so much from the heat. ​ 参考译文​ A: 我的天啊，今天好热，今夏以来这大概是最热的一天了。 B: 你说的一点也没错，我还从没有经受过这么炎热的天气。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -993,7 +1001,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0725]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0725.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0725.html</url>
     <content type="text"><![CDATA[必备句型​ I think that a good friend should be a good listener. 我觉得一个好朋友应该善于倾听 I’m so lucky to such a friend like you. 有你这样的朋友真是幸运。 ​ 场景对话​ A: I think that a good friend should be a good listener. B: That’s true. I’m so lucky to have such a friend like you. A: Me,too,thank you for all you have done for me. ​ 参考译文​ A: 我觉得一个好朋友应该善于倾听。 B: 确实，有你这样的朋友真是幸运。 A: 我也是，感谢你为我所做的一切。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1004,7 +1012,7 @@
   </entry>
   <entry>
     <title><![CDATA[自定义事件]]></title>
-    <url>%2FJavaScript%2Fcustom-events.html</url>
+    <url>%2FJavaScript%2Fcustom-event.html</url>
     <content type="text"><![CDATA[什么是组件？ 对面向对象的深入应用（UI组件，功能组件） 将配置参数、方法、事件三者分离 创建自定义组件 有利于多人协作开发代码 如何去挂载自定义事件与事件函数 自定义事件：主要是跟函数有关系，就是让函数能够具备事件的某些特性。 用原生的方法写自定义事件 123456789101112131415161718192021222324252627282930313233343536373839window.onload = function()&#123; var oDiv = document.getElementById("div1"); var oSpan = document.getElementById("span1"); bindEvent(oDiv,"click",function()&#123; alert(1); &#125;); bindEvent(oDiv,"click",function()&#123; alert(2); &#125;); bindEvent(oSpan,"show",function()&#123; alert(3); &#125;); bindEvent(oSpan,"show",function()&#123; alert(4); &#125;); bindEvent(oSpan,"hide",function()&#123; alert(5); &#125;); fireEvent(oSpan,"show"); //弹出3，4 function bindEvent(obj,events,fn)&#123; obj.listeners = obj.listensrs || &#123;&#125;; obj.listeners[events] = obj.listeners[events] || []; obj.listeners[events].push(fn); if(obj.addEventListener)&#123; obj.addEventListener(events,fn,false); &#125;else&#123; obj.attachEvent("on" + events,fn); &#125; &#125; function fireEvent(obj,events)&#123; for(var i = 0;i &lt; obj.listeners[events].length;i++)&#123; obj.listeners[events][i](); &#125; &#125;&#125; 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/custom-event.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
@@ -1015,7 +1023,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0724]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0724.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0724.html</url>
     <content type="text"><![CDATA[必备句型​ It’s hard to imagine what it would be like to have no friends. 真难以想象没有朋友会是什么样子 I totally agree with you. 我完全同意你的看法 ​ 场景对话​ A: I have a lot of close friends. B: You must be pretty happy then? A: Yeah, It’s hard to imagine what it would be like to have no friends. B: I totally agree with you. ​ 参考译文​ A: 我有很多好朋友。 B: 那你一定很快乐吧。 A: 是的，真难以想象没有朋友会是个什么样子。 B: 我完全同意你的看法。 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1037,7 +1045,7 @@
   </entry>
   <entry>
     <title><![CDATA[路径问题]]></title>
-    <url>%2FNode%2Fpath-problems.html</url>
+    <url>%2FNode%2Fpath-problem.html</url>
     <content type="text"><![CDATA[目录结构 |— /module ​ |— path.js |— index.js |— a.txt module/path.js 123456789const fs = require("fs");fs.readFile("../a.txt",(err,data) =&gt; &#123; if(err) &#123; console.log(err); &#125;else&#123; console.log(data); &#125;&#125;); index.js 1const foo = require("./module/path"); 然后我们执行index.js 12$ node 04-path.js &#123; Error: ENOENT: no such file or directory, open '../a.txt' errno: -2, code: 'ENOENT', syscall: 'open', path: '../a.txt' &#125; 原因是没有找到。咦？路径没有错啊，path.js上级目录下面的a.txt。 其实原因是这样的。在node执行的时候，是会以入口文件为基准，去找文件。我们的入口文件是index.js。那么a.txt是和它平级，在module/path.js中写成./a.txt就可以了，我们试一下。 12345678910 const fs = require("fs"); - fs.readFile("../a.txt",(err,data) =&gt; &#123;+ fs.readFile("./a.txt",(err,data) =&gt; &#123; if(err) &#123; console.log(err); &#125;else&#123; console.log(data); &#125; &#125;); 在执行一下index.js 12$ node index.js &lt;Buffer 53 75 6e 20 4a 75 6c 20 32 33 20 32 30 31 37 20 32 31 3a 30 34 3a 31 38 20 47 4d 54 2b 30 38 30 30 20 28 43 53 54 29&gt; 可以读出来了，但是是buffer，我们需要toString一下 12345678910 const fs = require("fs"); fs.readFile("./a.txt",(err,data) =&gt; &#123; if(err) &#123; console.log(err); &#125;else&#123;- console.log(data);+ console.log(data.toString()); &#125; &#125;); 再执行一下index.js 12$ node index.js Sun Jul 23 2017 21:04:18 GMT+0800 (CST) 我们成功了！but，有一个问题，我们试着想一下，我们在阅读module/path.js的代码时，看到./a.txt会误以为在module文件夹下有a.txt(实际上没有)。所以我们要引出下面的东西 __dirname 获取当前脚本所在路径 __filename 获取文件路径 module/path.js 1234567891011121314+ //获取当前脚本所在路径+ console.log(__dirname);+ //获取文件路径+ console.log(__filename); const fs = require("fs"); fs.readFile("./a.txt",(err,data) =&gt; &#123; if(err) &#123; console.log(err); &#125;else&#123; console.log(data.toString()); &#125; &#125;); 执行index.js 1234$ node index.js /Users/melody0z/github/nodejs/second/module/Users/melody0z/github/nodejs/second/module/path.jsSun Jul 23 2017 21:04:18 GMT+0800 (CST) 我们发现上面的两个东西可以获取绝对路径 所以我们在文件操作的时候路径都必须是绝对路径（物理路径） 123456789 const fs = require("fs");- fs.readFile("./a.txt",(err,data) =&gt; &#123;+ fs.readFile(__dirname + "/../a.txt",(err,data) =&gt; &#123; if(err) &#123; console.log(err); &#125;else&#123; console.log(data.toString()); &#125; &#125;); 这样看起来是不是舒服多了 注意点： __dirname可以获取当前文件所在目录的完整路径；在模块全局环境有效，但在REPL环境无效 __filename可以用来获取当前文件的完整路径；在模块全局环境有效，但在REPL环境无效 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Node/routing-problem.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Node</category>
@@ -1070,7 +1078,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0723]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0723.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0723.html</url>
     <content type="text"><![CDATA[必备句型​ Oh,boy! 天哪 I think I have a crush on her. 我觉得我是喜欢上她了 ​ 场景对话​ A: Oh,boy! Look at the girl over there, she’s gorgeous. B: Hey,are you okay? A: I think I have a cruse on her. B: Excuse me? A: I guess that’s love at first sight. ​ 参考译文​ A: 天哪！快看那边的那个女孩，太漂亮了。 B: 嗯，你还好吧？ A: 我觉得我是喜欢上她了。 B: 什么？ A: 我想这就是一见钟情吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1092,7 +1100,7 @@
   </entry>
   <entry>
     <title><![CDATA[Node事件驱动模型]]></title>
-    <url>%2FNode%2Fnode-eventdriven-model.html</url>
+    <url>%2FNode%2Fnode-event-driven-model.html</url>
     <content type="text"><![CDATA[Event driven（事件驱动）Node采用的是事件驱动的方式，通过事件驱动的方式处理请求时无需为每一个请求创建额外的线程。在事件驱动模型中，每一个I/O操作都会被添加到事件队列中，主线程循环地处理队列上的工作任务，当执行过程中遇到阻塞（读取文件、查询数据库）时，线程不会停下来等待结果，而是留下一个处理结果的回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务运行结束后才被线程调用。 主线程的代码执行完毕就会从事件队列中读取事件，如果有就取出事件并执行相关的回调函数。事件队列事件全部执行完毕，node应用就会终止。Node对于阻塞I/O的处理在幕后使用线程池来确保工作的执行。Node从线程池中取得一个线程来执行复杂任务，而不占用主循环线程。这样就防止阻塞I/O占用空闲资源。当阻塞任务执行完毕通过添加到事件队列中的回调函数来处理接下来的工作。 Node基于事件的工作调度能很自然地将主要的调度工作限制到了一个线程，应用能很高效地处理多任务。程序每一时刻也只需管理一个工作中的任务。当必须处理阻塞I/O时，通过将这个部分的I/O控制权交给线程池中的线程，能最小地影响到应用处理事件，快速地反应web请求。 123456789101112131415161718192021222324252627const fs = require("fs");console.time("timer");//判断是否存在a.txt文件fs.stat("./a.txt",(err,stats) =&gt; &#123; if(err)&#123; console.log("文件不存在"); //不存在的话，我们就创建 fs.writeFile("./a.txt",new Date(),(err) =&gt; &#123; if(err) throw err; console.log("文件创建成功") &#125;) &#125;else &#123; //如果存在的话，先删除 fs.unlink("./a.txt",(err) =&gt; &#123; if(err) throw err; //创建 fs.writeFile("./a.txt",new Date(),(err) =&gt; &#123; if(err) throw err; console.log("文件删除后创建成功"); &#125;) &#125;) &#125;&#125;);console.timeEnd("timer"); 1234567$ node 01-event-driven.js timer: 0.444ms文件不存在文件创建成功$ node 01-event-driven.js timer: 0.427ms文件删除后创建成功 我们来看一下具体过程 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid.github.io/Node/node-learning-notes-01.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>Node</category>
@@ -1104,7 +1112,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0722]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0722.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0722.html</url>
     <content type="text"><![CDATA[必备句型​ Let’s have a get-together tonight. 我们今晚聚会吧 How about a rain check? 换个时间行吗？ ​ 场景对话​ A: Let’s have a get-together tonight.Would you come? B: I’d love to, but I have a class at that time and I have to finish my homework.How about a rain check? ​ 参考译文​ A: 我们今晚聚会吧，你能来吗？ B: 我很想啊，但是今晚有课，还有作业要完成，换个时间行吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1115,7 +1123,7 @@
   </entry>
   <entry>
     <title><![CDATA[面向对象常用的一些属性和方法]]></title>
-    <url>%2FJavaScript%2Fobjectoriented-common-properties-and-methods.html</url>
+    <url>%2FJavaScript%2Fsome-properties-and-methods-commonly-used-in-object-orientation.html</url>
     <content type="text"><![CDATA[hasOwnProperty():看是不是对象自身（自己有别人没有）下面的属性。hasOwnProperty() 12345var arr = [];arr.num = 10;Array.prototype.num2 = 20;console.log(arr.hasOwnProperty("num")); //true 说明num属性只属于arr对象，其他对对象没有console.log(arr.hasOwnProperty("num2")); //false 说明num2属性不是arr独享的 constructor：查看对象的构造函数 每个原型都会自动添加constructor属性 for in 的时候有些属性是找到不到的 避免修改constructor属性 123456789101112function A ()&#123; &#125;var a = new A();console.log(a.constructor); //结果是：function A()&#123;&#125;var arr = [];console.log(arr.constructor); //Array 我们可以利用这个属性来做判断 123var arr = [];//判断arr是不是数组console.log(arr.constructor == Array); //true 再来看 12345function A()&#123; &#125;//当我们执行上一句时，程序会为我们自动添加A.prototype.constructor = A; //这个是隐式的 我们来做个试验 1234567function A()&#123; &#125;//我们手动来写一下A.prototype.constructor = Array; //相当于覆盖了隐式的var a = new A();console.log(a.constructor); //Array 123456function A()&#123; &#125;var a = new A();//顺着原型链往上找，找到了最外层console.log(a.hasOwnProperty == Object.prototype.hasOwnProperty); //true 注意：A.prototype.constructor = A;是系统自动添加的，我们不要去改它，但是有些情况我们会不自觉地就给改了。 12345678910function A()&#123; &#125;A.prototype.name = "Jack";A.prototype.age = 20;var a = new A();console.log(a.constructor); //结果function A()&#123; &#125; 下面我们将A.prototype.name = &quot;Jack&quot;;A.prototype.age = 20;改写成JSON的形式 1234567891011function A()&#123; &#125;//这样写你感觉好像没有什么问题A.prototype = &#123; name:"Jack", age:20&#125;;var a = new A();//可以看出构造函数已经改变console.log(a.constructor); //function Object() &#123; [native code] &#125; 1234A.prototype = &#123; name:"Jack", age:20&#125;; //这样相当于把A.prototype改写了，那么a再去找构造函数的时候，就会找到json的构造函数，自然就是function Object() &#123; [native code] &#125; 那要怎么办呢？答案就是在使用json的时候，把constructor给修正过来 12345678910function A()&#123; &#125;A.prototype = &#123; constructor:A, name:"Jack", age:20&#125;;var a = new A();console.log(a.constructor); //function A ()&#123;&#125;; 系统自带的属性不能被for in 循环到 12345function A()&#123;&#125;for(var attr in A.prototype)&#123; console.log(attr);&#125;//什么都没有，那好，我们自己写一个试试 123456function A()&#123;&#125;A.prototype.name = "Jack";for(var attr in A.prototype)&#123; console.log(attr);&#125;//结果输出name; 好，我们再写一个 1234567function A()&#123;&#125;A.prototype.name = "Jack";A.prototype.constructor = A;for(var attr in A.prototype)&#123; console.log(attr);&#125;//结果还是只有一个name,说明系统自带属性用for in 遍历不到，即使自己写一遍也不行 instanceof:对象与构造函数在原型链上是否有关系看例子 1234function A()&#123;&#125;var a = new A();console.log(a instanceof A); //trueconsole.log(a instanceof Object); //true toString():系统对象下面都是自带的，自己写的对象都是通过原型链找Object下面的。12var arr = [];console.log(arr.toString); //function toString() &#123; [native code] &#125; 123function A()&#123;&#125;var a = new A();console.log(a.toString); //function toString() &#123; [native code] &#125; 1234//自定义对象function A()&#123;&#125;var a = new A();console.log(a.toString == Object.prototype.toString); //true 123//系统对象var arr = [];console.log(arr.toString == Object.prototype.toString); //false toString():把对象转成字符串 123var arr = [1,2,3];console.log(typeof arr.toString()); //stringconsole.log(arr.toString()); //"1,2,3" 知道原理之后可以自己改写 123456var arr = [1,2,3];//我们知道系统对象的toString方法在自己的包装对象原型里Array.prototype.toString = function()&#123; return this.join("+");&#125;;console.log(arr.toString()); //"1+2+3" 我们还可以用toString()来进行进制的转换 123var num = 255;//转成16进制console.log(num.toString(16)); //"ff" 利用toString()做类型的判断 1234567891011121314var arr = []; var num = 123;var str = "";var obj = &#123;&#125;;var date = new Date();var reg = /^$/;var v = null;console.log(Object.prototype.toString.call(arr)); //[object Array]console.log(Object.prototype.toString.call(num)); //[object Number]console.log(Object.prototype.toString.call(str)); //[object String]console.log(Object.prototype.toString.call(obj)); //[object Object]console.log(Object.prototype.toString.call(date)); //[object Date]console.log(Object.prototype.toString.call(reg)); //[object RegExp]console.log(Object.prototype.toString.call(v)); //[object Null] 小结：如何判断一个对象是不是数组？1234var arr = [];console.log(arr.constructor == Array); //trueconsole.log(arr instanceof Array); //trueconsole.log(Object.prototype.toString.call(arr) == "[object Array]"); //true 扩展：写一个函数，获得函数名 1234function getFnName(fn)&#123; if(typeof fn != "function") return; return fn.name || /function (.+)\(/.exec(fn+"")[1];&#125; 简化一下 123456function getFnName(fn)&#123; return typeof fn !== "function"? undefined: fn.name || /function (.+)\(/.exec(fn)[1];&#125; 12345function Person()&#123; this.name = "Jack"&#125;var p = new Person();console.log(getFnName(p.constructor)); //Person 本文结束，感谢阅读。 本文作者：melody0z 本文链接：https://melodyvoid/JavaScript/some-atributes-and-methods-comonly-used-in-object-oriented.html 欢迎转载，转载请注明文本链接]]></content>
       <categories>
         <category>JavaScript</category>
@@ -1137,7 +1145,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0721]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0721.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0721.html</url>
     <content type="text"><![CDATA[必备句型​ She had a quarrel with Tom. 她跟Tom吵架了 The course of true love never did run smoothly. 爱情路上多波折 ​ 场景对话​ A: Zoe is so upset. B: Yes, but I don’t know what’s going on with her. A: She had a quarrel with Tom. B: People say “The course of true love never did run smoothly”. ​ 参考译文​ A: Zoe心情不是很好。 B: 是的，不知道她怎么了。 A: 她跟Tom吵架了。 B: 人们说：“爱情路上多波折”。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1159,7 +1167,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0720]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0720.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0720.html</url>
     <content type="text"><![CDATA[必备句型​ I’ve been worried sick about you. 我担心死你了 I am totally fine. 我很好啊 ​ 场景对话​ A: I’ve been worried sick about you, where have you been? B: I am totally fine,I just went shopping with my friends. A: Well, at least you should’ve told me. B: Mom,please. I am not a kid anymore. ​ 参考译文​ A: 我担心死你了，你去哪里了？ B: 我没事啊，跟朋友出去购物了。 A: 嗯，你至少应该告诉我啊。 B: 拜托了，妈，我又不是小孩子。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1192,7 +1200,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0719]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0719.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0719.html</url>
     <content type="text"><![CDATA[必备句型​ May I speak to Zoe, please? 可以请Zoe接听电话吗？ She’s tied up at the moment. 她现在走不开 ​ 场景对话​ A: May I speak to Zoe, please? B: I’m sorry, she’s tied up at the moment. Would you like to leave a message? A: No, Thank you. I’ll call her later. ​ 参考译文​ A: 可以请Zoe接听电话吗？ B: 抱歉，她现在走不开。你要留个口信吗？ A: 不用了，谢谢。我待会儿再打给她。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1203,7 +1211,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0718]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0718.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0718.html</url>
     <content type="text"><![CDATA[必备句型​ You look restless. 看你一副坐立不安的样子 I’d like to stay and talk longer, but I really do have to run. 我很想再多聊一会儿，不过我真的很赶时间。 ​ 场景对话​ A: You look restless. Do you have to be somewhere, or am I just boring you? B: I’d like to stay and talk longer, but I really do have to run. I have to be at a meeting at around noon. ​ 参考译文​ A: 看你一副坐立不安的样子，是不是还要去别处，或者是我让你觉得无聊了呢？ B: 我很想再多聊一会儿，不过我真的很赶时间，中午时候还要参加一个会议。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1236,7 +1244,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0717]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0717.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0717.html</url>
     <content type="text"><![CDATA[必备句型​ I feel dizzy. 我感到晕晕的 Poor thing. 好可怜啊 ​ 场景对话​ A: I feel dizzy. I have a fever of 38℃ B: Poor thing! Go back to bed and get some rest. I’ll make some soup for you. A: That’s sweet of you. ​ 参考译文​ A: 我感到晕晕的，发烧了，38度。 B: 好可怜啊，回床上睡一会儿吧，我给你做点儿汤。 A: 谢谢你。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1247,7 +1255,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0716]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0716.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0716.html</url>
     <content type="text"><![CDATA[必备句型​ It seems that everybody likes her. 好像每个人都很喜欢她 She really turns me off. 她真的使我厌恶 ​ 场景对话​ A: That girl is so pretty, it seems that everybody likes her. B: I don’t really think so. A: How come? B: She’s too chatty, and she really turns me off. ​ 参考译文​ A: 那个女孩真好看，好像每个人都很喜欢她。 B: 我不这么想。 A: 为什么？ B: 她太啰嗦了，真的让我很讨厌。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1258,7 +1266,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0715]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0715.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0715.html</url>
     <content type="text"><![CDATA[必备句型​ I got stuck in traffic. 我遇上堵车了 Don’t beat around the bush. 别拐弯抹角 ​ 场景对话​ A: I’ve been waiting for an hour, where have you been? B: Sorry, I’m late. I got stuck in traffic. A: Okay, tell me exactly what Tom said. Don’t beat around the bush.Get to the point. ​ 参考译文​ A: 我已经等上一个小时了，你去哪里了？ B: 不好意思，遇上堵车了。 A: 好吧，告诉我Tom说什么了。不要拐弯抹角，直接说重点吧。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1269,7 +1277,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0714]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0714.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0714.html</url>
     <content type="text"><![CDATA[必备句型​ Don’t get me wrong. 请不要误会我的意思 You have to admit that he is not very responsible. 你也得承认他不是很负责任 ​ 场景对话​ A: Don’t get me wrong. I think Tom is a very nice person, but you have to admit that he is not very responsible. B: I guess you are right. He’s got a lot of growing up to do. ​ 参考译文​ A: 请不要误会我的意思。我任务Tom是个很好的人，不过你也得承认他不是很负责任。 B: 你说的不错，他要长大还得学习很多东西。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1280,7 +1288,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0713]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0713.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0713.html</url>
     <content type="text"><![CDATA[必备句型​ Got it ? 明白了吗？ Let me explain this one more time. 让我再解释一次 ​ 场景对话​ A: Got it ? B: Sorry, I still don’t understand. A: Okay, let me explain this one more time. I don’t wanna go out because I don’t like hanging out with Tom. B: Alright, I got it. ​ 参考译文​ A: 明白了吗？ B: 不好意思，我还是不理解。 A: 好吧，我再解释一下，wo’bu’xiang我不想出去，因为我不想跟Tom一起出去逛。 B: 好吧，知道了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1291,7 +1299,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0712]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0712.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0712.html</url>
     <content type="text"><![CDATA[必备句型​ I’ll never forgive myself. 我永远不能原谅我自己 How can I make it up to you. 我要怎样才能补偿 ​ 场景对话​ A: It’s all my fault. I’ll never forgive myself. B: Don’t say that. We wouldn’t have known that. A: How can I make it up to you? B: You can’t have to do that. ​ 参考译文​ A: 都是我的错，我永远不能原谅自己。 B: 别那么说，我们都无法未卜先知。 A: 我要怎样才能补偿你？ B: 不用啦。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1302,7 +1310,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0711]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0711.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0711.html</url>
     <content type="text"><![CDATA[必备句型​ Are you fond of reading? 你喜欢读书吗？ I like to read all kinds of books. 什么书我都喜欢看 ​ 场景对话​ A: Are you fond of reading? B: Yes, I am. Books can enrich your mind. A: Exactly, what kind of books do you like to read most? B: I like to read all kinds of books. ​ 参考译文​ A: 你喜欢读书吗？ B: 喜欢啊，书籍能丰富你的思想。 A: 确实，你最喜欢读哪种书？ B: 什么书我都喜欢看。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1313,7 +1321,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0710]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0710.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0710.html</url>
     <content type="text"><![CDATA[必备句型​ I dreamed to be a pliot, but I didn’t make it come true. 我曾梦想做一名飞行员，不过我没有实现儿时的梦想 I’m trying my best to learn English. 现在我努力学英文 ​ 场景对话​ A: Hey, did you have a dream when you were a little boy ? B: Of course I did. I dreamed to be a pliot, but I didn’t make it come true. A: Okay, so. How about now? B: Now I’m trying my best to learn English, and I want to be an interpreter some day. ​ 参考译文​ A: 嘿，你小的时候有过什么梦想吗？ B: 当然有啦，我曾梦想过当一名飞行员，不过我没有实现儿时的梦想。 A: 嗯，那现在呢？ B: 现在我在努力学英文，我想成文一名翻译。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1324,7 +1332,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0708]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0708.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0708.html</url>
     <content type="text"><![CDATA[必备句型​ let me explain one more time. 再让我解释一回 I am out of patience. 我忍无可忍了 ​ 场景对话​ A: Please, let me explain one more time. B: Sorry, I am out of patience. A: Why are you so angry? B: I don’t wanna talk to you, I’ve had enough! ​ 参考译文​ A: 求求你，再让我解释一回。 B: 对不起，我忍无可忍了。 A: 你干嘛这么生气？ B: 我不想跟你讲话，我真的受够了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1335,7 +1343,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0707]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0707.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0707.html</url>
     <content type="text"><![CDATA[必备句型​ Are you satisfied? 你满意吗？ I have to say I am not photogenic at all. 我不得不说，我确实一点儿也不上相啊。 ​ 场景对话​ A: Say cheese. B: Cheese.Okay? A: Yes, have a look. Are you satisfied? B: Oh, I have to say I am not photogentic at al. I just don’t know how to smile. A: Would you like another one? ​ 参考译文​ A: 说“茄子”。 B: 茄子，照好了吗？ A: 是的，来看一眼吧。你满意吗？ B: 哦，我不得不说，我确定一点儿也不上相啊，我就是不知道该怎么微笑。 A: 还想要再照一张吗？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1346,7 +1354,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0706]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0706.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0706.html</url>
     <content type="text"><![CDATA[必备句型​ I don’t like horror movies at all. 我一点儿都不喜欢恐怖片 I am really into his British accent. 我太喜欢他的英国口音了 ​ 场景对话​ A: You like horror movies, don’t you ? B: No, I don’t. I don’t like horror movies at all. I like comedy movies. A: Who is your favorite actor? B: Hugh Grant, I am really into his British accent. 参考译文​ A: 你喜欢恐怖片，是吗？ B: 不，我不喜欢，我一点儿都不喜欢恐怖片，我喜欢喜剧片。 A: 你最喜欢的男演员是谁？ B：休 格兰特。我太喜欢他的英国口音了。 ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1357,7 +1365,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0705]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0705.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0705.html</url>
     <content type="text"><![CDATA[必备句型​ Are you good at singing ? 你唱歌拿手吗？ I’m a tone-deaf, but I like singing. 我五音不全，但是我喜欢唱歌 ​ 场景对话​ A: Are you good at singing ? B: No, I’m a tone-deaf, but I like singing. A: Okay! Let’s go to karaoke. B: My singing is out of tune. A: Oh, come on. It’s just entertainment. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1368,7 +1376,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0704]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0704.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0704.html</url>
     <content type="text"><![CDATA[必备句型​ You are not supposed to smoke here. 你不能在这里吸烟 I am a heavy smoker. 我是个老烟民 ​ 场景对话​ A: Excuse me sir. You are not supposed to smoke here. B: Why not? A: Your seat is in the non-smoking section. So, you can’t smoke here. B: I am a heavy smoker, may I change my seat? ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1379,7 +1387,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0703]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0703.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0703.html</url>
     <content type="text"><![CDATA[必备句型​ Honesty is very important to me. 诚实对我很重要 The problem is that… 问题是… ​ 场景对话​ A:I don’t like to make friends with people who aren’t honest.Honesty is very important to me. B:I think it’s important to most people. The problem is that you can usually only find out if someone is honest by getting to know them. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1390,7 +1398,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0701]]></title>
-    <url>%2FEnglish%2Fenglish-followup-plan-0701.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0701.html</url>
     <content type="text"><![CDATA[必备句型 How come? 为什么？ Don’t judge a book by it’s cover. 不要以貌取人 场景对话​ A:Hey,Look at the man over there,he’s definitely not a good person. B:How come? you don’t even know him. A:I just feel that way. B:Hey!Don’t judeg a book by it’s cover. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1401,7 +1409,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0630]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0630.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0630.html</url>
     <content type="text"><![CDATA[必备句型​ I shouldn’t have yelled at you in front of everyone. 我不该在大家面前对你大吼 I don’t know what happened to me. 我不知道我昨天是怎么了 ​ 场景对话​ A:Hey,Bob.I’m so sorry about yesterday.I shouldn’t have yelled at you in front of everyone. B:Don’t worry about it. A:I don’t know what happened to me.I just lost it. B:It’s okay. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1412,7 +1420,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0629]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0629.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0629.html</url>
     <content type="text"><![CDATA[必备句型​ You have to finish your dinner before you leave the table. 你离开饭桌之前必须把饭吃完 I’m stuffed. 我吃得太饱了 ​ 场景对话​ A:You have to finish your dinner before you leave the table. B:But,mom.I can’t eat anymore. A:What’s the matter? B:I ate some cookies before we had dinner.I’m stuffed. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1423,7 +1431,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0628]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0628.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0628.html</url>
     <content type="text"><![CDATA[必备句型​ You’d better get up or you’ll be late. 你最好起床，否则你要迟到了 Rise and shine,sleepyhead. 贪睡鬼，起床啦 ​ 场景对话​ A:Hey,Bob.Weak up! B:Do I have to get up now? A:You’d better get up or you’ll be late. B:What are you talking about?The alarm hasn’t even gone off yet. A:It went off 30 minutes ago.Rise and shine,sleepyhead. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1434,7 +1442,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0627]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0627.html</url>
+    <url>%2FEnglish%2Fenglish-reading-plan-0627.html</url>
     <content type="text"><![CDATA[必备句型​ Can I talk to you for a minute? 我能跟你谈一会儿吗？ It’s out of the question. 不可能 ​ 场景对话​ A:Mom,can I talk to you for a minute? B:Sure,what’s wrong? A:My best friend is going to throw a party tonight,can I stay out all night with my friends? B:No way. A:We’ll be careful. B:It’s out of the question. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1445,7 +1453,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0625]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0625.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0625.html</url>
     <content type="text"><![CDATA[必备句型​ I’ve been so stressed these days. 我这几天压力很大 I have no idea what I should major in. 我不知道学什么专业 ​ 场景对话​ A:I’ve been so stressed these days. B:What’s wrong?Are you okay? A:I haven’t decided which college I should go to.I have no idea whta I should major in. B:Don’t worry.You still have time to decide. ## 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1456,7 +1464,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0624]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0624.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0624.html</url>
     <content type="text"><![CDATA[必备句型​ My back is sore and my meck hurts. 我的背很酸，脖子也疼 I was always absent-minded in the class. 我在课上走神儿了 ​ 场景对话​ A:Finally the class is over. B:Oh,I am so tired.My back is sore and my neck hurts. A:That’s normal.You have been sitting for three hours,with your attention highly concontrated. B:That’s not true.I was always absent-minded in the class. 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1467,7 +1475,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0623]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0623.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0623.html</url>
     <content type="text"><![CDATA[必备句型​ Why are you asking me this strange question? 你干嘛问我这么奇怪的问题？ I think IQ matters more. 我觉得智商更重要一点 #### 场景对话​ A:Hey,Bob,In your opinion,which one is more important,IQ or EQ? B:Why are you asking me this strange question? A:Just asking. B:Well,I Think IQ matters more,but it won’t work without EQ. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1478,7 +1486,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0622]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0622.html</url>
+    <url>%2FEnglish%2Fenglish-followup-plan-0622.html</url>
     <content type="text"><![CDATA[必备句型​ I really wish I hadn’t done it. 我真希望我没那么做 What on earth are you talking about? 你究竟在说什么？ ​ 场景对话​ A:Hey,Bob.You look unhappy.What’s wrong? B:Oh,Alex,I mad e a big mistake A:What happened? B:I really wish I hadn’t done it. A:What on earth are you talking about? B:I got caught cheating.I feel so ashamed.The teacher saw me and told me I failed. ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
@@ -1489,7 +1497,7 @@
   </entry>
   <entry>
     <title><![CDATA[英语跟读计划0621]]></title>
-    <url>%2FEnglish%2Fenglish-follow-plan-0621.html</url>
+    <url>%2FEnglish%2Fenglish-followup-program-0621.html</url>
     <content type="text"><![CDATA[必备句型​ Why on earth are you waning to learn a new language now? 你到底为什么学习一门新语言？ It’s never too late to learn. 活到老，学到老。 ​ 场景对话​ A:Hey,What are you up to? B:I’m learning English. A:Why on earth are you wanting to learn a new language now? B:It’s never too late to learn,you never know when these things will come into use. 黑体表示连读 ​斜体表示弱读 Why on earth did you do?你到底做了什么？ ​ 本文结束，感谢阅读 参考资料LOKO乐口英语微信公众号: lokoenglish]]></content>
       <categories>
         <category>English</category>
